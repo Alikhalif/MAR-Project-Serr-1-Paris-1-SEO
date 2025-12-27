@@ -1,0 +1,41 @@
+<!-- src/app/components/faq/faq.component.html -->
+<section class="faq">
+  <div class="faq__container">
+    <h2 class="faq__title">{{ data().title }}</h2>
+
+    <div class="faq__list">
+      @for (item of data().questions; track item.question; let i = $index) {
+        <article
+          class="faq-item"
+          [class.faq-item--expanded]="isExpanded(i)"
+        >
+          <button
+            type="button"
+            class="faq-item__question"
+            (click)="toggleQuestion(i)"
+            [attr.aria-expanded]="isExpanded(i)"
+            [attr.aria-controls]="'faq-answer-' + i"
+          >
+            <h3 class="faq-item__question-text">{{ item.question }}</h3>
+            <span
+              class="faq-item__icon"
+              aria-hidden="true"
+              [class.faq-item__icon--rotated]="isExpanded(i)"
+            >
+              ▼
+            </span>
+          </button>
+
+          <div
+            class="faq-item__answer"
+            [id]="'faq-answer-' + i"
+            [class.faq-item__answer--visible]="isExpanded(i)"
+            role="region"
+          >
+            <p class="faq-item__answer-text">{{ item.answer }}</p>
+          </div>
+        </article>
+      }
+    </div>
+  </div>
+</section>

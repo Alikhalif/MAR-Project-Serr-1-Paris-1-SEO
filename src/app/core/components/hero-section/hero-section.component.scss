@@ -1,0 +1,192 @@
+// src/app/components/hero-section/hero-section.component.scss
+@use '@angular/material' as mat;
+
+// @import '../../../../styles.scss';
+
+.hero {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-block-size: clamp(500px, 94vh, 865px);
+  background-image: var(--bg-image);
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  clip-path: polygon(0 0, 100% 0, 100% 86%, 0 100%);
+  isolation: isolate;
+  overflow: hidden;
+
+  @media (width < 768px) {
+    clip-path: polygon(0 0, 100% 0, 100% 95%, 0 100%);
+    background-attachment: scroll;
+    min-block-size: clamp(500px, 84vh, 865px);
+  }
+
+  &__overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      135deg,
+      rgb(15 23 42 / 65%) 0%,
+      rgb(30 41 59 / 60%) 50%,
+      rgb(15 23 42 / 95%) 100%
+    );
+    z-index: 1;
+  }
+
+  &__content {
+    position: relative;
+    z-index: 2;
+    inline-size: min(1200px, 90%);
+    padding-block: 3rem;
+    color: var(--color-text-light);
+    animation: fadeInUp 1s ease-out;
+  }
+
+  &__title {
+    font-size: clamp(2rem, 5vw, 4rem);
+    font-weight: 800;
+    line-height: 1.1;
+    margin-block-end: 1rem;
+    background: linear-gradient(135deg, #f59e0b 0%, #dc2626 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: fadeInUp 1s ease-out 0.2s backwards;
+  }
+
+  &__subtitle {
+    font-size: clamp(1.25rem, 3vw, 1.75rem);
+    font-weight: 600;
+    margin-block-end: 1.5rem;
+    color: #fbbf24;
+    animation: fadeInUp 1s ease-out 0.4s backwards;
+  }
+
+  &__description {
+    font-size: clamp(1rem, 2vw, 1.25rem);
+    color: #ffff;
+    line-height: 1.6;
+    max-inline-size: 800px;
+    margin-block-end: 2.5rem;
+    animation: fadeInUp 1s ease-out 0.6s backwards;
+  }
+
+  &__cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.25rem 2.5rem;
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: white;
+    background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+    border: none;
+    border-radius: 100vmax;
+    box-shadow: 0 10px 30px rgb(220 38 38 / 40%);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    animation: fadeInUp 1s ease-out 0.8s backwards, pulse 2s ease-in-out 2s infinite;
+
+    &:hover {
+      transform: translateY(-4px) scale(1.05);
+      box-shadow: 0 15px 40px rgb(220 38 38 / 60%);
+    }
+
+    &:focus-visible {
+      outline: 3px solid #fbbf24;
+      outline-offset: 4px;
+    }
+  }
+
+  &__cta-icon {
+    font-size: 1.5rem;
+    animation: ring 1.5s ease-in-out infinite;
+  }
+
+  &__cta-text {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.25rem;
+  }
+
+  &__cta-label {
+    font-size: 0.875rem;
+    opacity: 0.9;
+  }
+
+  &__cta-phone {
+    font-size: 1.25rem;
+    font-weight: 800;
+    letter-spacing: 0.05em;
+  }
+
+  &__scroll-indicator {
+    position: absolute;
+    inset-block-end: 3rem;
+    inset-inline-start: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    color: white;
+    opacity: 0.7;
+    animation: bounce 2s ease-in-out infinite;
+    z-index: 2;
+  }
+
+  &__scroll-text {
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  &__scroll-arrow {
+    font-size: 1.5rem;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    box-shadow: 0 10px 30px rgb(220 38 38 / 40%);
+  }
+  50% {
+    box-shadow: 0 10px 40px rgb(220 38 38 / 60%);
+  }
+}
+
+@keyframes ring {
+  0%, 100% {
+    transform: rotate(0deg);
+  }
+  10%, 30% {
+    transform: rotate(-15deg);
+  }
+  20%, 40% {
+    transform: rotate(15deg);
+  }
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translate(-50%, 0);
+  }
+  50% {
+    transform: translate(-50%, -10px);
+  }
+}

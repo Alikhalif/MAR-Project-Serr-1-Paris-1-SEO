@@ -1,0 +1,537 @@
+// Hero Section
+.services-hero {
+  padding-block: clamp(5rem, 12vw, 8rem);
+  padding-inline: 1rem;
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+  color: white;
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 100" opacity="0.1"><path d="M0,0 L1000,0 L1000,100 Q500,80 0,100 Z" fill="white"/></svg>') bottom center no-repeat;
+    background-size: 100% auto;
+  }
+
+  &__container {
+    max-inline-size: 1200px;
+    margin-inline: auto;
+    position: relative;
+    z-index: 1;
+  }
+
+  &__content {
+    text-align: center;
+    max-inline-size: 800px;
+    margin-inline: auto;
+  }
+
+  &__title {
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 800;
+    line-height: 1.2;
+    margin-block-end: 1rem;
+    background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: fadeIn 1s ease-out;
+  }
+
+  &__subtitle {
+    font-size: clamp(1.125rem, 2.5vw, 1.5rem);
+    font-weight: 600;
+    color: #cbd5e1;
+    margin-block-end: 2rem;
+    animation: fadeIn 1s ease-out 0.2s backwards;
+  }
+
+  &__description {
+    font-size: clamp(1rem, 1.5vw, 1.125rem);
+    line-height: 1.6;
+    color: #94a3b8;
+    margin-block-end: 3rem;
+    animation: fadeIn 1s ease-out 0.4s backwards;
+  }
+
+  &__cta {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    animation: fadeIn 1s ease-out 0.6s backwards;
+  }
+
+  &__button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem 2rem;
+    font-size: 1rem;
+    font-weight: 700;
+    border: none;
+    border-radius: 100vmax;
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    &:focus-visible {
+      outline: 3px solid #fbbf24;
+      outline-offset: 4px;
+    }
+
+    &--primary {
+      color: white;
+      background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+      box-shadow: 0 10px 30px rgb(220 38 38 / 40%);
+
+      &:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 15px 40px rgb(220 38 38 / 60%);
+      }
+    }
+
+    &--secondary {
+      color: #0f172a;
+      background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+      box-shadow: 0 10px 30px rgb(251 191 36 / 40%);
+
+      &:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 15px 40px rgb(251 191 36 / 60%);
+      }
+    }
+  }
+}
+
+// Navigation Menu
+.services-nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: white;
+  box-shadow: 0 2px 20px rgb(0 0 0 / 10%);
+  backdrop-filter: blur(10px);
+
+  &__container {
+    max-inline-size: 1200px;
+    margin-inline: auto;
+    padding-inline: 1rem;
+  }
+
+  &__list {
+    display: flex;
+    gap: 0;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
+  &__item {
+    flex: 1;
+    min-inline-size: fit-content;
+  }
+
+  &__link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1rem 1.5rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #64748b;
+    text-decoration: none;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-bottom: 3px solid transparent;
+
+    &:hover {
+      color: #dc2626;
+      background: #fef2f2;
+    }
+
+    &.active {
+      color: #dc2626;
+      border-bottom-color: #dc2626;
+      background: #fef2f2;
+    }
+
+    &:focus-visible {
+      outline: 2px solid #fbbf24;
+      outline-offset: -2px;
+    }
+  }
+}
+
+// Section Spacing
+.services-section {
+  padding-block: clamp(4rem, 8vw, 6rem);
+  padding-inline: 1rem;
+}
+
+// Stats Section
+.stats-section {
+  padding-block: clamp(4rem, 8vw, 6rem);
+  padding-inline: 1rem;
+  background: #f8fafc;
+
+  &__container {
+    max-inline-size: 1200px;
+    margin-inline: auto;
+  }
+
+  &__title {
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    font-weight: 800;
+    color: #0f172a;
+    text-align: center;
+    margin-block-end: 1rem;
+  }
+
+  &__subtitle {
+    font-size: clamp(1rem, 2vw, 1.125rem);
+    color: #475569;
+    text-align: center;
+    margin-block-end: 3rem;
+    max-inline-size: 600px;
+    margin-inline: auto;
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(200px, 100%), 1fr));
+    gap: 2rem;
+  }
+}
+
+.stat-card {
+  background: white;
+  padding: 2rem 1.5rem;
+  border-radius: 1rem;
+  text-align: center;
+  box-shadow: 0 4px 20px rgb(0 0 0 / 8%);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  animation: fadeInUp 0.8s ease-out backwards;
+
+  @for $i from 1 through 5 {
+    &:nth-child(#{$i}) {
+      animation-delay: #{$i * 0.1}s;
+    }
+  }
+
+  &:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 40px rgb(0 0 0 / 12%);
+  }
+
+  &__value {
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 800;
+    color: #dc2626;
+    margin-block-end: 0.5rem;
+  }
+
+  &__label {
+    font-size: 0.9375rem;
+    color: #475569;
+    line-height: 1.4;
+  }
+}
+
+// Why Choose Us Section
+.why-section {
+  padding-block: clamp(4rem, 8vw, 6rem);
+  padding-inline: 1rem;
+  background: white;
+
+  &__container {
+    max-inline-size: 1200px;
+    margin-inline: auto;
+  }
+
+  &__title {
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    font-weight: 800;
+    color: #0f172a;
+    text-align: center;
+    margin-block-end: 1rem;
+  }
+
+  &__subtitle {
+    font-size: clamp(1rem, 2vw, 1.125rem);
+    color: #475569;
+    text-align: center;
+    margin-block-end: 3rem;
+    max-inline-size: 600px;
+    margin-inline: auto;
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
+    gap: 2rem;
+  }
+}
+
+.why-card {
+  background: #f8fafc;
+  padding: 2rem;
+  border-radius: 1rem;
+  text-align: center;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  animation: fadeInUp 0.8s ease-out backwards;
+
+  @for $i from 1 through 4 {
+    &:nth-child(#{$i}) {
+      animation-delay: #{$i * 0.1}s;
+    }
+  }
+
+  &:hover {
+    transform: translateY(-8px);
+    background: white;
+    box-shadow: 0 15px 40px rgb(0 0 0 / 10%);
+  }
+
+  &__icon {
+    font-size: 3rem;
+    margin-block-end: 1rem;
+  }
+
+  &__title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #0f172a;
+    margin-block-end: 0.75rem;
+  }
+
+  &__description {
+    font-size: 0.9375rem;
+    color: #64748b;
+    line-height: 1.6;
+  }
+}
+
+// Coverage Section
+.coverage-section {
+  padding-block: clamp(4rem, 8vw, 6rem);
+  padding-inline: 1rem;
+  background: #f8fafc;
+
+  &__container {
+    max-inline-size: 1200px;
+    margin-inline: auto;
+  }
+
+  &__header {
+    text-align: center;
+    margin-block-end: 3rem;
+  }
+
+  &__title {
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    font-weight: 800;
+    color: #0f172a;
+    margin-block-end: 1rem;
+  }
+
+  &__subtitle {
+    font-size: clamp(1rem, 2vw, 1.125rem);
+    color: #475569;
+    max-inline-size: 600px;
+    margin-inline: auto;
+  }
+
+  &__content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
+    gap: 3rem;
+    background: white;
+    padding: 2.5rem;
+    border-radius: 1rem;
+    box-shadow: 0 4px 20px rgb(0 0 0 / 8%);
+  }
+
+  &__area-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #0f172a;
+    margin-block-end: 1.5rem;
+    padding-block-end: 1rem;
+    border-block-end: 2px solid #fbbf24;
+  }
+
+  &__list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  &__item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.75rem 0;
+    font-size: 1rem;
+    color: #475569;
+    border-block-end: 1px solid #e2e8f0;
+
+    &:last-child {
+      border-block-end: none;
+    }
+  }
+
+  &__marker {
+    color: #dc2626;
+    font-size: 1.25rem;
+  }
+}
+
+// Contact Banner
+.contact-banner {
+  padding-block: clamp(4rem, 8vw, 6rem);
+  padding-inline: 1rem;
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+  color: white;
+
+  &__container {
+    max-inline-size: 1200px;
+    margin-inline: auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
+    gap: 3rem;
+  }
+
+  &__urgent,
+  &__devis {
+    background: rgb(255 255 255 / 10%);
+    padding: 2.5rem;
+    border-radius: 1rem;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgb(255 255 255 / 20%);
+  }
+
+  &__title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-block-end: 1.5rem;
+    color: #fbbf24;
+  }
+
+  &__phone {
+    font-size: 2rem;
+    font-weight: 800;
+    margin-block-end: 1rem;
+    color: white;
+  }
+
+  &__info {
+    font-size: 1rem;
+    color: #cbd5e1;
+    margin-block-end: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+
+    &:last-child {
+      margin-block-end: 0;
+    }
+  }
+
+  &__separator {
+    display: none;
+
+    @media (min-width: 768px) {
+      display: block;
+      inline-size: 1px;
+      background: rgb(255 255 255 / 20%);
+      margin-inline: 1rem;
+    }
+  }
+}
+
+// Footer
+.services-footer {
+  padding-block: 2rem;
+  padding-inline: 1rem;
+  background: #0f172a;
+  color: white;
+  text-align: center;
+
+  &__container {
+    max-inline-size: 1200px;
+    margin-inline: auto;
+  }
+
+  &__text {
+    font-size: 0.875rem;
+    color: #cbd5e1;
+    margin: 0;
+  }
+}
+
+// Animations (reuse from first example)
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// Responsive adjustments
+@media (max-width: 768px) {
+  .services-hero__cta {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .services-hero__button {
+    inline-size: 100%;
+    max-inline-size: 300px;
+    justify-content: center;
+  }
+
+  .services-nav__list {
+    gap: 0.5rem;
+  }
+
+  .services-nav__link {
+    padding: 0.75rem 1rem;
+    font-size: 0.8125rem;
+  }
+
+  .contact-banner__container {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .contact-banner__separator {
+    display: none;
+  }
+}

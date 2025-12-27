@@ -1,0 +1,227 @@
+// src/app/components/our-services/our-services.component.scss
+.services {
+  padding-block: clamp(4rem, 10vw, 8rem);
+  padding-inline: 1rem;
+  background: white;
+
+  &__container {
+    max-inline-size: 1200px;
+    margin-inline: auto;
+  }
+
+  &__header {
+    text-align: center;
+    margin-block-end: 4rem;
+    animation: fadeIn 1s ease-out;
+  }
+
+  &__title {
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    font-weight: 800;
+    color: #0f172a;
+    margin-block-end: 1rem;
+  }
+
+  &__subtitle {
+    font-size: clamp(1rem, 2vw, 1.125rem);
+    color: #475569;
+    max-inline-size: 800px;
+    margin-inline: auto;
+    line-height: 1.6;
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
+    gap: 2rem;
+    margin-block-end: 4rem;
+  }
+
+  &__cta {
+    text-align: center;
+  }
+
+  &__cta-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.25rem 3rem;
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: white;
+    background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+    border: none;
+    border-radius: 100vmax;
+    box-shadow: 0 10px 30px rgb(220 38 38 / 30%);
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    &:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 15px 40px rgb(220 38 38 / 50%);
+    }
+
+    &:focus-visible {
+      outline: 3px solid #fbbf24;
+      outline-offset: 4px;
+    }
+  }
+}
+
+.service-card {
+  background: white;
+  border-radius: 1rem;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgb(0 0 0 / 8%);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  animation: fadeInUp 0.8s ease-out backwards;
+
+  @for $i from 1 through 4 {
+    &:nth-child(#{$i}) {
+      animation-delay: #{$i * 0.1}s;
+    }
+  }
+
+  &:hover {
+    transform: translateY(-12px);
+    box-shadow: 0 20px 60px rgb(0 0 0 / 15%);
+
+    .service-card__image {
+      transform: scale(1.1);
+    }
+
+    .service-card__overlay {
+      opacity: 1;
+    }
+  }
+
+  &:focus-visible {
+    outline: 3px solid #fbbf24;
+    outline-offset: 4px;
+  }
+
+  &__image-wrapper {
+    position: relative;
+    block-size: 250px;
+    overflow: hidden;
+  }
+
+  &__image {
+    inline-size: 100%;
+    block-size: 100%;
+    object-fit: cover;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  &__overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, rgb(220 38 38 / 90%) 0%, rgb(185 28 28 / 90%) 100%);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
+
+  &__icon {
+    font-size: 4rem;
+    animation: bounceIn 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  }
+
+  &__content {
+    padding: 1.5rem;
+  }
+
+  &__title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #0f172a;
+    margin-block-end: 0.75rem;
+  }
+
+  &__description {
+    font-size: 0.9375rem;
+    color: #64748b;
+    line-height: 1.6;
+    margin-block-end: 1.5rem;
+  }
+
+  &__footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding-block-start: 1rem;
+    border-block-start: 1px solid #e2e8f0;
+  }
+
+  &__price {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: #dc2626;
+  }
+
+  &__button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.625rem 1.25rem;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: white;
+    background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+    border: none;
+    border-radius: 100vmax;
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    &:hover {
+      transform: scale(1.05);
+      box-shadow: 0 4px 15px rgb(251 191 36 / 40%);
+    }
+
+    &:focus-visible {
+      outline: 2px solid #dc2626;
+      outline-offset: 2px;
+    }
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes bounceIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.3);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+  70% {
+    transform: scale(0.9);
+  }
+  100% {
+    transform: scale(1);
+  }
+}

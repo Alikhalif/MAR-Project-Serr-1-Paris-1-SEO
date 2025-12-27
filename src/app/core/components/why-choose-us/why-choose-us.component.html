@@ -1,0 +1,21 @@
+<!-- src/app/components/why-choose-us/why-choose-us.component.html -->
+<section class="why-choose">
+  <div class="why-choose__container">
+    <div class="why-choose__header">
+      <h2 class="why-choose__title">{{ data().title }}</h2>
+      <p class="why-choose__description">{{ data().description }}</p>
+    </div>
+
+    <div class="why-choose__grid">
+      @for (benefit of data().benefits; track benefit.title) {
+        <article class="benefit-card">
+          <div class="benefit-card__icon" aria-hidden="true">
+            {{ benefit.icon }}
+          </div>
+          <h3 class="benefit-card__title">{{ benefit.title }}</h3>
+          <p class="benefit-card__description">{{ benefit.description }}</p>
+        </article>
+      }
+    </div>
+  </div>
+</section>

@@ -1,0 +1,27 @@
+<!-- src/app/components/hero-section/hero-section.component.html -->
+<section class="hero" [style.--bg-image]="'url(' + data().backgroundImage + ')'">
+  <div class="hero__overlay"></div>
+  <div class="hero__content">
+    <h1 class="hero__title">{{ data().title }}</h1>
+    <p class="hero__subtitle">{{ data().subtitle }}</p>
+    <p class="hero__description" [innerHTML]="data().description"></p>
+
+    <button
+      class="hero__cta"
+      (click)="onCtaClick()"
+      type="button"
+      aria-label="Appeler le serrurier"
+    >
+      <span class="hero__cta-icon" aria-hidden="true">📞</span>
+      <span class="hero__cta-text">
+        <span class="hero__cta-label">{{ data().ctaText }}</span>
+        <span class="hero__cta-phone">{{ data().ctaPhone }}</span>
+      </span>
+    </button>
+  </div>
+
+  <div class="hero__scroll-indicator" aria-hidden="true">
+    <span class="hero__scroll-text">Défiler</span>
+    <span class="hero__scroll-arrow">↓</span>
+  </div>
+</section>

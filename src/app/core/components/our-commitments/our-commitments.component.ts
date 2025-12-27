@@ -1,0 +1,29 @@
+// ===================================================
+// OUR COMMITMENTS COMPONENT
+// ===================================================
+// src/app/components/our-commitments/our-commitments.component.ts
+import { Component, input } from '@angular/core';
+import { CommonModule } from '@angular/common';
+
+interface Commitment {
+  icon: string;
+  title: string;
+  description: string;
+}
+
+interface CommitmentsData {
+  title: string;
+  subtitle: string;
+  commitments: Commitment[];
+}
+
+@Component({
+  selector: 'app-our-commitments',
+  standalone: true,
+  imports: [CommonModule],
+  templateUrl: './our-commitments.component.html',
+  styleUrl: './our-commitments.component.scss'
+})
+export class OurCommitmentsComponent {
+  data = input.required<CommitmentsData>();
+}

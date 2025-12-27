@@ -1,0 +1,26 @@
+<!-- src/app/components/our-commitments/our-commitments.component.html -->
+<section class="commitments">
+  <div class="commitments__container">
+    <div class="commitments__header">
+      <h2 class="commitments__title">{{ data().title }}</h2>
+      <p class="commitments__subtitle">{{ data().subtitle }}</p>
+    </div>
+
+    <div class="commitments__list">
+      @for (commitment of data().commitments; track commitment.title; let idx = $index) {
+        <article class="commitment-item" [class.commitment-item--alt]="idx % 2 === 1">
+          <div class="commitment-item__icon" aria-hidden="true">
+            {{ commitment.icon }}
+          </div>
+          <div class="commitment-item__content">
+            <h3 class="commitment-item__title">{{ commitment.title }}</h3>
+            <p class="commitment-item__description">{{ commitment.description }}</p>
+          </div>
+          <div class="commitment-item__number" aria-hidden="true">
+            {{ idx + 1 }}
+          </div>
+        </article>
+      }
+    </div>
+  </div>
+</section>

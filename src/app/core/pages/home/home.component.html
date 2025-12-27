@@ -1,0 +1,174 @@
+
+<app-hero-section></app-hero-section>
+
+
+
+<section class="about">
+  <div class="container">
+    <h2 class="about__title">Qui Sommes-Nous ?</h2>
+    <div class="about__grid">
+      <div class="about__content">
+        <h3 class="about__subtitle">Une Expertise au Service de Votre Sécurité</h3>
+        <p class="about__text">
+          Entreprise de serrurerie établie à Paris depuis de nombreuses années,
+          nous avons bâti notre réputation sur la qualité de nos interventions
+          et la satisfaction de nos clients. Notre équipe est composée de
+          serruriers qualifiés et expérimentés, formés continuellement aux
+          dernières techniques et technologies du secteur.
+        </p>
+
+        <h3 class="about__subtitle">Des Professionnels Passionnés et Rigoureux</h3>
+        <p class="about__text">
+          Chaque membre de notre équipe partage les mêmes valeurs : réactivité,
+          professionnalisme et honnêteté. Nous comprenons que faire appel à un
+          serrurier est souvent une situation stressante, que ce soit pour une
+          urgence ou un projet de sécurisation.
+        </p>
+      </div>
+
+      <div class="about__image">
+        <img
+          src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1600&q=80"
+          alt="Notre équipe de serruriers professionnels à Paris 1er"
+          loading="lazy"
+        />
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="services">
+  <div class="container">
+    <h2 class="services__title">Nos Services de Serrurerie à Paris 1er</h2>
+
+    <div class="services__grid">
+      <div class="service-card">
+        <div class="service-card__icon">🔓</div>
+        <h3 class="service-card__title">Dépannage d'Urgence 24h/24</h3>
+        <ul class="service-card__list">
+          <li>Ouverture de porte sans casse</li>
+          <li>Extraction de clé cassée</li>
+          <li>Perte de clés</li>
+          <li>Intervention nocturne</li>
+        </ul>
+      </div>
+
+      <div class="service-card">
+        <div class="service-card__icon">🔧</div>
+        <h3 class="service-card__title">Réparation & Remplacement</h3>
+        <ul class="service-card__list">
+          <li>Changement de serrure</li>
+          <li>Réparation de serrure</li>
+          <li>Remplacement de cylindre</li>
+          <li>Réparation porte blindée</li>
+        </ul>
+      </div>
+
+      <div class="service-card">
+        <div class="service-card__icon">🛡️</div>
+        <h3 class="service-card__title">Installation & Sécurisation</h3>
+        <ul class="service-card__list">
+          <li>Installation serrure 3 points</li>
+          <li>Pose de porte blindée</li>
+          <li>Blindage de porte</li>
+          <li>Sécurisation d'habitation</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="values">
+  <div class="container">
+    <h2 class="values__title">Nos Valeurs Fondamentales</h2>
+
+    <div class="values__grid">
+      <div class="value-item">
+        <div class="value-item__icon">💎</div>
+        <h3 class="value-item__title">Transparence tarifaire</h3>
+        <p class="value-item__text">
+          Devis clair avant intervention, pas de frais cachés.
+        </p>
+      </div>
+
+      <div class="value-item">
+        <div class="value-item__icon">⚡</div>
+        <h3 class="value-item__title">Réactivité exceptionnelle</h3>
+        <p class="value-item__text">
+          Intervention en 20-30 minutes dans le 1er arrondissement.
+        </p>
+      </div>
+
+      <div class="value-item">
+        <div class="value-item__icon">⭐</div>
+        <h3 class="value-item__title">Qualité du service</h3>
+        <p class="value-item__text">
+          Matériel professionnel certifié, interventions garanties.
+        </p>
+      </div>
+
+      <div class="value-item">
+        <div class="value-item__icon">🕒</div>
+        <h3 class="value-item__title">Disponibilité permanente</h3>
+        <p class="value-item__text">
+          24h/24, 7j/7, dimanches et jours fériés compris.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="zone">
+  <div class="container">
+    <h2 class="zone__title">Zone d'Intervention</h2>
+    <div class="zone__content">
+      <div class="zone__list">
+        <h3 class="zone__subtitle">1er Arrondissement de Paris :</h3>
+        <ul class="zone__quarters">
+          <li>Saint-Germain-l'Auxerrois</li>
+          <li>Les Halles</li>
+          <li>Palais-Royal</li>
+          <li>Place Vendôme</li>
+        </ul>
+        <p class="zone__info">
+          Proximité immédiate avec les 2e, 4e, 6e, 7e et 8e arrondissements.
+        </p>
+      </div>
+      <div class="zone__map">
+        <!-- Carte ou image de la zone -->
+        <img
+          src="/assets/images/paris-1er-map.jpg"
+          alt="Carte du 1er arrondissement de Paris"
+          loading="lazy"
+        />
+      </div>
+    </div>
+  </div>
+</section>
+
+<app-faq
+    [data]="faqData()"
+    aria-label="FAQ section"
+  />
+
+<section class="contact-cta">
+  <div class="container">
+    <h2 class="contact-cta__title">Contact Urgence Serrurerie Paris 1er</h2>
+    <p class="contact-cta__text">
+      Pour toute urgence, contactez-nous immédiatement. Notre centrale d'appel
+      est à votre écoute 24h/24 pour organiser l'intervention d'un serrurier
+      professionnel dans les plus brefs délais.
+    </p>
+
+    <button
+      class="contact-cta__button"
+      (click)="onEmergencyCall()"
+      type="button"
+      aria-label="Appeler le serrurier en urgence"
+    >
+      <span class="contact-cta__icon" aria-hidden="true">📞</span>
+      <span class="contact-cta__phone">01 23 45 67 89</span>
+      <span class="contact-cta__label">Appel Urgence 24h/24</span>
+    </button>
+  </div>
+</section>

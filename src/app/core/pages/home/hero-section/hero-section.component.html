@@ -1,0 +1,49 @@
+<!-- hero-section.component.html -->
+<section class="hero" [style.--bg-image]="'url(' + heroData.backgroundImage + ')'">
+  <div class="hero__overlay"></div>
+
+  <div class="hero__content">
+    <h1 class="hero__title">{{ heroData.title }}</h1>
+
+    <!-- <div class="hero__badge" aria-hidden="true">
+      <span class="hero__badge-icon">🚨</span>
+      <span class="hero__badge-text">Urgence 24h/24</span>
+    </div> -->
+
+    <p class="hero__subtitle">{{ heroData.subtitle }}</p>
+
+    <div class="hero__cta-container">
+      <div class="hero__cta-warning">
+        <span class="hero__cta-warning-icon">🔴</span>
+        <span class="hero__cta-warning-text">{{ heroData.ctaText }}</span>
+      </div>
+
+      <!-- <p class="hero__cta-subtitle">
+        Notre équipe est mobilisée pour intervenir en moins de 30 minutes dans Paris.
+      </p> -->
+
+      <button
+        class="hero__cta-button"
+        (click)="onCtaClick()"
+        type="button"
+        aria-label="Appeler le serrurier en urgence"
+      >
+        <span class="hero__cta-icon" aria-hidden="true">📞</span>
+        <span class="hero__cta-content">
+          <span class="hero__cta-label">👉 Appelez-nous immédiatement au</span>
+          <span class="hero__cta-phone">{{ heroData.ctaPhone }}</span>
+          <!-- <span class="hero__cta-arrow">👈</span> -->
+        </span>
+      </button>
+
+      <p class="hero__cta-disclaimer">
+        *Intervention 24h/24 - 7j/7 - Sans majoration nuit, dimanche & fériés*
+      </p>
+    </div>
+  </div>
+
+  <!-- <div class="hero__scroll-indicator" aria-hidden="true">
+    <span class="hero__scroll-text">Défiler pour plus d'informations</span>
+    <span class="hero__scroll-arrow">↓</span>
+  </div> -->
+</section>

@@ -1,0 +1,185 @@
+<!-- Hero Section -->
+<section class="services-hero">
+  <div class="services-hero__container">
+    <div class="services-hero__content">
+      <h1 class="services-hero__title">{{ heroData.title }}</h1>
+      <p class="services-hero__subtitle">{{ heroData.subtitle }}</p>
+      <p class="services-hero__description">{{ heroData.description }}</p>
+
+      <div class="services-hero__cta">
+        <button class="services-hero__button services-hero__button--primary"
+                (click)="scrollToSection('urgence')">
+          <span aria-hidden="true">🚨</span>
+          Urgence immédiate
+        </button>
+        <button class="services-hero__button services-hero__button--secondary"
+                (click)="onCtaClick('01 XX XX XX XX')">
+          <span aria-hidden="true">📞</span>
+          Devis gratuit
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Navigation Menu -->
+<nav class="services-nav">
+  <div class="services-nav__container">
+    <ul class="services-nav__list">
+      <li class="services-nav__item">
+        <a (click)="scrollToSection('urgence')" class="services-nav__link">
+          <span aria-hidden="true">🔴</span>
+          Urgence
+        </a>
+      </li>
+      <li class="services-nav__item">
+        <a (click)="scrollToSection('reparations')" class="services-nav__link">
+          <span aria-hidden="true">🔧</span>
+          Réparations
+        </a>
+      </li>
+      <li class="services-nav__item">
+        <a (click)="scrollToSection('securisation')" class="services-nav__link">
+          <span aria-hidden="true">🛡️</span>
+          Sécurisation
+        </a>
+      </li>
+      <li class="services-nav__item">
+        <a (click)="scrollToSection('stats')" class="services-nav__link">
+          <span aria-hidden="true">📊</span>
+          Chiffres clés
+        </a>
+      </li>
+      <!-- <li class="services-nav__item">
+        <a (click)="scrollToSection('zone')" class="services-nav__link">
+          <span aria-hidden="true">📍</span>
+          Zone d'intervention
+        </a>
+      </li> -->
+    </ul>
+  </div>
+</nav>
+
+<!-- Emergency Services -->
+<section id="urgence" class="services-section">
+  <app-our-services
+    [data]="emergencyServices()"
+    (ctaClick)="onCtaClick($event)">
+  </app-our-services>
+</section>
+
+<!-- Repair Services -->
+<section id="reparations" class="services-section">
+  <app-our-services
+    [data]="repairServices()"
+    (ctaClick)="onCtaClick($event)">
+  </app-our-services>
+</section>
+
+<!-- Installation Services -->
+<section id="securisation" class="services-section">
+  <app-our-services
+    [data]="installationServices()"
+    (ctaClick)="onCtaClick($event)">
+  </app-our-services>
+</section>
+
+<!-- Key Stats -->
+<section id="stats" class="stats-section">
+  <div class="stats-section__container">
+    <h2 class="stats-section__title">📊 NOS CHIFFRES CLÉS</h2>
+    <p class="stats-section__subtitle">L'excellence au service des habitants de Paris 1er</p>
+
+    <div class="stats-section__grid">
+      @for (stat of keyStats; track stat.value) {
+        <div class="stat-card">
+          <div class="stat-card__value">{{ stat.value }}</div>
+          <div class="stat-card__label">{{ stat.label }}</div>
+        </div>
+      }
+    </div>
+  </div>
+</section>
+
+<!-- Why Choose Us -->
+<section class="why-section">
+  <div class="why-section__container">
+    <h2 class="why-section__title">✅ POURQUOI NOUS CHOISIR ?</h2>
+    <p class="why-section__subtitle">Des avantages exclusifs pour nos clients parisiens</p>
+
+    <div class="why-section__grid">
+      @for (reason of whyChooseUs; track reason.title) {
+        <article class="why-card">
+          <div class="why-card__icon">{{ reason.icon }}</div>
+          <h3 class="why-card__title">{{ reason.title }}</h3>
+          <p class="why-card__description">{{ reason.description }}</p>
+        </article>
+      }
+    </div>
+  </div>
+</section>
+
+<!-- Coverage Area -->
+<!-- <section id="zone" class="coverage-section">
+  <div class="coverage-section__container">
+    <div class="coverage-section__header">
+      <h2 class="coverage-section__title">📍 ZONE D'INTERVENTION PRIVILÉGIÉE</h2>
+      <p class="coverage-section__subtitle">Service rapide et efficace dans tout le 1er arrondissement</p>
+    </div>
+
+    <div class="coverage-section__content">
+      <div class="coverage-section__main">
+        <h3 class="coverage-section__area-title">Paris 1er Arrondissement complet :</h3>
+        <ul class="coverage-section__list">
+          @for (area of coverageAreas.main; track area) {
+            <li class="coverage-section__item">
+              <span class="coverage-section__marker" aria-hidden="true">📍</span>
+              {{ area }}
+            </li>
+          }
+        </ul>
+      </div>
+
+      <div class="coverage-section__adjacent">
+        <h3 class="coverage-section__area-title">Arrondissements limitrophes :</h3>
+        <ul class="coverage-section__list">
+          @for (area of coverageAreas.adjacent; track area) {
+            <li class="coverage-section__item">
+              <span class="coverage-section__marker" aria-hidden="true">📍</span>
+              {{ area }}
+            </li>
+          }
+        </ul>
+      </div>
+    </div>
+  </div>
+</section> -->
+
+<!-- Contact Banner -->
+<!-- <section class="contact-banner">
+  <div class="contact-banner__container">
+    <div class="contact-banner__urgent">
+      <h3 class="contact-banner__title">🔴 SERRURIER URGENCE 24H/24</h3>
+      <p class="contact-banner__phone">📞 01 XX XX XX XX</p>
+      <p class="contact-banner__info">⏱️ Intervention garantie &lt; 30 minutes</p>
+      <p class="contact-banner__info">📍 Paris 1er et arrondissements limitrophes</p>
+    </div>
+
+    <div class="contact-banner__separator"></div>
+
+    <div class="contact-banner__devis">
+      <h3 class="contact-banner__title">📋 DEVIS GRATUIT SANS ENGAGEMENT</h3>
+      <p class="contact-banner__info">🕒 Bureau : Lundi-Samedi 8h-20h</p>
+      <p class="contact-banner__info">📍 Adresse : [Votre adresse dans Paris 1er]</p>
+    </div>
+  </div>
+</section> -->
+
+<!-- Footer -->
+<footer class="services-footer">
+  <div class="services-footer__container">
+    <p class="services-footer__text">
+      <strong>SERRURIER PARIS 1er • ARTISANS CERTIFIÉS • INTERVENTIONS 24H/24 • PRIX TRANSPARENTS</strong>
+    </p>
+  </div>
+</footer>

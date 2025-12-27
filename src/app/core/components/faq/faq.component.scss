@@ -1,0 +1,140 @@
+// src/app/components/faq/faq.component.scss
+.faq {
+  padding-block: clamp(4rem, 10vw, 8rem);
+  padding-inline: 1rem;
+  background: white;
+
+  &__container {
+    max-inline-size: 900px;
+    margin-inline: auto;
+  }
+
+  &__title {
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    font-weight: 800;
+    color: #0f172a;
+    text-align: center;
+    margin-block-end: 3rem;
+    animation: fadeIn 1s ease-out;
+  }
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+}
+
+.faq-item {
+  background: white;
+  border: 2px solid #e2e8f0;
+  border-radius: 1rem;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  animation: fadeInUp 0.6s ease-out backwards;
+
+  @for $i from 1 through 5 {
+    &:nth-child(#{$i}) {
+      animation-delay: #{$i * 0.1}s;
+    }
+  }
+
+  &:hover {
+    border-color: #fbbf24;
+    box-shadow: 0 4px 20px rgb(251 191 36 / 15%);
+  }
+
+  &--expanded {
+    border-color: #dc2626;
+    box-shadow: 0 8px 30px rgb(220 38 38 / 15%);
+  }
+
+  &__question {
+    inline-size: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    padding: 1.5rem 2rem;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    text-align: start;
+    transition: all 0.3s ease;
+
+    &:hover {
+      background: #f8fafc;
+    }
+
+    &:focus-visible {
+      outline: 3px solid #fbbf24;
+      outline-offset: -3px;
+    }
+
+    .faq-item--expanded & {
+      background: linear-gradient(135deg, #fef3c7 0%, #fef3c7 100%);
+    }
+  }
+
+  &__question-text {
+    flex: 1;
+    font-size: clamp(1rem, 2vw, 1.125rem);
+    font-weight: 700;
+    color: #0f172a;
+    line-height: 1.4;
+  }
+
+  &__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    inline-size: 2rem;
+    block-size: 2rem;
+    flex-shrink: 0;
+    color: #dc2626;
+    font-size: 0.875rem;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+    &--rotated {
+      transform: rotate(180deg);
+    }
+  }
+
+  &__answer {
+    max-block-size: 0;
+    overflow: hidden;
+    transition: max-block-size 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+
+    &--visible {
+      max-block-size: 1000px;
+    }
+  }
+
+  &__answer-text {
+    padding: 0 2rem 2rem;
+    font-size: 1rem;
+    line-height: 1.7;
+    color: #475569;
+    animation: fadeIn 0.4s ease-out;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

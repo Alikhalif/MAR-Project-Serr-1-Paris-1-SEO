@@ -1,0 +1,39 @@
+<!-- src/app/components/conclusion/conclusion.component.html -->
+<section class="conclusion">
+  <div class="conclusion__overlay"></div>
+  <div class="conclusion__content">
+    <h2 class="conclusion__title">{{ data().title }}</h2>
+    <p class="conclusion__description">{{ data().description }}</p>
+
+    <div class="conclusion__cta-wrapper">
+      <button
+        type="button"
+        class="conclusion__cta"
+        (click)="onCtaClick()"
+        aria-label="Appeler le serrurier 24h/24"
+      >
+        <span class="conclusion__cta-icon" aria-hidden="true">🛎</span>
+        <span class="conclusion__cta-content">
+          <span class="conclusion__cta-text">{{ data().ctaText }}</span>
+          <span class="conclusion__cta-phone">{{ data().ctaPhone }}</span>
+          <span class="conclusion__cta-desc">{{ data().ctaDescription }}</span>
+        </span>
+      </button>
+    </div>
+
+    <div class="conclusion__trust-indicators">
+      <div class="trust-indicator">
+        <span class="trust-indicator__icon" aria-hidden="true">⚡</span>
+        <span class="trust-indicator__text">Intervention 30min</span>
+      </div>
+      <div class="trust-indicator">
+        <span class="trust-indicator__icon" aria-hidden="true">🕐</span>
+        <span class="trust-indicator__text">24h/24 - 7j/7</span>
+      </div>
+      <div class="trust-indicator">
+        <span class="trust-indicator__icon" aria-hidden="true">✓</span>
+        <span class="trust-indicator__text">Devis gratuit</span>
+      </div>
+    </div>
+  </div>
+</section>
