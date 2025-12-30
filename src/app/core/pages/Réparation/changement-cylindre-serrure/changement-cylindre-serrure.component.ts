@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, OnInit, PLATFORM_ID, signal } from '@angular/core';
 import { ConclusionComponent } from "../../../components/conclusion/conclusion.component";
 import { FaqComponent } from "../../../components/faq/faq.component";
 import { PricingTransparencyComponent } from "../../../components/pricing-transparency/pricing-transparency.component";
@@ -6,6 +6,8 @@ import { OurServicesComponent } from "../../../components/our-services/our-servi
 import { OurCommitmentsComponent } from "../../../components/our-commitments/our-commitments.component";
 import { WhyChooseUsComponent } from "../../../components/why-choose-us/why-choose-us.component";
 import { HeroSectionComponent } from "../../../components/hero-section/hero-section.component";
+import { Meta, Title } from '@angular/platform-browser';
+import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'app-changement-cylindre-serrure',
@@ -14,7 +16,154 @@ import { HeroSectionComponent } from "../../../components/hero-section/hero-sect
   templateUrl: './changement-cylindre-serrure.component.html',
   styleUrl: './changement-cylindre-serrure.component.scss'
 })
-export class ChangementCylindreSerrureComponent {
+export class ChangementCylindreSerrureComponent implements  OnInit {
+
+
+  private title = inject(Title);
+  private meta = inject(Meta);
+  platformId = inject(PLATFORM_ID);
+
+  ngOnInit(): void {
+
+    this.title.setTitle(
+      'Changement de Cylindre de Serrure Paris 1 (75001) | Intervention Rapide & Sécurisée'
+    );
+
+    this.meta.addTags([
+      {
+        name: 'description',
+        content: 'Changement de cylindre de serrure à Paris 1 en 30 minutes. Cylindre standard ou A2P, anciennes clés invalidées, devis clair avant intervention.'
+      },
+      {
+        name: 'keywords',
+        content: 'changement cylindre serrure Paris 1, remplacement cylindre 75001, cylindre A2P Paris, serrurier cylindre Paris'
+      },
+      { name: 'robots', content: 'index, follow' },
+      { name: 'author', content: 'Serrurier Paris 1' },
+
+      /* Open Graph */
+      {
+        property: 'og:title',
+        content: 'Changement de Cylindre de Serrure à Paris 1 – Sécurité Immédiate'
+      },
+      {
+        property: 'og:description',
+        content: 'Remplacement de cylindre de serrure à Paris 1 : intervention express, sécurité A2P, devis transparent.'
+      },
+      {
+        property: 'og:type',
+        content: 'website'
+      }
+    ]);
+
+    if (isPlatformBrowser(this.platformId)) {
+    this.injectJsonLd();
+    }
+  }
+
+  injectJsonLd() {
+    const script = document.createElement('script');
+    script.type = 'application/ld+json';
+    script.text = JSON.stringify(
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "Locksmith",
+            "@id": "https://www.tonsite.fr/#locksmith",
+            "name": "Serrurier Paris 1",
+            "telephone": "01 23 45 67 89",
+            "image": "https://i.ibb.co/Myq313Bp/cylindre-1.png",
+            "priceRange": "€€",
+            "address": {
+              "@type": "PostalAddress",
+              "addressLocality": "Paris",
+              "postalCode": "75001",
+              "addressCountry": "FR"
+            },
+            "areaServed": {
+              "@type": "AdministrativeArea",
+              "name": "Paris 1"
+            },
+            "openingHours": "Mo-Su 00:00-23:59",
+            "url": "https://www.tonsite.fr"
+          },
+
+          {
+            "@type": "Service",
+            "@id": "https://www.tonsite.fr/changement-cylindre-serrure-paris-1#service",
+            "name": "Changement de cylindre de serrure",
+            "serviceType": "Remplacement de cylindre",
+            "provider": {
+              "@id": "https://www.tonsite.fr/#locksmith"
+            },
+            "areaServed": {
+              "@type": "AdministrativeArea",
+              "name": "Paris 1"
+            },
+            "description": "Changement de cylindre de serrure à Paris 1 suite à une perte de clés, un cylindre HS ou un besoin de sécurité renforcée A2P.",
+            "offers": {
+              "@type": "Offer",
+              "priceCurrency": "EUR",
+              "availability": "https://schema.org/InStock"
+            }
+          },
+
+          {
+            "@type": "FAQPage",
+            "@id": "https://www.tonsite.fr/changement-cylindre-serrure-paris-1#faq",
+            "mainEntity": [
+              {
+                "@type": "Question",
+                "name": "Puis-je changer le cylindre moi-même pour économiser ?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "C’est possible, mais risqué. Une erreur de mesure ou une mauvaise installation peut rendre la serrure inefficace. Un serrurier garantit le bon cylindre et une pose sécurisée."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Cylindre A2P ou standard : quelle est la différence ?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Le cylindre A2P est certifié contre le perçage, le crochetage et l’arrachage. Il est recommandé par les assureurs pour une sécurité maximale."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Combien de temps dure l’intervention ?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Le remplacement du cylindre prend généralement entre 10 et 20 minutes sur place."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Dois-je changer toutes les serrures après une perte de clés ?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Non. Dans la majorité des cas, seul le cylindre de la porte concernée doit être remplacé."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Mes anciennes clés fonctionnent-elles encore après le changement ?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Non. Les anciennes clés sont immédiatement invalidées avec le nouveau cylindre."
+                }
+              }
+            ]
+          }
+        ]
+      }
+
+
+
+
+    );
+    document.head.appendChild(script);
+  }
 
   heroData = signal({
       title: 'Changement de Cylindre de Serrure à Paris 1',

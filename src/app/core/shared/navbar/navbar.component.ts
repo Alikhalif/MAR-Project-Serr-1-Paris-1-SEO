@@ -1,5 +1,5 @@
-import { Component, HostListener, signal, computed } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, HostListener, signal, computed, PLATFORM_ID, inject } from '@angular/core';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 
 interface MenuItem {
@@ -41,6 +41,8 @@ export class NavbarComponent {
   activeDropdown = signal<string | null>(null);
   isMobile = signal(false);
 
+  platformId = inject(PLATFORM_ID);
+
   menuItems: MenuItem[] = [
     // {
     //   label: 'ACCUEIL',
@@ -49,19 +51,19 @@ export class NavbarComponent {
     {
       label: 'URGENCE 24h/24',
       children: [
-        { label: 'Serrurier Urgence Paris 1er', route: '/serrurier-urgence' },
-        { label: 'Ouverture Porte Claquée', route: '/ouverture-porte-claquee' },
-        { label: 'Clé Cassée dans Serrure', route: '/clef-cassee-dans-serrure' },
-        { label: 'Perte de Clés / Clé Perdue', route: '/perte-cles-securisation' },
-        { label: 'Porte Bloquée / Ne S\'Ouvre Plus', route: '/depannage-porte-bloquee' },
-        { label: 'Intervention Nuit, Dimanche, Férié', route: '/serrurier-nuit' },
-        { label: 'Dépannage Serrurerie Immédiat', route: '/depannage-serrurier' }
+        { label: 'Serrurier Urgence Paris 1er', route: '/serrurier-urgence-paris-1' },
+        { label: 'Ouverture Porte Claquée', route: '/ouverture-porte-claquee-paris-1' },
+        { label: 'Clé Cassée dans Serrure', route: '/clef-cassee-dans-serrure-paris-1' },
+        { label: 'Perte de Clés / Clé Perdue', route: '/perte-cles-securisation-paris-1' },
+        { label: 'Porte Bloquée / Ne S\'Ouvre Plus', route: '/depannage-porte-bloquee-paris-1' },
+        { label: 'Intervention Nuit, Dimanche, Férié', route: '/serrurier-nuit-paris-1' },
+        { label: 'Dépannage Serrurerie Immédiat', route: '/depannage-serrurier-paris-1' }
       ]
     },
     {
       label: 'RÉPARATION / INTERVENTIONS',
       children: [
-        { label: 'Changement de Serrure', route: '/changement-serrure' },
+        { label: 'Changement de Serrure', route: '/changement-serrure-paris-1' },
         { label: 'Remplacement Cylindre / Barillet', route: '/remplacement-cylindre-paris-1' },
         { label: 'Réparation Serrure Cassée', route: '/serrure-cassee-paris-1' },
         { label: 'Poignée Cassée', route: '/poignee-cassee-paris-1' },
@@ -73,7 +75,7 @@ export class NavbarComponent {
     {
       label: 'INSTALLATION / SÉCURITÉ',
       children: [
-        { label: 'Installation Serrure 3 Points', route: '/installation-serrure-3-point' },
+        { label: 'Installation Serrure 3 Points', route: '/installation-serrure-3-point-paris-1' },
         { label: 'Pose Porte Blindée', route: '/pose-porte-blindee-paris-1' },
         { label: 'Blindage de Porte', route: '/blindage-porte-paris-1' },
         { label: 'Installation Serrure Multipoints', route: '/installation-serrure-multipoints-paris-1' },
@@ -99,7 +101,9 @@ export class NavbarComponent {
 
   @HostListener('window:scroll')
   onScroll(): void {
-    this.isScrolled.set(window.scrollY > 50);
+    if (isPlatformBrowser(this.platformId)) {
+      this.isScrolled.set(window.scrollY > 50);
+    }
   }
 
   @HostListener('window:resize')
@@ -115,7 +119,9 @@ export class NavbarComponent {
   }
 
   checkMobile(): void {
-    this.isMobile.set(window.innerWidth < 992);
+    if (isPlatformBrowser(this.platformId)) {
+      this.isMobile.set(window.innerWidth < 992);
+    }
   }
 
   toggleDropdown(label: string): void {
@@ -155,6 +161,8 @@ export class NavbarComponent {
   }
 
   callPhone(): void {
-    window.location.href = 'tel:0123456789';
+    if (isPlatformBrowser(this.platformId)) {
+      window.location.href = 'tel:0123456789';
+    }
   }
 }

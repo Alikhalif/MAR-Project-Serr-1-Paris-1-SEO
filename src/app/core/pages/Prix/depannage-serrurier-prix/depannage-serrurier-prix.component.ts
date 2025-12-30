@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, OnInit, PLATFORM_ID, signal } from '@angular/core';
 import { ConclusionComponent } from "../../../components/conclusion/conclusion.component";
 import { FaqComponent } from "../../../components/faq/faq.component";
 import { PricingTransparencyComponent } from "../../../components/pricing-transparency/pricing-transparency.component";
@@ -6,6 +6,8 @@ import { OurServicesComponent } from "../../../components/our-services/our-servi
 import { OurCommitmentsComponent } from "../../../components/our-commitments/our-commitments.component";
 import { WhyChooseUsComponent } from "../../../components/why-choose-us/why-choose-us.component";
 import { HeroSectionComponent } from "../../../components/hero-section/hero-section.component";
+import { Meta, Title } from '@angular/platform-browser';
+import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'app-depannage-serrurier-prix',
@@ -14,7 +16,151 @@ import { HeroSectionComponent } from "../../../components/hero-section/hero-sect
   templateUrl: './depannage-serrurier-prix.component.html',
   styleUrl: './depannage-serrurier-prix.component.scss'
 })
-export class DepannageSerrurierPrixComponent {
+export class DepannageSerrurierPrixComponent implements OnInit {
+
+  private title = inject(Title);
+  private meta = inject(Meta);
+  platformId = inject(PLATFORM_ID);
+
+  ngOnInit(): void {
+
+    this.title.setTitle(
+      'Prix Dépannage Serrurier Paris 1 (75001) | Devis Gratuit & Transparent'
+    );
+
+    this.meta.addTags([
+      {
+        name: 'description',
+        content: 'Prix dépannage serrurier à Paris 1 : tarifs clairs, devis gratuit et ferme avant intervention. Aucune surprise, transparence totale.'
+      },
+      {
+        name: 'keywords',
+        content: 'prix serrurier Paris 1, tarif dépannage serrurier 75001, devis serrurier Paris, serrurier pas cher Paris 1'
+      },
+      { name: 'robots', content: 'index, follow' },
+      { name: 'author', content: 'Serrurier Paris 1' },
+
+      /* Open Graph */
+      {
+        property: 'og:title',
+        content: 'Prix Dépannage Serrurier Paris 1 – Tarifs Transparents'
+      },
+      {
+        property: 'og:description',
+        content: 'Découvrez les prix d’un dépannage serrurier à Paris 1. Devis gratuit, clair et sans engagement.'
+      },
+      {
+        property: 'og:type',
+        content: 'website'
+      }
+    ]);
+
+    if (isPlatformBrowser(this.platformId)) {
+      this.injectJsonLd();
+    }
+  }
+
+  injectJsonLd() {
+    const script = document.createElement('script');
+    script.type = 'application/ld+json';
+    script.text = JSON.stringify(
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "Locksmith",
+            "@id": "https://www.tonsite.fr/#locksmith",
+            "name": "Serrurier Paris 1",
+            "telephone": "01 23 45 67 89",
+            "image": "https://i.ibb.co/ns1qzmMN/depannage-serrurier-prix.png",
+            "address": {
+              "@type": "PostalAddress",
+              "addressLocality": "Paris",
+              "postalCode": "75001",
+              "addressCountry": "FR"
+            },
+            "areaServed": {
+              "@type": "AdministrativeArea",
+              "name": "Paris 1"
+            },
+            "openingHours": "Mo-Su 00:00-23:59",
+            "priceRange": "€€",
+            "url": "https://www.tonsite.fr"
+          },
+
+          {
+            "@type": "Service",
+            "@id": "https://www.tonsite.fr/depannage-serrurier-prix-paris-1#service",
+            "serviceType": "Dépannage serrurier",
+            "provider": {
+              "@id": "https://www.tonsite.fr/#locksmith"
+            },
+            "areaServed": {
+              "@type": "AdministrativeArea",
+              "name": "Paris 1"
+            },
+            "description": "Dépannage serrurier à Paris 1 avec prix transparents, devis gratuit et ferme avant intervention.",
+            "offers": {
+              "@type": "Offer",
+              "priceCurrency": "EUR",
+              "price": "Sur devis",
+              "availability": "https://schema.org/InStock"
+            }
+          },
+
+          {
+            "@type": "FAQPage",
+            "@id": "https://www.tonsite.fr/depannage-serrurier-prix-paris-1#faq",
+            "mainEntity": [
+              {
+                "@type": "Question",
+                "name": "Pourquoi certains serruriers ne donnent-ils pas de prix au téléphone ?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Parce qu’ils ajustent souvent le prix une fois sur place. Nous fonctionnons différemment : devis clair et engagé avant toute intervention."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Le devis est-il vraiment gratuit et sans engagement ?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Oui. Le devis est totalement gratuit et vous n’êtes engagé que si vous le signez."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Que se passe-t-il si un problème supplémentaire est découvert ?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Les travaux sont arrêtés et un nouveau devis est proposé. Rien n’est fait sans votre accord."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Proposez-vous différentes gammes de prix ?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Oui. Nous proposons des solutions économiques ou haut de gamme certifiées A2P selon votre budget."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Fournissez-vous une facture pour l’assurance ?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Oui, une facture détaillée et conforme aux exigences des assurances est systématiquement remise."
+                }
+              }
+            ]
+          }
+        ]
+      }
+
+    );
+    document.head.appendChild(script);
+  }
+
 
   heroData = signal({
     title: 'Dépannage Serrurier Prix à Paris 1',

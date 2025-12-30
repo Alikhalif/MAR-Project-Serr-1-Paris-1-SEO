@@ -2,8 +2,8 @@
 // OUR SERVICES COMPONENT
 // ===================================================
 // src/app/components/our-services/our-services.component.ts
-import { Component, input, output } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, inject, input, output, PLATFORM_ID } from '@angular/core';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 
 interface Service {
   icon: string;
@@ -33,12 +33,16 @@ export class OurServicesComponent {
   serviceClick = output<Service>();
   ctaClick = output<string>();
 
+  platformId = inject(PLATFORM_ID);
+
   onServiceClick(service: Service): void {
     this.serviceClick.emit(service);
   }
 
   onCtaClick(): void {
     this.ctaClick.emit(this.data().ctaPhone);
-    window.location.href = `tel:${this.data().ctaPhone}`;
+    if (isPlatformBrowser(this.platformId)) {
+      window.location.href = `tel:${this.data().ctaPhone}`;
+    }
   }
 }

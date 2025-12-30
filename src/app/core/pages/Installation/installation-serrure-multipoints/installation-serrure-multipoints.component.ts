@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, PLATFORM_ID, signal } from '@angular/core';
 import { ConclusionComponent } from "../../../components/conclusion/conclusion.component";
 import { FaqComponent } from "../../../components/faq/faq.component";
 import { PricingTransparencyComponent } from "../../../components/pricing-transparency/pricing-transparency.component";
@@ -6,6 +6,8 @@ import { OurServicesComponent } from "../../../components/our-services/our-servi
 import { OurCommitmentsComponent } from "../../../components/our-commitments/our-commitments.component";
 import { WhyChooseUsComponent } from "../../../components/why-choose-us/why-choose-us.component";
 import { HeroSectionComponent } from "../../../components/hero-section/hero-section.component";
+import { Meta, Title } from '@angular/platform-browser';
+import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'app-installation-serrure-multipoints',
@@ -15,6 +17,144 @@ import { HeroSectionComponent } from "../../../components/hero-section/hero-sect
   styleUrl: './installation-serrure-multipoints.component.scss'
 })
 export class InstallationSerrureMultipointsComponent {
+
+  private title = inject(Title);
+  private meta = inject(Meta);
+  platformId = inject(PLATFORM_ID);
+
+  constructor() {
+
+    /* TITLE */
+    this.title.setTitle(
+      'Installation Serrure Multipoints Paris 1 | Sécurité A2P Renforcée'
+    );
+
+    /* META DESCRIPTION */
+    this.meta.updateTag({
+      name: 'description',
+      content:
+        'Installation de serrure multipoints à Paris 1 (75001). Pose experte sur porte bois ou métal, sécurité certifiée A2P, diagnostic gratuit.'
+    });
+
+    /* KEYWORDS */
+    this.meta.updateTag({
+      name: 'keywords',
+      content:
+        'installation serrure multipoints Paris 1, serrure multipoints Paris 75001, pose serrure A2P Paris'
+    });
+
+    /* ROBOTS */
+    this.meta.updateTag({ name: 'robots', content: 'index, follow' });
+
+    /* OPEN GRAPH */
+    this.meta.updateTag({ property: 'og:title', content: 'Installation Serrure Multipoints Paris 1' });
+    this.meta.updateTag({ property: 'og:description', content: 'Pose professionnelle de serrure multipoints certifiée A2P à Paris 1.' });
+    this.meta.updateTag({ property: 'og:type', content: 'website' });
+    this.meta.updateTag({ property: 'og:url', content: 'https://www.tonsite.fr/installation-serrure-multipoints-paris-1' });
+    this.meta.updateTag({ property: 'og:image', content: 'https://i.ibb.co/pvmsK50X/multipoints-2.jpg' });
+
+    /* TWITTER */
+    this.meta.updateTag({ name: 'twitter:card', content: 'summary_large_image' });
+
+    if (isPlatformBrowser(this.platformId)) {
+      /* JSON-LD */
+      this.injectJsonLd();
+    }
+  }
+
+  injectJsonLd() {
+    const script = document.createElement('script');
+    script.type = 'application/ld+json';
+    script.text = JSON.stringify(
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "Locksmith",
+            "@id": "https://www.tonsite.fr/#locksmith",
+            "name": "Serrurier Paris 1 – Serrure Multipoints",
+            "telephone": "+33757831800",
+            "url": "https://www.tonsite.fr/installation-serrure-multipoints-paris-1",
+            "priceRange": "€€",
+            "address": {
+              "@type": "PostalAddress",
+              "addressLocality": "Paris",
+              "postalCode": "75001",
+              "addressCountry": "FR"
+            },
+            "areaServed": {
+              "@type": "AdministrativeArea",
+              "name": "Paris 1er"
+            },
+            "openingHoursSpecification": {
+              "@type": "OpeningHoursSpecification",
+              "dayOfWeek": [
+                "Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"
+              ],
+              "opens": "00:00",
+              "closes": "23:59"
+            }
+          },
+          {
+            "@type": "Service",
+            "name": "Installation Serrure Multipoints",
+            "description": "Installation professionnelle de serrure multipoints certifiée A2P à Paris 1 pour une sécurité maximale.",
+            "provider": {
+              "@id": "https://www.tonsite.fr/#locksmith"
+            },
+            "areaServed": "Paris 75001"
+          },
+          {
+            "@type": "FAQPage",
+            "mainEntity": [
+              {
+                "@type": "Question",
+                "name": "Ma porte en bois ancien est-elle compatible avec une serrure multipoints ?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Oui. Les portes en bois massif ancien sont souvent idéales. Un diagnostic permet de confirmer la compatibilité et d’ajouter un renfort si nécessaire."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Quelle différence entre une serrure multipoints 3 et 5 points ?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "La 3 points verrouille en haut, milieu et bas. La 5 points ajoute deux points latéraux pour une sécurité maximale."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "L’installation est-elle poussiéreuse ?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Des perçages sont nécessaires mais nous utilisons des protections et aspirateurs pour laisser les lieux propres."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Faut-il changer le cylindre ?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Oui, il est indispensable d’installer un cylindre haute sécurité certifié A2P pour une protection complète."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Y a-t-il une garantie sur l’installation ?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Oui. La serrure est garantie par le fabricant et la pose est garantie minimum 2 ans."
+                }
+              }
+            ]
+          }
+        ]
+      }
+
+    );
+    document.head.appendChild(script);
+  }
 
   heroData = signal({
     title: 'Installation Serrure Multipoints à Paris 1',

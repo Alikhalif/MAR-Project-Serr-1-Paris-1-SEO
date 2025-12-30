@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, OnInit, PLATFORM_ID, signal } from '@angular/core';
 import { ConclusionComponent } from "../../../components/conclusion/conclusion.component";
 import { FaqComponent } from "../../../components/faq/faq.component";
 import { PricingTransparencyComponent } from "../../../components/pricing-transparency/pricing-transparency.component";
@@ -6,6 +6,8 @@ import { OurServicesComponent } from "../../../components/our-services/our-servi
 import { OurCommitmentsComponent } from "../../../components/our-commitments/our-commitments.component";
 import { WhyChooseUsComponent } from "../../../components/why-choose-us/why-choose-us.component";
 import { HeroSectionComponent } from "../../../components/hero-section/hero-section.component";
+import { Meta, Title } from '@angular/platform-browser';
+import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'app-ouverture-porte-claquee',
@@ -14,7 +16,174 @@ import { HeroSectionComponent } from "../../../components/hero-section/hero-sect
   templateUrl: './ouverture-porte-claquee.component.html',
   styleUrl: './ouverture-porte-claquee.component.scss'
 })
-export class OuverturePorteClaqueeComponent {
+export class OuverturePorteClaqueeComponent implements OnInit {
+
+  private title = inject(Title);
+  private meta = inject(Meta);
+  platformId = inject(PLATFORM_ID);
+
+  ngOnInit(): void {
+
+    /* =========================
+       TITLE
+    ========================== */
+    this.title.setTitle(
+      'Ouverture Porte Claquée Paris 1 (75001) | Dépannage Serrurier Urgent'
+    );
+
+    /* =========================
+       META TAGS
+    ========================== */
+    this.meta.addTags([
+      {
+        name: 'description',
+        content: 'Ouverture de porte claquée à Paris 1 (75001). Dépannage express 24h/24 et 7j/7, intervention rapide sans dégâts, devis clair et transparent.'
+      },
+      {
+        name: 'keywords',
+        content: 'ouverture porte claquée Paris 1, porte claquée avec clés à l’intérieur 75001, serrurier urgence Paris 1, dépannage porte claquée Paris'
+      },
+      { name: 'robots', content: 'index, follow' },
+      { name: 'author', content: 'Serrurier Paris 1' },
+
+      /* Canonical */
+      {
+        rel: 'canonical',
+        href: 'https://www.tonsite.fr/ouverture-porte-claquee-paris-1'
+      },
+
+      /* Open Graph */
+      {
+        property: 'og:title',
+        content: 'Ouverture de Porte Claquée à Paris 1 – Dépannage Express'
+      },
+      {
+        property: 'og:description',
+        content: 'Intervention rapide pour porte claquée à Paris 1. Service 24h/24 et 7j/7, ouverture sans dégâts, devis transparent.'
+      },
+      {
+        property: 'og:type',
+        content: 'website'
+      },
+      {
+        property: 'og:url',
+        content: 'https://www.tonsite.fr/ouverture-porte-claquee-paris-1'
+      }
+    ]);
+
+    if (isPlatformBrowser(this.platformId)) {
+    this.injectSchema();
+    }
+  }
+
+  /* =========================
+     SCHEMA JSON-LD
+  ========================== */
+  injectSchema(): void {
+    const script = document.createElement('script');
+    script.type = 'application/ld+json';
+    script.text = JSON.stringify(this.schemaData);
+    document.head.appendChild(script);
+  }
+
+  schemaData = {
+    "@context": "https://schema.org",
+    "@graph": [
+
+      /* ===== BUSINESS ===== */
+      {
+        "@type": "Locksmith",
+        "@id": "https://www.tonsite.fr/#locksmith",
+        "name": "Serrurier Paris 1",
+        "telephone": "01 23 45 67 89",
+        "priceRange": "€€",
+        "url": "https://www.tonsite.fr",
+        "openingHours": "Mo-Su 00:00-23:59",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Paris",
+          "postalCode": "75001",
+          "addressCountry": "FR"
+        },
+        "areaServed": {
+          "@type": "AdministrativeArea",
+          "name": "Paris 1"
+        }
+      },
+
+      /* ===== SERVICE ===== */
+      {
+        "@type": "Service",
+        "@id": "https://www.tonsite.fr/ouverture-porte-claquee-paris-1#service",
+        "name": "Ouverture de porte claquée à Paris 1",
+        "serviceType": "Déblocage et ouverture de porte claquée",
+        "provider": {
+          "@id": "https://www.tonsite.fr/#locksmith"
+        },
+        "areaServed": {
+          "@type": "AdministrativeArea",
+          "name": "Paris 1"
+        },
+        "description": "Ouverture de porte claquée à Paris 1 : intervention express, 24h/24 et 7j/7, techniques de crochetage sans dégâts et devis transparent.",
+        "availableChannel": {
+          "@type": "ServiceChannel",
+          "servicePhone": {
+            "@type": "ContactPoint",
+            "telephone": "01 23 45 67 89",
+            "contactType": "customer service"
+          }
+        }
+      },
+
+      /* ===== FAQ ===== */
+      {
+        "@type": "FAQPage",
+        "@id": "https://www.tonsite.fr/ouverture-porte-claquee-paris-1#faq",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "En combien de temps ouvrez-vous une porte claquée ?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Une fois sur place, l'ouverture prend généralement 5 à 20 minutes selon la complexité. Le délai total inclut le trajet jusqu'à votre adresse (<30 min)."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Pouvez-vous ouvrir une porte blindée qui a claqué ?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Oui, la plupart des portes blindées peuvent être ouvertes sans perçage, sauf cylindres anti-crochetage spécifiques, que nous signalons avant intervention."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Ai-je besoin de prouver que j'habite bien les lieux ?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Oui, pièce d'identité et justificatif de domicile sont demandés avant l'intervention pour sécuriser votre propriété."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Que se passe-t-il si ma serrure est cassée ou très usée ?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Si la serrure est défectueuse, nous vous proposons soit une ouverture douce, soit un remplacement du cylindre avec devis clair avant toute action."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Le forfait est-il le même de jour comme de nuit, en semaine ou le week-end ?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Oui, forfait d'urgence 24h/24 identique, communiqué clairement dès l'appel, sans majoration surprise."
+            }
+          }
+        ]
+      }
+    ]
+  };
 
   heroData = signal({
     title: 'Ouverture de Porte Claquer à Paris 1',

@@ -1,5 +1,4 @@
-import { Component, signal } from '@angular/core';
-import { NgClass } from "../../../../../../node_modules/@angular/common/index";
+import { Component, inject, OnInit, PLATFORM_ID, signal } from '@angular/core';
 import { ConclusionComponent } from "../../../components/conclusion/conclusion.component";
 import { FaqComponent } from "../../../components/faq/faq.component";
 import { PricingTransparencyComponent } from "../../../components/pricing-transparency/pricing-transparency.component";
@@ -7,6 +6,8 @@ import { OurServicesComponent } from "../../../components/our-services/our-servi
 import { OurCommitmentsComponent } from "../../../components/our-commitments/our-commitments.component";
 import { WhyChooseUsComponent } from "../../../components/why-choose-us/why-choose-us.component";
 import { HeroSectionComponent } from "../../../components/hero-section/hero-section.component";
+import { Meta, Title } from '@angular/platform-browser';
+import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'app-reparation-serrure',
@@ -15,7 +16,175 @@ import { HeroSectionComponent } from "../../../components/hero-section/hero-sect
   templateUrl: './reparation-serrure.component.html',
   styleUrl: './reparation-serrure.component.scss'
 })
-export class ReparationSerrureComponent {
+export class ReparationSerrureComponent  implements OnInit {
+
+  private title = inject(Title);
+  private meta = inject(Meta);
+  platformId = inject(PLATFORM_ID);
+
+  ngOnInit(): void {
+
+    /* =========================
+       TITLE
+    ========================== */
+    this.title.setTitle(
+      'Réparation Serrure Paris 1 (75001) | Serrurier Expert'
+    );
+
+    /* =========================
+       META TAGS
+    ========================== */
+    this.meta.addTags([
+      {
+        name: 'description',
+        content: 'Réparation de serrure à Paris 1 (75001). Serrure bloquée, clé qui tourne mal ou mécanisme défectueux. Diagnostic et devis gratuit.'
+      },
+      {
+        name: 'keywords',
+        content: 'réparation serrure Paris 1, serrure bloquée 75001, serrurier réparation serrure Paris, clé bloquée serrure Paris'
+      },
+      { name: 'robots', content: 'index, follow' },
+      { name: 'author', content: 'Serrurier Paris 1' },
+
+      /* Canonical */
+      {
+        rel: 'canonical',
+        href: 'https://www.tonsite.fr/reparation-serrure-paris-1'
+      },
+
+      /* Open Graph */
+      {
+        property: 'og:title',
+        content: 'Réparation Serrure à Paris 1 – Serrurier Qualifié'
+      },
+      {
+        property: 'og:description',
+        content: 'Réparation de serrure à Paris 1. Clé bloquée, serrure grippée ou défectueuse. Intervention rapide.'
+      },
+      {
+        property: 'og:type',
+        content: 'website'
+      },
+      {
+        property: 'og:url',
+        content: 'https://www.tonsite.fr/reparation-serrure-paris-1'
+      }
+    ]);
+
+    if (isPlatformBrowser(this.platformId)) {
+      this.injectSchema();
+    }
+  }
+
+  /* =========================
+     SCHEMA JSON-LD
+  ========================== */
+  injectSchema(): void {
+    const script = document.createElement('script');
+    script.type = 'application/ld+json';
+    script.text = JSON.stringify(this.schemaData);
+    document.head.appendChild(script);
+  }
+
+  schemaData = {
+    "@context": "https://schema.org",
+    "@graph": [
+
+      /* ===== BUSINESS ===== */
+      {
+        "@type": "Locksmith",
+        "@id": "https://www.tonsite.fr/#locksmith",
+        "name": "Serrurier Paris 1",
+        "telephone": "01 23 45 67 89",
+        "priceRange": "€€",
+        "url": "https://www.tonsite.fr",
+        "openingHours": "Mo-Su 00:00-23:59",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Paris",
+          "postalCode": "75001",
+          "addressCountry": "FR"
+        },
+        "areaServed": {
+          "@type": "AdministrativeArea",
+          "name": "Paris 1"
+        }
+      },
+
+      /* ===== SERVICE ===== */
+      {
+        "@type": "Service",
+        "@id": "https://www.tonsite.fr/reparation-serrure-paris-1#service",
+        "name": "Réparation de serrure à Paris 1",
+        "serviceType": "Réparation de serrure bloquée ou défectueuse",
+        "provider": {
+          "@id": "https://www.tonsite.fr/#locksmith"
+        },
+        "areaServed": {
+          "@type": "AdministrativeArea",
+          "name": "Paris 1"
+        },
+        "description": "Réparation de serrure à Paris 1 : clé bloquée, serrure qui grince, mécanisme endommagé ou défaillant.",
+        "availableChannel": {
+          "@type": "ServiceChannel",
+          "servicePhone": {
+            "@type": "ContactPoint",
+            "telephone": "01 23 45 67 89",
+            "contactType": "customer service"
+          }
+        }
+      },
+
+      /* ===== FAQ ===== */
+      {
+        "@type": "FAQPage",
+        "@id": "https://www.tonsite.fr/reparation-serrure-paris-1#faq",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Ma serrure peut-elle être réparée ou faut-il la remplacer ?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Dans de nombreux cas, une serrure bloquée ou bruyante est réparable. Un diagnostic sur place permet de déterminer si la réparation est suffisante."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Réparez-vous toutes les marques de serrures ?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Oui. Nous intervenons sur les principales marques comme Vachette, Fichet, Picard, Bricard et autres modèles courants."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Une serrure qui grince est-elle un problème grave ?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Un grincement est souvent le signe d’un manque d’entretien. Une intervention rapide évite une panne plus coûteuse."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Combien de temps dure une réparation de serrure ?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "La plupart des réparations sont réalisées en 30 à 45 minutes selon l’état de la serrure."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "La réparation est-elle garantie ?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Oui. Toutes nos réparations sont garanties sur la main-d’œuvre et les pièces remplacées."
+            }
+          }
+        ]
+      }
+    ]
+  };
+
 
   heroData = signal({
     title: 'Réparation Serrure à Paris 1',

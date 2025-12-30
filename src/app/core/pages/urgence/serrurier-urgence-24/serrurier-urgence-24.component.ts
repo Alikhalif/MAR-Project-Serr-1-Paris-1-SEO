@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, OnInit, PLATFORM_ID, signal } from '@angular/core';
 import { ConclusionComponent } from "../../../components/conclusion/conclusion.component";
 import { FaqComponent } from "../../../components/faq/faq.component";
 import { PricingTransparencyComponent } from "../../../components/pricing-transparency/pricing-transparency.component";
@@ -6,6 +6,8 @@ import { OurServicesComponent } from "../../../components/our-services/our-servi
 import { OurCommitmentsComponent } from "../../../components/our-commitments/our-commitments.component";
 import { WhyChooseUsComponent } from "../../../components/why-choose-us/why-choose-us.component";
 import { HeroSectionComponent } from "../../../components/hero-section/hero-section.component";
+import { Meta, Title } from '@angular/platform-browser';
+import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'app-serrurier-urgence-24',
@@ -14,7 +16,171 @@ import { HeroSectionComponent } from "../../../components/hero-section/hero-sect
   templateUrl: './serrurier-urgence-24.component.html',
   styleUrl: './serrurier-urgence-24.component.scss'
 })
-export class SerrurierUrgence24Component {
+export class SerrurierUrgence24Component implements OnInit {
+
+  private title = inject(Title);
+  private meta = inject(Meta);
+  platformId = inject(PLATFORM_ID);
+
+  ngOnInit(): void {
+    this.title.setTitle(
+      'Serrurier Urgence 24/24 Paris 1 | Intervention Express'
+    );
+
+    /* =========================
+       META TAGS
+    ========================== */
+    this.meta.addTags([
+      {
+        name: 'description',
+        content: 'Bloqué(e) à toute heure dans Paris 1 ? Notre serrurier urgence 24/24 intervient en moins de 30 minutes pour ouvrir votre porte et sécuriser votre domicile.'
+      },
+      {
+        name: 'keywords',
+        content: 'serrurier urgence Paris 1, serrurier 24/24, intervention express Paris 1, porte bloquée, perte de clés'
+      },
+      { name: 'robots', content: 'index, follow' },
+      { name: 'author', content: 'Serrurier Paris 1' },
+
+      /* Canonical */
+      {
+        rel: 'canonical',
+        href: 'https://www.tonsite.fr/serrurier-urgence-24-24-paris-1'
+      },
+
+      /* Open Graph */
+      {
+        property: 'og:title',
+        content: 'Serrurier Urgence 24/24 Paris 1 – Intervention Express'
+      },
+      {
+        property: 'og:description',
+        content: 'Bloqué(e) dans Paris 1 ? Intervention rapide en moins de 30 min, jour et nuit. Sécurisation garantie.'
+      },
+      {
+        property: 'og:type',
+        content: 'website'
+      },
+      {
+        property: 'og:url',
+        content: 'https://www.tonsite.fr/serrurier-urgence-24-24-paris-1'
+      }
+    ]);
+
+    if (isPlatformBrowser(this.platformId)) {
+    this.injectSchema();
+    }
+  }
+
+  /* =========================
+     SCHEMA JSON-LD
+  ========================== */
+  injectSchema(): void {
+    const script = document.createElement('script');
+    script.type = 'application/ld+json';
+    script.text = JSON.stringify(this.schemaData);
+    document.head.appendChild(script);
+  }
+
+  schemaData = {
+    "@context": "https://schema.org",
+    "@graph": [
+
+      /* ===== BUSINESS ===== */
+      {
+        "@type": "Locksmith",
+        "@id": "https://www.tonsite.fr/#locksmith",
+        "name": "Serrurier Paris 1",
+        "telephone": "01 23 45 67 89",
+        "priceRange": "€€",
+        "url": "https://www.tonsite.fr",
+        "openingHours": "Mo-Su 00:00-23:59",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Paris",
+          "postalCode": "75001",
+          "addressCountry": "FR"
+        },
+        "areaServed": {
+          "@type": "AdministrativeArea",
+          "name": "Paris 1"
+        }
+      },
+
+      /* ===== SERVICE ===== */
+      {
+        "@type": "Service",
+        "@id": "https://www.tonsite.fr/serrurier-urgence-24-24-paris-1#service",
+        "name": "Serrurier Urgence 24/24 Paris 1",
+        "serviceType": "Dépannage immédiat et sécurisation",
+        "provider": {
+          "@id": "https://www.tonsite.fr/#locksmith"
+        },
+        "areaServed": {
+          "@type": "AdministrativeArea",
+          "name": "Paris 1"
+        },
+        "description": "Bloqué(e) à toute heure dans Paris 1 ? Intervention rapide de serrurier urgence 24/24 pour ouvrir votre porte et sécuriser votre domicile.",
+        "availableChannel": {
+          "@type": "ServiceChannel",
+          "servicePhone": {
+            "@type": "ContactPoint",
+            "telephone": "01 23 45 67 89",
+            "contactType": "customer service"
+          }
+        }
+      },
+
+      /* ===== FAQ ===== */
+      {
+        "@type": "FAQPage",
+        "@id": "https://www.tonsite.fr/serrurier-urgence-24-24-paris-1#faq",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Êtes-vous vraiment joignable et intervenant 24h/24, même les week-ends et jours fériés ?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Oui, absolument. Notre centrale téléphonique et nos équipes d'intervention sont actives 7j/7, 24h/24, 365 jours par an, y compris dimanches et jours fériés."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Quel est votre délai d'intervention moyen pour une urgence dans Paris 1 ?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Nous intervenons généralement en moins de 30 minutes après votre appel confirmé. Nos artisans sont répartis en astreinte dans différents secteurs de Paris pour un délai optimal."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Les interventions de nuit sont-elles plus chères ?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Notre tarification est transparente. Nous appliquons un forfait d'urgence 24h/24, communiqué clairement lors du devis téléphonique, sans majoration cachée."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Pouvez-vous intervenir si je n'ai plus du tout mes clés (perte/vol) ?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Oui, nous ouvrons votre porte sans clé par techniques non destructives, puis remplaçons immédiatement le cylindre pour garantir votre sécurité."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Proposez-vous une garantie sur vos interventions en urgence ?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Oui, toutes nos pièces de remplacement et la main-d'œuvre sont garanties. Les détails sont précisés sur la facture remise après intervention."
+            }
+          }
+        ]
+      }
+    ]
+  };
+
 
   heroData = signal({
     title: 'Serrurier Urgence 24/24 Paris 1',

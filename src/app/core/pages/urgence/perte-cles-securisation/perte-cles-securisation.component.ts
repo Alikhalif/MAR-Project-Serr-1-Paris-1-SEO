@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, OnInit, PLATFORM_ID, signal } from '@angular/core';
 import { ConclusionComponent } from "../../../components/conclusion/conclusion.component";
 import { FaqComponent } from "../../../components/faq/faq.component";
 import { PricingTransparencyComponent } from "../../../components/pricing-transparency/pricing-transparency.component";
@@ -6,6 +6,8 @@ import { OurServicesComponent } from "../../../components/our-services/our-servi
 import { OurCommitmentsComponent } from "../../../components/our-commitments/our-commitments.component";
 import { WhyChooseUsComponent } from "../../../components/why-choose-us/why-choose-us.component";
 import { HeroSectionComponent } from "../../../components/hero-section/hero-section.component";
+import { Meta, Title } from '@angular/platform-browser';
+import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'app-perte-cles-securisation',
@@ -14,7 +16,175 @@ import { HeroSectionComponent } from "../../../components/hero-section/hero-sect
   templateUrl: './perte-cles-securisation.component.html',
   styleUrl: './perte-cles-securisation.component.scss'
 })
-export class PerteClesSecurisationComponent {
+export class PerteClesSecurisationComponent implements OnInit {
+
+  private title = inject(Title);
+  private meta = inject(Meta);
+  platformId = inject(PLATFORM_ID);
+
+  ngOnInit(): void {
+
+    /* =========================
+       TITLE
+    ========================== */
+    this.title.setTitle(
+      'Perte de Clés Paris 1 (75001) | Intervention Urgente Serrurier'
+    );
+
+    /* =========================
+       META TAGS
+    ========================== */
+    this.meta.addTags([
+      {
+        name: 'description',
+        content: 'Perte de clés à Paris 1 (75001) ? Intervention urgente de serrurier en moins de 30 minutes. Sécurisez votre domicile rapidement.'
+      },
+      {
+        name: 'keywords',
+        content: 'perte de clés Paris 1, clé perdue 75001, serrurier urgence Paris, changement cylindre clé perdue'
+      },
+      { name: 'robots', content: 'index, follow' },
+      { name: 'author', content: 'Serrurier Paris 1' },
+
+      /* Canonical */
+      {
+        rel: 'canonical',
+        href: 'https://www.tonsite.fr/perte-cles-paris-1'
+      },
+
+      /* Open Graph */
+      {
+        property: 'og:title',
+        content: 'Perte de Clés à Paris 1 – Intervention Urgente'
+      },
+      {
+        property: 'og:description',
+        content: 'Serrurier à Paris 1 pour perte de clés : intervention rapide, changement de cylindre, sécurité garantie.'
+      },
+      {
+        property: 'og:type',
+        content: 'website'
+      },
+      {
+        property: 'og:url',
+        content: 'https://www.tonsite.fr/perte-cles-paris-1'
+      }
+    ]);
+
+    if (isPlatformBrowser(this.platformId)) {
+    this.injectSchema();
+    }
+  }
+
+  /* =========================
+     SCHEMA JSON-LD
+  ========================== */
+  injectSchema(): void {
+    const script = document.createElement('script');
+    script.type = 'application/ld+json';
+    script.text = JSON.stringify(this.schemaData);
+    document.head.appendChild(script);
+  }
+
+  schemaData = {
+    "@context": "https://schema.org",
+    "@graph": [
+
+      /* ===== BUSINESS ===== */
+      {
+        "@type": "Locksmith",
+        "@id": "https://www.tonsite.fr/#locksmith",
+        "name": "Serrurier Paris 1",
+        "telephone": "01 23 45 67 89",
+        "priceRange": "€€",
+        "url": "https://www.tonsite.fr",
+        "openingHours": "Mo-Su 00:00-23:59",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Paris",
+          "postalCode": "75001",
+          "addressCountry": "FR"
+        },
+        "areaServed": {
+          "@type": "AdministrativeArea",
+          "name": "Paris 1"
+        }
+      },
+
+      /* ===== SERVICE ===== */
+      {
+        "@type": "Service",
+        "@id": "https://www.tonsite.fr/perte-cles-paris-1#service",
+        "name": "Intervention urgente pour perte de clés à Paris 1",
+        "serviceType": "Changement de cylindre et sécurisation",
+        "provider": {
+          "@id": "https://www.tonsite.fr/#locksmith"
+        },
+        "areaServed": {
+          "@type": "AdministrativeArea",
+          "name": "Paris 1"
+        },
+        "description": "Perte de clés à Paris 1 : intervention urgente en moins de 30 minutes, changement de cylindre, sécurisation de votre domicile.",
+        "availableChannel": {
+          "@type": "ServiceChannel",
+          "servicePhone": {
+            "@type": "ContactPoint",
+            "telephone": "01 23 45 67 89",
+            "contactType": "customer service"
+          }
+        }
+      },
+
+      /* ===== FAQ ===== */
+      {
+        "@type": "FAQPage",
+        "@id": "https://www.tonsite.fr/perte-cles-paris-1#faq",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Est-il absolument nécessaire de changer la serrure si je perds mes clés ?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Oui, pour garantir votre sécurité et rendre les clés perdues inutilisables. Le remplacement du cylindre est indispensable."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Ne puis-je pas juste faire ouvrir la porte et commander un double de clés plus tard ?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Non, le double nécessite l’original ou le cylindre. La seule solution sécurisée est l’installation d’un nouveau cylindre."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Que se passe-t-il si je suis locataire ? Dois-je prévenir le propriétaire ?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Prévenez le propriétaire, mais l’urgence de sécurité prime. Vous pouvez remplacer le cylindre immédiatement pour protéger votre domicile."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Proposez-vous des cylindres de haute sécurité ?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Oui, nous recommandons les cylindres A2P pour une sécurité maximale contre perçage, crochetage et arrachage."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Et si je retrouve mes clés après votre intervention ?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Même si vous retrouvez les clés, elles ne fonctionnent plus. Seules les nouvelles clés du cylindre installé sont valides."
+            }
+          }
+        ]
+      }
+    ]
+  };
+
 
   heroData = signal({
     title: 'Perte de Clés à Paris 1',

@@ -23,7 +23,7 @@ export const routes: Routes = [
     // Urgence
 
     // serrurier-urgence
-    path: 'serrurier-urgence',
+    path: 'serrurier-urgence-paris-1',
     loadComponent: () =>
       import(
         './core/pages/urgence/serrurier-urgence/serrurier-urgence.component'
@@ -31,7 +31,7 @@ export const routes: Routes = [
   },
 
   {
-    path: 'serrurier-urgence-24',
+    path: 'serrurier-urgence-24-paris-1',
     loadComponent: () =>
       import(
         './core/pages/urgence/serrurier-urgence-24/serrurier-urgence-24.component'
@@ -39,7 +39,7 @@ export const routes: Routes = [
   },
 
   {
-    path: 'serrurier-dimanche',
+    path: 'serrurier-dimanche-paris-1',
     loadComponent: () =>
       import(
         './core/pages/urgence/serrurier-dimanche/serrurier-dimanche.component'
@@ -48,7 +48,7 @@ export const routes: Routes = [
 
   {
     // x
-    path: 'serrurier-nuit',
+    path: 'serrurier-nuit-paris-1',
     loadComponent: () =>
       import(
         './core/pages/urgence/serrurier-nuit/serrurier-nuit.component'
@@ -56,7 +56,7 @@ export const routes: Routes = [
   },
 
   {
-    path: 'ouverture-porte',
+    path: 'ouverture-porte-paris-1',
     loadComponent: () =>
       import(
         './core/pages/urgence/ouverture-porte/ouverture-porte.component'
@@ -65,7 +65,7 @@ export const routes: Routes = [
 
   {
     // x
-    path: 'ouverture-porte-claquee',
+    path: 'ouverture-porte-claquee-paris-1',
     loadComponent: () =>
       import(
         './core/pages/urgence/ouverture-porte-claquee/ouverture-porte-claquee.component'
@@ -73,7 +73,7 @@ export const routes: Routes = [
   },
 
   {
-    path: 'ouverture-porte-blindee',
+    path: 'ouverture-porte-blindee-paris-1',
     loadComponent: () =>
       import(
         './core/pages/urgence/ouverture-porte-blindee/ouverture-porte-blindee.component'
@@ -82,7 +82,7 @@ export const routes: Routes = [
 
   {
     // x
-    path: 'depannage-porte-bloquee',
+    path: 'depannage-porte-bloquee-paris-1',
     loadComponent: () =>
       import(
         './core/pages/urgence/depannage-porte-bloquee/depannage-porte-bloquee.component'
@@ -90,7 +90,7 @@ export const routes: Routes = [
   },
 
   {
-    path: 'porte-ne-s-ouvre-plus',
+    path: 'porte-ne-s-ouvre-plus-paris-1',
     loadComponent: () =>
       import(
         './core/pages/urgence/porte-ne-s-ouvre-plus/porte-ne-s-ouvre-plus.component'
@@ -99,7 +99,7 @@ export const routes: Routes = [
 
   {
     // x
-    path: 'clef-cassee-dans-serrure',
+    path: 'clef-cassee-dans-serrure-paris-1',
     loadComponent: () =>
       import(
         './core/pages/urgence/cle-cassee-serrure/cle-cassee-serrure.component'
@@ -108,7 +108,7 @@ export const routes: Routes = [
 
   {
     // x
-    path: 'perte-cles-securisation',
+    path: 'perte-cles-securisation-paris-1',
     loadComponent: () =>
       import(
         './core/pages/urgence/perte-cles-securisation/perte-cles-securisation.component'
@@ -117,7 +117,7 @@ export const routes: Routes = [
 
   {
     // x
-    path: 'depannage-serrurier',
+    path: 'depannage-serrurier-paris-1',
     loadComponent: () =>
       import(
         './core/pages/urgence/depannage-serrurier/depannage-serrurier.component'
@@ -130,7 +130,7 @@ export const routes: Routes = [
 
   {
     // x
-    path: 'changement-serrure',
+    path: 'changement-serrure-paris-1',
     loadComponent: () =>
       import(
         './core/pages/Réparation/changement-serrure/changement-serrure.component'
@@ -221,7 +221,7 @@ export const routes: Routes = [
 
   {
     // x
-    path:'installation-serrure-3-point',
+    path:'installation-serrure-3-point-paris-1',
     loadComponent: () =>
       import(
         './core/pages/Installation/installation-serrure-3-point/installation-serrure-3-point.component'

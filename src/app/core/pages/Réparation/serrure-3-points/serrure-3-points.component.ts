@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, OnInit, PLATFORM_ID, signal } from '@angular/core';
 import { ConclusionComponent } from "../../../components/conclusion/conclusion.component";
 import { FaqComponent } from "../../../components/faq/faq.component";
 import { PricingTransparencyComponent } from "../../../components/pricing-transparency/pricing-transparency.component";
@@ -6,6 +6,8 @@ import { OurServicesComponent } from "../../../components/our-services/our-servi
 import { OurCommitmentsComponent } from "../../../components/our-commitments/our-commitments.component";
 import { WhyChooseUsComponent } from "../../../components/why-choose-us/why-choose-us.component";
 import { HeroSectionComponent } from "../../../components/hero-section/hero-section.component";
+import { Meta, Title } from '@angular/platform-browser';
+import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'app-serrure-3-points',
@@ -14,7 +16,174 @@ import { HeroSectionComponent } from "../../../components/hero-section/hero-sect
   templateUrl: './serrure-3-points.component.html',
   styleUrl: './serrure-3-points.component.scss'
 })
-export class Serrure3PointsComponent {
+export class Serrure3PointsComponent implements OnInit {
+
+  private title = inject(Title);
+  private meta = inject(Meta);
+  platformId = inject(PLATFORM_ID);
+
+  ngOnInit(): void {
+
+    /* =========================
+       TITLE
+    ========================== */
+    this.title.setTitle(
+      'Dépannage Serrure 3 Points Paris 1 (75001) | Serrurier Urgent'
+    );
+
+    /* =========================
+       META TAGS
+    ========================== */
+    this.meta.addTags([
+      {
+        name: 'description',
+        content: 'Dépannage de serrure 3 points à Paris 1 (75001). Serrure multipoints bloquée, porte impossible à ouvrir. Intervention urgente 24h/24.'
+      },
+      {
+        name: 'keywords',
+        content: 'dépannage serrure 3 points Paris 1, serrure multipoints bloquée 75001, serrurier 3 points Paris, ouverture serrure 3 points'
+      },
+      { name: 'robots', content: 'index, follow' },
+      { name: 'author', content: 'Serrurier Paris 1' },
+
+      /* Canonical */
+      {
+        rel: 'canonical',
+        href: 'https://www.tonsite.fr/depannage-serrure-3-points-paris-1'
+      },
+
+      /* Open Graph */
+      {
+        property: 'og:title',
+        content: 'Dépannage Serrure 3 Points à Paris 1 – Intervention Rapide'
+      },
+      {
+        property: 'og:description',
+        content: 'Serrure 3 points bloquée à Paris 1 ? Dépannage serrurier urgent, ouverture et réparation sans dégâts.'
+      },
+      {
+        property: 'og:type',
+        content: 'website'
+      },
+      {
+        property: 'og:url',
+        content: 'https://www.tonsite.fr/depannage-serrure-3-points-paris-1'
+      }
+    ]);
+
+    if (isPlatformBrowser(this.platformId)) {
+    this.injectSchema();
+    }
+  }
+
+  /* =========================
+     SCHEMA JSON-LD
+  ========================== */
+  injectSchema(): void {
+    const script = document.createElement('script');
+    script.type = 'application/ld+json';
+    script.text = JSON.stringify(this.schemaData);
+    document.head.appendChild(script);
+  }
+
+  schemaData = {
+    "@context": "https://schema.org",
+    "@graph": [
+
+      /* ===== BUSINESS ===== */
+      {
+        "@type": "Locksmith",
+        "@id": "https://www.tonsite.fr/#locksmith",
+        "name": "Serrurier Paris 1",
+        "telephone": "01 23 45 67 89",
+        "priceRange": "€€",
+        "url": "https://www.tonsite.fr",
+        "openingHours": "Mo-Su 00:00-23:59",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Paris",
+          "postalCode": "75001",
+          "addressCountry": "FR"
+        },
+        "areaServed": {
+          "@type": "AdministrativeArea",
+          "name": "Paris 1"
+        }
+      },
+
+      /* ===== SERVICE ===== */
+      {
+        "@type": "Service",
+        "@id": "https://www.tonsite.fr/depannage-serrure-3-points-paris-1#service",
+        "name": "Dépannage serrure 3 points à Paris 1",
+        "serviceType": "Dépannage et réparation de serrure multipoints",
+        "provider": {
+          "@id": "https://www.tonsite.fr/#locksmith"
+        },
+        "areaServed": {
+          "@type": "AdministrativeArea",
+          "name": "Paris 1"
+        },
+        "description": "Dépannage de serrure 3 points à Paris 1 : serrure bloquée, porte impossible à ouvrir, réparation ou remplacement selon diagnostic.",
+        "availableChannel": {
+          "@type": "ServiceChannel",
+          "servicePhone": {
+            "@type": "ContactPoint",
+            "telephone": "01 23 45 67 89",
+            "contactType": "customer service"
+          }
+        }
+      },
+
+      /* ===== FAQ ===== */
+      {
+        "@type": "FAQPage",
+        "@id": "https://www.tonsite.fr/depannage-serrure-3-points-paris-1#faq",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Pouvez-vous ouvrir une porte avec serrure 3 points bloquée ?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Oui. Nous utilisons des techniques non destructives pour débloquer une serrure 3 points sans endommager la porte."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Faut-il réparer ou remplacer une serrure 3 points ?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Si la panne est liée à un désalignement ou un grippage, la réparation suffit. En cas d’usure avancée, le remplacement est recommandé."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Puis-je forcer une porte difficile à fermer ?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Non. Forcer peut casser définitivement la serrure 3 points. Un réglage professionnel évite une panne grave."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Intervenez-vous sur les portes blindées ?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Oui. Les serrures 3 points sont courantes sur les portes blindées et nous maîtrisons parfaitement leur dépannage."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Proposez-vous des serrures 3 points A2P ?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Oui. Nous proposons des serrures 3 points certifiées A2P offrant une sécurité renforcée et recommandées par les assureurs."
+            }
+          }
+        ]
+      }
+    ]
+  };
 
 
   heroData = signal({

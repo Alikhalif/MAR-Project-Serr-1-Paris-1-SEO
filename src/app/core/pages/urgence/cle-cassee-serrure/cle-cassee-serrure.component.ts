@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, OnInit, PLATFORM_ID, signal } from '@angular/core';
 import { ConclusionComponent } from "../../../components/conclusion/conclusion.component";
 import { FaqComponent } from "../../../components/faq/faq.component";
 import { PricingTransparencyComponent } from "../../../components/pricing-transparency/pricing-transparency.component";
@@ -6,6 +6,8 @@ import { OurServicesComponent } from "../../../components/our-services/our-servi
 import { OurCommitmentsComponent } from "../../../components/our-commitments/our-commitments.component";
 import { WhyChooseUsComponent } from "../../../components/why-choose-us/why-choose-us.component";
 import { HeroSectionComponent } from "../../../components/hero-section/hero-section.component";
+import { Meta, Title } from '@angular/platform-browser';
+import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'app-cle-cassee-serrure',
@@ -14,7 +16,170 @@ import { HeroSectionComponent } from "../../../components/hero-section/hero-sect
   templateUrl: './cle-cassee-serrure.component.html',
   styleUrl: './cle-cassee-serrure.component.scss'
 })
-export class CleCasseeSerrureComponent {
+export class CleCasseeSerrureComponent implements OnInit {
+
+  private title = inject(Title);
+  private meta = inject(Meta);
+  platformId = inject(PLATFORM_ID);
+
+  ngOnInit(): void {
+
+    this.title.setTitle(
+      'Clé Cassée dans la Serrure Paris 1 (75001) | Extraction Serrurier'
+    );
+
+    this.meta.addTags([
+      {
+        name: 'description',
+        content: 'Clé cassée dans la serrure à Paris 1 (75001) ? Extraction rapide sans dégâts. Serrurier urgence 24h/24, devis gratuit.'
+      },
+      {
+        name: 'keywords',
+        content: 'clé cassée serrure Paris 1, extraction clé cassée 75001, clé bloquée barillet Paris, serrurier clé cassée Paris'
+      },
+      { name: 'robots', content: 'index, follow' },
+      { name: 'author', content: 'Serrurier Paris 1' },
+
+      /* Canonical */
+      {
+        rel: 'canonical',
+        href: 'https://www.tonsite.fr/cle-cassee-serrure-paris-1'
+      },
+
+      /* Open Graph */
+      {
+        property: 'og:title',
+        content: 'Clé Cassée dans la Serrure à Paris 1 – Extraction Express'
+      },
+      {
+        property: 'og:description',
+        content: 'Extraction de clé cassée dans la serrure à Paris 1. Intervention rapide sans endommager le cylindre.'
+      },
+      {
+        property: 'og:type',
+        content: 'website'
+      },
+      {
+        property: 'og:url',
+        content: 'https://www.tonsite.fr/cle-cassee-serrure-paris-1'
+      }
+    ]);
+
+    if (isPlatformBrowser(this.platformId)) {
+    this.injectSchema();
+    }
+  }
+
+  /* =========================
+     SCHEMA JSON-LD
+  ========================== */
+  injectSchema(): void {
+    const script = document.createElement('script');
+    script.type = 'application/ld+json';
+    script.text = JSON.stringify(this.schemaData);
+    document.head.appendChild(script);
+  }
+
+  schemaData = {
+    "@context": "https://schema.org",
+    "@graph": [
+
+      /* ===== BUSINESS ===== */
+      {
+        "@type": "Locksmith",
+        "@id": "https://www.tonsite.fr/#locksmith",
+        "name": "Serrurier Paris 1",
+        "telephone": "01 23 45 67 89",
+        "priceRange": "€€",
+        "url": "https://www.tonsite.fr",
+        "openingHours": "Mo-Su 00:00-23:59",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Paris",
+          "postalCode": "75001",
+          "addressCountry": "FR"
+        },
+        "areaServed": {
+          "@type": "AdministrativeArea",
+          "name": "Paris 1"
+        }
+      },
+
+      /* ===== SERVICE ===== */
+      {
+        "@type": "Service",
+        "@id": "https://www.tonsite.fr/cle-cassee-serrure-paris-1#service",
+        "name": "Extraction de clé cassée dans la serrure à Paris 1",
+        "serviceType": "Extraction de clé cassée et dépannage de serrure",
+        "provider": {
+          "@id": "https://www.tonsite.fr/#locksmith"
+        },
+        "areaServed": {
+          "@type": "AdministrativeArea",
+          "name": "Paris 1"
+        },
+        "description": "Extraction de clé cassée dans la serrure à Paris 1. Intervention rapide sans abîmer le cylindre, toutes serrures et portes blindées.",
+        "availableChannel": {
+          "@type": "ServiceChannel",
+          "servicePhone": {
+            "@type": "ContactPoint",
+            "telephone": "01 23 45 67 89",
+            "contactType": "customer service"
+          }
+        }
+      },
+
+      /* ===== FAQ ===== */
+      {
+        "@type": "FAQPage",
+        "@id": "https://www.tonsite.fr/cle-cassee-serrure-paris-1#faq",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Puis-je retirer moi-même une clé cassée ?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Non recommandé. Vous risquez d’enfoncer le fragment et d’endommager le cylindre, rendant l’extraction plus coûteuse."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Pouvez-vous extraire la clé sans abîmer la serrure ?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Oui, dans plus de 95% des cas grâce à des outils professionnels adaptés à l’extraction."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Dois-je changer la serrure après extraction ?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Pas forcément. Si le cylindre fonctionne normalement après extraction, il peut être conservé."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Pouvez-vous refaire une clé sur place ?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Oui, dans la majorité des cas, une nouvelle clé peut être taillée immédiatement après extraction."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Intervenez-vous sur les portes blindées ?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Oui. Nous intervenons sur les cylindres haute sécurité et portes blindées avec le même soin."
+            }
+          }
+        ]
+      }
+    ]
+  };
+
+
 
   heroData = signal({
     title: 'Clé Cassée dans la Serrure à Paris 1',

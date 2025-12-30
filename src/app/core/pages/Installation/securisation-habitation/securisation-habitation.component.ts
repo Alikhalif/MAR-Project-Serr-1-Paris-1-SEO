@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, OnInit, PLATFORM_ID, signal } from '@angular/core';
 import { ConclusionComponent } from "../../../components/conclusion/conclusion.component";
 import { FaqComponent } from "../../../components/faq/faq.component";
 import { PricingTransparencyComponent } from "../../../components/pricing-transparency/pricing-transparency.component";
@@ -6,6 +6,8 @@ import { OurServicesComponent } from "../../../components/our-services/our-servi
 import { OurCommitmentsComponent } from "../../../components/our-commitments/our-commitments.component";
 import { WhyChooseUsComponent } from "../../../components/why-choose-us/why-choose-us.component";
 import { HeroSectionComponent } from "../../../components/hero-section/hero-section.component";
+import { Meta, Title } from '@angular/platform-browser';
+import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'app-securisation-habitation',
@@ -14,7 +16,151 @@ import { HeroSectionComponent } from "../../../components/hero-section/hero-sect
   templateUrl: './securisation-habitation.component.html',
   styleUrl: './securisation-habitation.component.scss'
 })
-export class SecurisationHabitationComponent {
+export class SecurisationHabitationComponent implements OnInit {
+
+  private title = inject(Title);
+  private meta = inject(Meta);
+  platformId = inject(PLATFORM_ID);
+
+  ngOnInit(): void {
+
+    this.title.setTitle(
+      'Sécurisation d’Habitation Paris 1 (75001) | Expert Sécurité Logement'
+    );
+
+    this.meta.addTags([
+      {
+        name: 'description',
+        content: 'Sécurisation d’habitation à Paris 1 : audit gratuit, protection portes, fenêtres et volets. Solutions sur-mesure par serrurier expert 24h/24.'
+      },
+      {
+        name: 'keywords',
+        content: 'sécurisation habitation Paris 1, sécurité logement 75001, audit sécurité maison Paris, protection appartement Paris 1'
+      },
+      { name: 'robots', content: 'index, follow' },
+      { name: 'author', content: 'Serrurier Paris 1' },
+
+      /* Open Graph */
+      {
+        property: 'og:title',
+        content: 'Sécurisation d’Habitation à Paris 1 – Protection Complète'
+      },
+      {
+        property: 'og:description',
+        content: 'Audit gratuit et solutions professionnelles pour sécuriser votre logement à Paris 1.'
+      },
+      {
+        property: 'og:type',
+        content: 'website'
+      }
+    ]);
+
+
+    if (isPlatformBrowser(this.platformId)) {
+      this.injectJsonLd();
+    }
+  }
+
+  injectJsonLd() {
+    const script = document.createElement('script');
+    script.type = 'application/ld+json';
+    script.text = JSON.stringify(
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "Locksmith",
+            "@id": "https://www.tonsite.fr/#locksmith",
+            "name": "Serrurier Paris 1",
+            "image": "https://i.ibb.co/wZDQHyc2/audit-5.png",
+            "telephone": "01 23 45 67 89",
+            "address": {
+              "@type": "PostalAddress",
+              "streetAddress": "Paris 1er arrondissement",
+              "addressLocality": "Paris",
+              "postalCode": "75001",
+              "addressCountry": "FR"
+            },
+            "areaServed": {
+              "@type": "AdministrativeArea",
+              "name": "Paris 1"
+            },
+            "openingHours": "Mo-Su 00:00-23:59",
+            "priceRange": "€€",
+            "url": "https://www.tonsite.fr"
+          },
+
+          {
+            "@type": "Service",
+            "@id": "https://www.tonsite.fr/securisation-habitation-paris-1#service",
+            "serviceType": "Sécurisation d’habitation",
+            "provider": {
+              "@id": "https://www.tonsite.fr/#locksmith"
+            },
+            "areaServed": {
+              "@type": "AdministrativeArea",
+              "name": "Paris 1"
+            },
+            "description": "Sécurisation complète d’habitation à Paris 1 : audit gratuit, protection portes, fenêtres et volets avec solutions sur-mesure.",
+            "offers": {
+              "@type": "Offer",
+              "priceCurrency": "EUR",
+              "price": "Sur devis",
+              "availability": "https://schema.org/InStock"
+            }
+          },
+
+          {
+            "@type": "FAQPage",
+            "@id": "https://www.tonsite.fr/securisation-habitation-paris-1#faq",
+            "mainEntity": [
+              {
+                "@type": "Question",
+                "name": "Par où commencer pour sécuriser mon appartement ?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "La priorité est la porte d’entrée, principale barrière contre les intrusions. Ensuite viennent les fenêtres et accès secondaires. Un audit gratuit permet d’établir un plan de sécurisation personnalisé."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Que peut faire un locataire pour sécuriser son logement ?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Un locataire peut changer le cylindre de sa porte et installer des dispositifs réversibles sur les fenêtres. Pour des travaux plus importants, un devis peut être présenté au propriétaire."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Une porte blindée est-elle utile avec un digicode ?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Oui. Le digicode protège l’immeuble, mais seule la porte de l’appartement protège vos biens personnels. Elle reste indispensable."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Installez-vous des alarmes ou caméras ?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Nous sommes spécialisés en sécurité physique (portes, fenêtres, volets). Pour les alarmes et caméras, nous orientons vers des partenaires spécialisés."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Les travaux sont-ils garantis ?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Oui. Les produits bénéficient de la garantie constructeur et notre main-d’œuvre est garantie au minimum 2 ans."
+                }
+              }
+            ]
+          }
+        ]
+      }
+    );
+    document.head.appendChild(script);
+  }
 
   heroData = signal({
     title: 'Sécurisation d\'Habitation à Paris 1',

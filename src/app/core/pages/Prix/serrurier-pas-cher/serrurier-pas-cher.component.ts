@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, OnInit, PLATFORM_ID, signal } from '@angular/core';
 import { ConclusionComponent } from "../../../components/conclusion/conclusion.component";
 import { FaqComponent } from "../../../components/faq/faq.component";
 import { PricingTransparencyComponent } from "../../../components/pricing-transparency/pricing-transparency.component";
@@ -6,6 +6,8 @@ import { OurServicesComponent } from "../../../components/our-services/our-servi
 import { OurCommitmentsComponent } from "../../../components/our-commitments/our-commitments.component";
 import { WhyChooseUsComponent } from "../../../components/why-choose-us/why-choose-us.component";
 import { HeroSectionComponent } from "../../../components/hero-section/hero-section.component";
+import { Meta, Title } from '@angular/platform-browser';
+import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'app-serrurier-pas-cher',
@@ -14,7 +16,152 @@ import { HeroSectionComponent } from "../../../components/hero-section/hero-sect
   templateUrl: './serrurier-pas-cher.component.html',
   styleUrl: './serrurier-pas-cher.component.scss'
 })
-export class SerrurierPasCherComponent {
+export class SerrurierPasCherComponent implements  OnInit {
+
+  private title = inject(Title);
+  private meta = inject(Meta);
+  platformId = inject(PLATFORM_ID);
+
+  ngOnInit(): void {
+
+    this.title.setTitle(
+      'Serrurier Pas Cher Paris 1 (75001) | Prix Justes & Intervention 24h/24'
+    );
+
+    this.meta.addTags([
+      {
+        name: 'description',
+        content: 'Serrurier pas cher à Paris 1 : devis gratuit, tarifs transparents, intervention rapide 24h/24, sans surprise ni frais cachés.'
+      },
+      {
+        name: 'keywords',
+        content: 'serrurier pas cher Paris 1, serrurier économique 75001, serrurier prix bas Paris, dépannage serrurier pas cher'
+      },
+      { name: 'robots', content: 'index, follow' },
+      { name: 'author', content: 'Serrurier Paris 1' },
+
+      /* Open Graph */
+      {
+        property: 'og:title',
+        content: 'Serrurier Pas Cher Paris 1 – Tarifs Justes & Service Garanti'
+      },
+      {
+        property: 'og:description',
+        content: 'Besoin d’un serrurier pas cher à Paris 1 ? Prix clairs, devis gratuit, disponibilité 24h/24.'
+      },
+      {
+        property: 'og:type',
+        content: 'website'
+      }
+    ]);
+
+    if (isPlatformBrowser(this.platformId)) {
+    this.injectJsonLd();
+    }
+  }
+
+
+  injectJsonLd() {
+    const script = document.createElement('script');
+    script.type = 'application/ld+json';
+    script.text = JSON.stringify(
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "Locksmith",
+            "@id": "https://www.tonsite.fr/#locksmith",
+            "name": "Serrurier Pas Cher Paris 1",
+            "telephone": "01 23 45 67 89",
+            "image": "https://i.ibb.co/L3zPnQb/serrurier-pas-cher.png",
+            "priceRange": "€",
+            "address": {
+              "@type": "PostalAddress",
+              "addressLocality": "Paris",
+              "postalCode": "75001",
+              "addressCountry": "FR"
+            },
+            "areaServed": {
+              "@type": "AdministrativeArea",
+              "name": "Paris 1"
+            },
+            "openingHours": "Mo-Su 00:00-23:59",
+            "url": "https://www.tonsite.fr"
+          },
+
+          {
+            "@type": "Service",
+            "@id": "https://www.tonsite.fr/serrurier-pas-cher-paris-1#service",
+            "serviceType": "Serrurier pas cher",
+            "provider": {
+              "@id": "https://www.tonsite.fr/#locksmith"
+            },
+            "areaServed": {
+              "@type": "AdministrativeArea",
+              "name": "Paris 1"
+            },
+            "description": "Serrurier pas cher à Paris 1 avec devis transparent, tarifs justes et interventions garanties.",
+            "offers": {
+              "@type": "Offer",
+              "priceCurrency": "EUR",
+              "availability": "https://schema.org/InStock"
+            }
+          },
+
+          {
+            "@type": "FAQPage",
+            "@id": "https://www.tonsite.fr/serrurier-pas-cher-paris-1#faq",
+            "mainEntity": [
+              {
+                "@type": "Question",
+                "name": "Comment maintenez-vous des prix compétitifs ?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Grâce à une organisation optimisée, des déplacements rapides et des achats groupés de pièces professionnelles."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Y a-t-il des majorations la nuit ou le week-end ?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Non, le forfait urgence est identique 24h/24 et 7j/7, sans surprise."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Puis-je fournir mes propres pièces ?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Non, pour garantir la sécurité, la compatibilité et la garantie des interventions."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "La facture peut-elle baisser si l’intervention est plus simple ?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Oui, si le travail est plus rapide que prévu, la facture est ajustée à la baisse."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Proposez-vous des garanties malgré des prix bas ?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Oui, toutes nos interventions et pièces sont garanties, généralement 2 ans."
+                }
+              }
+            ]
+          }
+        ]
+      }
+
+
+
+    );
+    document.head.appendChild(script);
+  }
 
   heroData = signal({
     title: 'Serrurier Pas Cher à Paris 1',

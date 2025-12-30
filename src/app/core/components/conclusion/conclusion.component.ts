@@ -4,6 +4,10 @@
 // src/app/components/conclusion/conclusion.component.ts
 import { Component, input, output } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { isPlatformBrowser } from '@angular/common';
+import { PLATFORM_ID, inject } from '@angular/core';
+
+
 
 interface ConclusionData {
   title: string;
@@ -24,8 +28,13 @@ export class ConclusionComponent {
   data = input.required<ConclusionData>();
   ctaClick = output<string>();
 
+  platformId = inject(PLATFORM_ID);
+
   onCtaClick(): void {
     this.ctaClick.emit(this.data().ctaPhone);
-    window.location.href = `tel:${this.data().ctaPhone}`;
+
+    if (isPlatformBrowser(this.platformId)) {
+      window.location.href = `tel:${this.data().ctaPhone}`;
+    }
   }
 }

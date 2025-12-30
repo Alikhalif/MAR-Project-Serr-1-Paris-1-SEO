@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, OnInit, PLATFORM_ID, signal } from '@angular/core';
 import { ConclusionComponent } from "../../../components/conclusion/conclusion.component";
 import { FaqComponent } from "../../../components/faq/faq.component";
 import { PricingTransparencyComponent } from "../../../components/pricing-transparency/pricing-transparency.component";
@@ -6,6 +6,8 @@ import { OurServicesComponent } from "../../../components/our-services/our-servi
 import { OurCommitmentsComponent } from "../../../components/our-commitments/our-commitments.component";
 import { WhyChooseUsComponent } from "../../../components/why-choose-us/why-choose-us.component";
 import { HeroSectionComponent } from "../../../components/hero-section/hero-section.component";
+import { Meta, Title } from '@angular/platform-browser';
+import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'app-ouverture-porte-blindee',
@@ -14,7 +16,176 @@ import { HeroSectionComponent } from "../../../components/hero-section/hero-sect
   templateUrl: './ouverture-porte-blindee.component.html',
   styleUrl: './ouverture-porte-blindee.component.scss'
 })
-export class OuverturePorteBlindeeComponent {
+export class OuverturePorteBlindeeComponent implements OnInit {
+
+  private title = inject(Title);
+  private meta = inject(Meta);
+  platformId = inject(PLATFORM_ID);
+
+  ngOnInit(): void {
+
+    /* =========================
+       TITLE
+    ========================== */
+    this.title.setTitle(
+      'Ouverture Porte Blindée Paris 1 (75001) | Dépannage Serrurier Expert'
+    );
+
+    /* =========================
+       META TAGS
+    ========================== */
+    this.meta.addTags([
+      {
+        name: 'description',
+        content: 'Ouverture de porte blindée à Paris 1 (75001). Dépannage rapide, intervention experte 24h/24, ouverture sans dégâts, cylindre testé ou remplacé si nécessaire.'
+      },
+      {
+        name: 'keywords',
+        content: 'ouverture porte blindée Paris 1, serrurier porte blindée 75001, dépanneur porte haute sécurité Paris, serrurier urgence Paris'
+      },
+      { name: 'robots', content: 'index, follow' },
+      { name: 'author', content: 'Serrurier Paris 1' },
+
+      /* Canonical */
+      {
+        rel: 'canonical',
+        href: 'https://www.tonsite.fr/ouverture-porte-blindee-paris-1'
+      },
+
+      /* Open Graph */
+      {
+        property: 'og:title',
+        content: 'Ouverture de Porte Blindée à Paris 1 – Dépannage Expert'
+      },
+      {
+        property: 'og:description',
+        content: 'Déblocage rapide de porte blindée à Paris 1. Intervention experte 24h/24, méthodes non destructives et cylindre testé ou remplacé.'
+      },
+      {
+        property: 'og:type',
+        content: 'website'
+      },
+      {
+        property: 'og:url',
+        content: 'https://www.tonsite.fr/ouverture-porte-blindee-paris-1'
+      }
+    ]);
+
+    if (isPlatformBrowser(this.platformId)) {
+    this.injectSchema();
+    }
+  }
+
+  /* =========================
+     SCHEMA JSON-LD
+  ========================== */
+  injectSchema(): void {
+    const script = document.createElement('script');
+    script.type = 'application/ld+json';
+    script.text = JSON.stringify(this.schemaData);
+    document.head.appendChild(script);
+  }
+
+  schemaData = {
+    "@context": "https://schema.org",
+    "@graph": [
+
+      /* ===== BUSINESS ===== */
+      {
+        "@type": "Locksmith",
+        "@id": "https://www.tonsite.fr/#locksmith",
+        "name": "Serrurier Paris 1",
+        "telephone": "01 23 45 67 89",
+        "priceRange": "€€",
+        "url": "https://www.tonsite.fr",
+        "openingHours": "Mo-Su 00:00-23:59",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Paris",
+          "postalCode": "75001",
+          "addressCountry": "FR"
+        },
+        "areaServed": {
+          "@type": "AdministrativeArea",
+          "name": "Paris 1"
+        }
+      },
+
+      /* ===== SERVICE ===== */
+      {
+        "@type": "Service",
+        "@id": "https://www.tonsite.fr/ouverture-porte-blindee-paris-1#service",
+        "name": "Ouverture de porte blindée à Paris 1",
+        "serviceType": "Déblocage et ouverture de porte blindée",
+        "provider": {
+          "@id": "https://www.tonsite.fr/#locksmith"
+        },
+        "areaServed": {
+          "@type": "AdministrativeArea",
+          "name": "Paris 1"
+        },
+        "description": "Ouverture de porte blindée à Paris 1 : intervention experte, non destructive, cylindre testé ou remplacé si nécessaire, disponibilité 24h/24.",
+        "availableChannel": {
+          "@type": "ServiceChannel",
+          "servicePhone": {
+            "@type": "ContactPoint",
+            "telephone": "01 23 45 67 89",
+            "contactType": "customer service"
+          }
+        }
+      },
+
+      /* ===== FAQ ===== */
+      {
+        "@type": "FAQPage",
+        "@id": "https://www.tonsite.fr/ouverture-porte-blindee-paris-1#faq",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Pouvez-vous ouvrir n'importe quelle marque de porte blindée sans la percer ?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Nous privilégions toujours l'ouverture sans perçage. Pour la plupart des marques courantes, nous réussissons par crochetage ou manipulation dans plus de 80% des cas. Certains cylindres haute sécurité peuvent nécessiter un perçage minimal, expliqué avant intervention."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "L'ouverture va-t-elle endommager ma porte et annuler sa garantie ?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Notre objectif est de préserver l'intégrité de la porte. Manipulation sans dégâts visibles, perçage minimal seulement sur le cylindre si nécessaire. La garantie sur le vantail et cadre reste intacte."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Combien de temps prend une ouverture de porte blindée ?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "De 15 minutes pour une porte claquée à plus d'une heure pour un mécanisme complexe. Délai d'arrivée garanti <30 minutes dans Paris 1."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Dois-je changer mon cylindre après une ouverture ?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Fortement recommandé, surtout après perte de clés ou perçage. Le cylindre est testé et remplacé si nécessaire par un modèle A2P."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Pourquoi l'intervention sur une porte blindée est-elle plus chère que sur une porte standard ?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "En raison de l'expertise technique, complexité, durée, utilisation d'outils spécialisés et responsabilité liée à la manipulation d'une porte haute sécurité."
+            }
+          }
+        ]
+      }
+    ]
+  };
+
+
 
   heroData = signal({
     title: 'Ouverture Porte Blindée à Paris 1',
@@ -23,7 +194,7 @@ export class OuverturePorteBlindeeComponent {
     ctaText: 'Votre porte blindée est bloquée dans Paris 1 ? Appelez nos experts',
     ctaPhone: '01 23 45 67 89',
     backgroundImage: 'https://images.unsplash.com/photo-1516455590571-18256e5bb9ff?w=1600&q=80'
-});
+  });
 
 whyChooseData = signal({
     title: 'Pourquoi l\'ouverture d\'une porte blindée requiert un expert spécifique à Paris 1 ?',

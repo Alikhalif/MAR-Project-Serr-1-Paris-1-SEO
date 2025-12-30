@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, PLATFORM_ID, signal } from '@angular/core';
 import { ConclusionComponent } from "../../../components/conclusion/conclusion.component";
 import { FaqComponent } from "../../../components/faq/faq.component";
 import { PricingTransparencyComponent } from "../../../components/pricing-transparency/pricing-transparency.component";
@@ -6,6 +6,8 @@ import { OurServicesComponent } from "../../../components/our-services/our-servi
 import { OurCommitmentsComponent } from "../../../components/our-commitments/our-commitments.component";
 import { WhyChooseUsComponent } from "../../../components/why-choose-us/why-choose-us.component";
 import { HeroSectionComponent } from "../../../components/hero-section/hero-section.component";
+import { Meta, Title } from '@angular/platform-browser';
+import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'app-depannage-serrure-cassee',
@@ -15,6 +17,157 @@ import { HeroSectionComponent } from "../../../components/hero-section/hero-sect
   styleUrl: './depannage-serrure-cassee.component.scss'
 })
 export class DepannageSerrureCasseeComponent {
+
+
+  private title = inject(Title);
+  private meta = inject(Meta);
+  platformId = inject(PLATFORM_ID);
+
+  ngOnInit(): void {
+
+    this.title.setTitle(
+      'Serrure Cassée Paris 1 (75001) | Dépannage Serrurier Urgent 24h/24'
+    );
+
+    this.meta.addTags([
+      {
+        name: 'description',
+        content: 'Serrure cassée à Paris 1 ? Dépannage serrurier urgent 24h/24. Ouverture de porte, réparation ou remplacement immédiat. Devis gratuit avant intervention.'
+      },
+      {
+        name: 'keywords',
+        content: 'serrure cassée Paris 1, dépannage serrure cassée 75001, serrurier urgence Paris 1, serrure bloquée Paris'
+      },
+      { name: 'robots', content: 'index, follow' },
+      { name: 'author', content: 'Serrurier Paris 1' },
+
+      /* Open Graph */
+      {
+        property: 'og:title',
+        content: 'Serrure Cassée à Paris 1 – Dépannage Serrurier Urgent'
+      },
+      {
+        property: 'og:description',
+        content: 'Intervention immédiate pour serrure cassée à Paris 1. Ouverture sans dégâts, remplacement A2P possible.'
+      },
+      {
+        property: 'og:type',
+        content: 'website'
+      }
+    ]);
+
+    if (isPlatformBrowser(this.platformId)) {
+    this.injectJsonLd();
+    }
+  }
+
+
+  injectJsonLd() {
+    const script = document.createElement('script');
+    script.type = 'application/ld+json';
+    script.text = JSON.stringify(
+      {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Locksmith",
+      "@id": "https://www.tonsite.fr/#locksmith",
+      "name": "Serrurier Paris 1",
+      "telephone": "01 23 45 67 89",
+      "priceRange": "€€",
+      "image": "https://images.unsplash.com/photo-1558618666-fcd25c85cd64",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Paris",
+        "postalCode": "75001",
+        "addressCountry": "FR"
+      },
+      "openingHours": "Mo-Su 00:00-23:59",
+      "areaServed": {
+        "@type": "AdministrativeArea",
+        "name": "Paris 1"
+      },
+      "url": "https://www.tonsite.fr"
+    },
+
+    {
+      "@type": "Service",
+      "@id": "https://www.tonsite.fr/serrure-cassee-paris-1#service",
+      "name": "Dépannage serrure cassée à Paris 1",
+      "serviceType": "Dépannage serrurerie urgence",
+      "provider": {
+        "@id": "https://www.tonsite.fr/#locksmith"
+      },
+      "areaServed": {
+        "@type": "AdministrativeArea",
+        "name": "Paris 1"
+      },
+      "description": "Dépannage urgent de serrure cassée à Paris 1 : ouverture de porte, réparation ou remplacement de serrure et cylindre A2P.",
+      "availableChannel": {
+        "@type": "ServiceChannel",
+        "servicePhone": {
+          "@type": "ContactPoint",
+          "telephone": "01 23 45 67 89",
+          "contactType": "emergency"
+        }
+      }
+    },
+
+    {
+      "@type": "FAQPage",
+      "@id": "https://www.tonsite.fr/serrure-cassee-paris-1#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Peut-on ouvrir une porte avec une serrure cassée ?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Oui. Même avec un mécanisme cassé, un serrurier expérimenté peut ouvrir la porte sans dégâts grâce à des techniques professionnelles."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Faut-il obligatoirement changer toute la serrure ?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Non. Si seul le cylindre est cassé, son remplacement suffit. Le diagnostic sur place détermine la solution la plus économique."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Une serrure cassée est-elle une urgence ?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Oui. Une serrure cassée ne garantit plus la sécurité du logement. Une intervention rapide est fortement recommandée."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Installez-vous des serrures plus sécurisées en remplacement ?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Oui. Nous proposons des serrures et cylindres certifiés A2P pour renforcer durablement votre sécurité."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Les pièces remplacées sont-elles garanties ?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Oui. Les pièces bénéficient de la garantie fabricant et la main d’œuvre est garantie au minimum 2 ans."
+          }
+        }
+      ]
+    }
+  ]
+}
+
+
+
+
+    );
+    document.head.appendChild(script);
+  }
 
   heroData = signal({
     title: 'Serrure Cassée à Paris 1 ?',

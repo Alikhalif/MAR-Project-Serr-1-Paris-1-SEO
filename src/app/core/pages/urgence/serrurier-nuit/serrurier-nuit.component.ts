@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, OnInit, PLATFORM_ID, signal } from '@angular/core';
 import { ConclusionComponent } from "../../../components/conclusion/conclusion.component";
 import { FaqComponent } from "../../../components/faq/faq.component";
 import { PricingTransparencyComponent } from "../../../components/pricing-transparency/pricing-transparency.component";
@@ -6,6 +6,8 @@ import { OurServicesComponent } from "../../../components/our-services/our-servi
 import { OurCommitmentsComponent } from "../../../components/our-commitments/our-commitments.component";
 import { WhyChooseUsComponent } from "../../../components/why-choose-us/why-choose-us.component";
 import { HeroSectionComponent } from "../../../components/hero-section/hero-section.component";
+import { Meta, Title } from '@angular/platform-browser';
+import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'app-serrurier-nuit',
@@ -14,7 +16,175 @@ import { HeroSectionComponent } from "../../../components/hero-section/hero-sect
   templateUrl: './serrurier-nuit.component.html',
   styleUrl: './serrurier-nuit.component.scss'
 })
-export class SerrurierNuitComponent {
+export class SerrurierNuitComponent implements OnInit {
+
+  private title = inject(Title);
+  private meta = inject(Meta);
+  platformId = inject(PLATFORM_ID);
+
+  ngOnInit(): void {
+
+    /* =========================
+       TITLE
+    ========================== */
+    this.title.setTitle(
+      'Serrurier Nuit Paris 1 (75001) | Intervention Urgente 24h/24'
+    );
+
+    /* =========================
+       META TAGS
+    ========================== */
+    this.meta.addTags([
+      {
+        name: 'description',
+        content: 'Serrurier de nuit à Paris 1 : intervention urgente 24h/24. Déblocage rapide, remplacement cylindre et sécurité garantie pendant la nuit.'
+      },
+      {
+        name: 'keywords',
+        content: 'serrurier nuit Paris 1, serrurier urgence nocturne 75001, dépannage serrure nuit, ouverture porte nuit'
+      },
+      { name: 'robots', content: 'index, follow' },
+      { name: 'author', content: 'Serrurier Paris 1' },
+
+      /* Canonical */
+      {
+        rel: 'canonical',
+        href: 'https://www.tonsite.fr/serrurier-nuit-paris-1'
+      },
+
+      /* Open Graph */
+      {
+        property: 'og:title',
+        content: 'Serrurier Nuit à Paris 1 – Intervention 24h/24'
+      },
+      {
+        property: 'og:description',
+        content: 'Urgence serrurerie nocturne à Paris 1 : ouverture de porte, remplacement cylindre, intervention rapide et sécurisée.'
+      },
+      {
+        property: 'og:type',
+        content: 'website'
+      },
+      {
+        property: 'og:url',
+        content: 'https://www.tonsite.fr/serrurier-nuit-paris-1'
+      }
+    ]);
+
+    if (isPlatformBrowser(this.platformId)) {
+    this.injectSchema();
+    }
+  }
+
+  /* =========================
+     SCHEMA JSON-LD
+  ========================== */
+  injectSchema(): void {
+    const script = document.createElement('script');
+    script.type = 'application/ld+json';
+    script.text = JSON.stringify(this.schemaData);
+    document.head.appendChild(script);
+  }
+
+  schemaData = {
+    "@context": "https://schema.org",
+    "@graph": [
+
+      /* ===== BUSINESS ===== */
+      {
+        "@type": "Locksmith",
+        "@id": "https://www.tonsite.fr/#locksmith",
+        "name": "Serrurier Paris 1",
+        "telephone": "01 23 45 67 89",
+        "priceRange": "€€",
+        "url": "https://www.tonsite.fr",
+        "openingHours": "Mo-Su 00:00-23:59",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Paris",
+          "postalCode": "75001",
+          "addressCountry": "FR"
+        },
+        "areaServed": {
+          "@type": "AdministrativeArea",
+          "name": "Paris 1"
+        }
+      },
+
+      /* ===== SERVICE ===== */
+      {
+        "@type": "Service",
+        "@id": "https://www.tonsite.fr/serrurier-nuit-paris-1#service",
+        "name": "Serrurier de Nuit à Paris 1",
+        "serviceType": "Intervention urgence nocturne 24h/24",
+        "provider": {
+          "@id": "https://www.tonsite.fr/#locksmith"
+        },
+        "areaServed": {
+          "@type": "AdministrativeArea",
+          "name": "Paris 1"
+        },
+        "description": "Serrurier de nuit à Paris 1 : ouverture porte, remplacement cylindre, intervention urgente et sécurisée toute la nuit.",
+        "availableChannel": {
+          "@type": "ServiceChannel",
+          "servicePhone": {
+            "@type": "ContactPoint",
+            "telephone": "01 23 45 67 89",
+            "contactType": "customer service"
+          }
+        }
+      },
+
+      /* ===== FAQ ===== */
+      {
+        "@type": "FAQPage",
+        "@id": "https://www.tonsite.fr/serrurier-nuit-paris-1#faq",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Êtes-vous vraiment disponibles toute la nuit, même après minuit ?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Oui, notre service d'urgence 24h/24 est actif de 20h à 8h, sans interruption."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Les interventions de nuit sont-elles plus chères ?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Nous appliquons un forfait d'urgence nocturne communiqué à l'avance, sans majoration imprévue."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Pouvez-vous intervenir sans déranger les voisins ?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Oui, nous utilisons des techniques discrètes pour minimiser le bruit et l'impact visuel."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Que faire si je perds toutes mes clés la nuit ?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Nous ouvrons votre porte sans clé et remplaçons le cylindre immédiatement pour sécuriser votre domicile."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Proposez-vous une garantie sur les interventions de nuit ?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Oui, garantie identique à une intervention de jour, avec facture détaillée pour la main-d'œuvre et les pièces."
+            }
+          }
+        ]
+      }
+    ]
+  };
+
 
   heroData = signal({
     title: 'Serrurier Nuit à Paris 1',

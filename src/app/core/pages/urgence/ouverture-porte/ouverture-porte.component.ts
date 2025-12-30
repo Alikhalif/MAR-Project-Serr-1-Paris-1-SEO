@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, OnInit, PLATFORM_ID, signal } from '@angular/core';
 import { ConclusionComponent } from "../../../components/conclusion/conclusion.component";
 import { FaqComponent } from "../../../components/faq/faq.component";
 import { PricingTransparencyComponent } from "../../../components/pricing-transparency/pricing-transparency.component";
@@ -6,6 +6,8 @@ import { OurCommitmentsComponent } from "../../../components/our-commitments/our
 import { WhyChooseUsComponent } from "../../../components/why-choose-us/why-choose-us.component";
 import { OurServicesComponent } from "../../../components/our-services/our-services.component";
 import { HeroSectionComponent } from "../../../components/hero-section/hero-section.component";
+import { Meta, Title } from '@angular/platform-browser';
+import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'app-ouverture-porte',
@@ -14,7 +16,175 @@ import { HeroSectionComponent } from "../../../components/hero-section/hero-sect
   templateUrl: './ouverture-porte.component.html',
   styleUrl: './ouverture-porte.component.scss'
 })
-export class OuverturePorteComponent {
+export class OuverturePorteComponent implements OnInit {
+
+  private title = inject(Title);
+  private meta = inject(Meta);
+  platformId = inject(PLATFORM_ID);
+
+  ngOnInit(): void {
+
+    /* =========================
+       TITLE
+    ========================== */
+    this.title.setTitle(
+      'Ouverture de Porte Paris 1 (75001) | Dépannage Serrurier Rapide'
+    );
+
+    /* =========================
+       META TAGS
+    ========================== */
+    this.meta.addTags([
+      {
+        name: 'description',
+        content: 'Ouverture de porte à Paris 1 (75001). Dépannage rapide et sans dégâts, intervention en moins de 30 minutes. Serrure bloquée, clé perdue, porte claquée.'
+      },
+      {
+        name: 'keywords',
+        content: 'ouverture porte Paris 1, dépanneur porte claquée 75001, serrurier urgence Paris, porte bloquée Paris'
+      },
+      { name: 'robots', content: 'index, follow' },
+      { name: 'author', content: 'Serrurier Paris 1' },
+
+      /* Canonical */
+      {
+        rel: 'canonical',
+        href: 'https://www.tonsite.fr/ouverture-porte-paris-1'
+      },
+
+      /* Open Graph */
+      {
+        property: 'og:title',
+        content: 'Ouverture de Porte à Paris 1 – Dépannage Express'
+      },
+      {
+        property: 'og:description',
+        content: 'Intervention rapide pour ouverture de porte à Paris 1. Déblocage sans dégâts, serrurier disponible 24h/24.'
+      },
+      {
+        property: 'og:type',
+        content: 'website'
+      },
+      {
+        property: 'og:url',
+        content: 'https://www.tonsite.fr/ouverture-porte-paris-1'
+      }
+    ]);
+
+    if (isPlatformBrowser(this.platformId)) {
+    this.injectSchema();
+    }
+  }
+
+  /* =========================
+     SCHEMA JSON-LD
+  ========================== */
+  injectSchema(): void {
+    const script = document.createElement('script');
+    script.type = 'application/ld+json';
+    script.text = JSON.stringify(this.schemaData);
+    document.head.appendChild(script);
+  }
+
+  schemaData = {
+    "@context": "https://schema.org",
+    "@graph": [
+
+      /* ===== BUSINESS ===== */
+      {
+        "@type": "Locksmith",
+        "@id": "https://www.tonsite.fr/#locksmith",
+        "name": "Serrurier Paris 1",
+        "telephone": "01 23 45 67 89",
+        "priceRange": "€€",
+        "url": "https://www.tonsite.fr",
+        "openingHours": "Mo-Su 00:00-23:59",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Paris",
+          "postalCode": "75001",
+          "addressCountry": "FR"
+        },
+        "areaServed": {
+          "@type": "AdministrativeArea",
+          "name": "Paris 1"
+        }
+      },
+
+      /* ===== SERVICE ===== */
+      {
+        "@type": "Service",
+        "@id": "https://www.tonsite.fr/ouverture-porte-paris-1#service",
+        "name": "Ouverture de porte à Paris 1",
+        "serviceType": "Déblocage et ouverture de porte",
+        "provider": {
+          "@id": "https://www.tonsite.fr/#locksmith"
+        },
+        "areaServed": {
+          "@type": "AdministrativeArea",
+          "name": "Paris 1"
+        },
+        "description": "Ouverture de porte à Paris 1 : intervention rapide, non destructive, serrurier disponible 24h/24 pour porte claquée, clé perdue ou serrure bloquée.",
+        "availableChannel": {
+          "@type": "ServiceChannel",
+          "servicePhone": {
+            "@type": "ContactPoint",
+            "telephone": "01 23 45 67 89",
+            "contactType": "customer service"
+          }
+        }
+      },
+
+      /* ===== FAQ ===== */
+      {
+        "@type": "FAQPage",
+        "@id": "https://www.tonsite.fr/ouverture-porte-paris-1#faq",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Combien de temps prenez-vous pour ouvrir une porte en moyenne ?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "L'ouverture propre prend généralement entre 5 et 20 minutes une fois l'artisan sur place. Le délai total dépend du temps de trajet."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Pouvez-vous ouvrir n'importe quel type de porte ?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Oui, portes blindées, 3 points, multipoints, bureaux, digicode ou interphone. Chaque système est maîtrisé par nos artisans."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Garantissez-vous de ne rien abîmer pendant l'ouverture ?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Nous privilégions les méthodes non destructives. Dans plus de 95% des cas, la porte et la serrure restent intactes."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Dois-je prouver que je suis bien le résident des lieux ?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Oui, pièce d'identité et justificatif de domicile sont demandés par mesure de sécurité et responsabilité."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Que faire si ma serrure est abîmée après l'ouverture ?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Si la serrure est usée, nous proposons un devis immédiat pour remplacement du cylindre ou de la serrure, libre à vous de l'accepter ou différer."
+            }
+          }
+        ]
+      }
+    ]
+  };
+
 
   heroData = signal({
     title: 'Ouverture de Porte à Paris 1',

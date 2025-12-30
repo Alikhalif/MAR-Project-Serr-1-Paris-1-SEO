@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, OnInit, PLATFORM_ID, signal } from '@angular/core';
 import { ConclusionComponent } from "../../../components/conclusion/conclusion.component";
 import { FaqComponent } from "../../../components/faq/faq.component";
 import { PricingTransparencyComponent } from "../../../components/pricing-transparency/pricing-transparency.component";
@@ -6,6 +6,8 @@ import { OurServicesComponent } from "../../../components/our-services/our-servi
 import { OurCommitmentsComponent } from "../../../components/our-commitments/our-commitments.component";
 import { WhyChooseUsComponent } from "../../../components/why-choose-us/why-choose-us.component";
 import { HeroSectionComponent } from "../../../components/hero-section/hero-section.component";
+import { Meta, Title } from '@angular/platform-browser';
+import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'app-pose-porte-blindee',
@@ -14,7 +16,151 @@ import { HeroSectionComponent } from "../../../components/hero-section/hero-sect
   templateUrl: './pose-porte-blindee.component.html',
   styleUrl: './pose-porte-blindee.component.scss'
 })
-export class PosePorteBlindeeComponent {
+export class PosePorteBlindeeComponent implements OnInit {
+
+  private title = inject(Title);
+  private meta = inject(Meta);
+  platformId = inject(PLATFORM_ID);
+
+  ngOnInit(): void {
+
+    this.title.setTitle(
+      'Pose Porte Blindée Paris 1 (75001) | Serrurier Certifié A2P 24h/24'
+    );
+
+    this.meta.addTags([
+      {
+        name: 'description',
+        content: 'Pose de porte blindée à Paris 1 (75001) par un serrurier expert. Installation certifiée A2P, sécurité maximale, devis gratuit, intervention rapide 24h/24.'
+      },
+      {
+        name: 'keywords',
+        content: 'pose porte blindée Paris 1, installation porte blindée 75001, serrurier porte blindée Paris, porte blindée A2P Paris 1'
+      },
+      { name: 'robots', content: 'index, follow' },
+      { name: 'author', content: 'Serrurier Paris 1' },
+      {
+        property: 'og:title',
+        content: 'Pose Porte Blindée à Paris 1 – Installation Sécurisée'
+      },
+      {
+        property: 'og:description',
+        content: 'Installation professionnelle de porte blindée à Paris 1. Sécurité certifiée A2P, devis gratuit et pose garantie.'
+      },
+      {
+        property: 'og:type',
+        content: 'website'
+      }
+    ]);
+
+
+    if (isPlatformBrowser(this.platformId)) {
+      this.injectJsonLd();
+    }
+  }
+
+  injectJsonLd() {
+    const script = document.createElement('script');
+    script.type = 'application/ld+json';
+    script.text = JSON.stringify(
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "Locksmith",
+            "@id": "https://www.tonsite.fr/#locksmith",
+            "name": "Serrurier Paris 1",
+            "image": "https://i.ibb.co/hFphMHbG/pose-blindee-4.jpg",
+            "telephone": "01 23 45 67 89",
+            "address": {
+              "@type": "PostalAddress",
+              "streetAddress": "Paris 1er arrondissement",
+              "addressLocality": "Paris",
+              "postalCode": "75001",
+              "addressCountry": "FR"
+            },
+            "areaServed": {
+              "@type": "AdministrativeArea",
+              "name": "Paris 1"
+            },
+            "openingHours": "Mo-Su 00:00-23:59",
+            "priceRange": "€€",
+            "url": "https://www.tonsite.fr"
+          },
+
+          {
+            "@type": "Service",
+            "@id": "https://www.tonsite.fr/pose-porte-blindee-paris-1#service",
+            "serviceType": "Pose de porte blindée",
+            "provider": {
+              "@id": "https://www.tonsite.fr/#locksmith"
+            },
+            "areaServed": {
+              "@type": "AdministrativeArea",
+              "name": "Paris 1"
+            },
+            "description": "Pose professionnelle de porte blindée à Paris 1 (75001). Installation certifiée A2P, sécurité maximale et pose garantie.",
+            "offers": {
+              "@type": "Offer",
+              "priceCurrency": "EUR",
+              "price": "Sur devis",
+              "availability": "https://schema.org/InStock"
+            }
+          },
+
+          {
+            "@type": "FAQPage",
+            "@id": "https://www.tonsite.fr/pose-porte-blindee-paris-1#faq",
+            "mainEntity": [
+              {
+                "@type": "Question",
+                "name": "Dois-je choisir une porte sur mesure ou une porte standard ?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Si votre ouverture est standard, une porte standard est plus économique. Pour une ouverture hors norme, une porte sur mesure est nécessaire. Une prise de mesures gratuite permet de déterminer la meilleure option."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "La pose est-elle longue et bruyante ?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "La pose d’une porte blindée prend généralement une journée complète (6 à 8 heures). Certaines étapes peuvent être bruyantes, mais l’installation est réalisée proprement et sans précipitation."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Puis-je conserver mon ancien cylindre ?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Non. Une porte blindée est livrée avec un cylindre neuf. Il est conseillé d’opter pour un cylindre haute sécurité certifié A2P."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "La porte blindée est-elle garantie ?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Oui. La porte bénéficie de la garantie constructeur et la pose est garantie au minimum 2 ans contre tout défaut d’installation."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Existe-t-il des options connectées ?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Oui. Il est possible d’installer des portes blindées avec digicode, badge, empreinte digitale ou ouverture via smartphone."
+                }
+              }
+            ]
+          }
+        ]
+      }
+
+
+    );
+    document.head.appendChild(script);
+  }
 
   heroData = signal({
     title: 'Pose Porte Blindée à Paris 1',

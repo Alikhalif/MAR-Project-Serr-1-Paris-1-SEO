@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, OnInit, PLATFORM_ID, signal } from '@angular/core';
 import { ConclusionComponent } from "../../../components/conclusion/conclusion.component";
 import { FaqComponent } from "../../../components/faq/faq.component";
 import { PricingTransparencyComponent } from "../../../components/pricing-transparency/pricing-transparency.component";
@@ -6,6 +6,8 @@ import { OurServicesComponent } from "../../../components/our-services/our-servi
 import { OurCommitmentsComponent } from "../../../components/our-commitments/our-commitments.component";
 import { WhyChooseUsComponent } from "../../../components/why-choose-us/why-choose-us.component";
 import { HeroSectionComponent } from "../../../components/hero-section/hero-section.component";
+import { Meta, Title } from '@angular/platform-browser';
+import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'app-ouverture-porte-pas-cher',
@@ -14,7 +16,151 @@ import { HeroSectionComponent } from "../../../components/hero-section/hero-sect
   templateUrl: './ouverture-porte-pas-cher.component.html',
   styleUrl: './ouverture-porte-pas-cher.component.scss'
 })
-export class OuverturePortePasCherComponent {
+export class OuverturePortePasCherComponent implements OnInit {
+
+  private title = inject(Title);
+  private meta = inject(Meta);
+  platformId = inject(PLATFORM_ID);
+
+  ngOnInit(): void {
+
+    this.title.setTitle(
+      'Ouverture Porte Pas Cher Paris 1 (75001) | Forfait Fixe & Urgence 24h/24'
+    );
+
+    this.meta.addTags([
+      {
+        name: 'description',
+        content: 'Ouverture de porte pas cher à Paris 1 : forfait clair, prix fixe annoncé au téléphone, intervention rapide <30 min, sans casse.'
+      },
+      {
+        name: 'keywords',
+        content: 'ouverture porte pas cher Paris 1, serrurier pas cher 75001, ouverture porte claquée Paris, serrurier économique Paris 1'
+      },
+      { name: 'robots', content: 'index, follow' },
+      { name: 'author', content: 'Serrurier Paris 1' },
+
+      /* Open Graph */
+      {
+        property: 'og:title',
+        content: 'Ouverture Porte Pas Cher Paris 1 – Forfait Clair & Rapide'
+      },
+      {
+        property: 'og:description',
+        content: 'Bloqué dehors à Paris 1 ? Ouverture de porte pas cher, sans casse, prix annoncé avant déplacement.'
+      },
+      {
+        property: 'og:type',
+        content: 'website'
+      }
+    ]);
+
+    if (isPlatformBrowser(this.platformId)) {
+    this.injectJsonLd();
+    }
+  }
+
+  injectJsonLd() {
+    const script = document.createElement('script');
+    script.type = 'application/ld+json';
+    script.text = JSON.stringify(
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "Locksmith",
+            "@id": "https://www.tonsite.fr/#locksmith",
+            "name": "Serrurier Paris 1",
+            "telephone": "01 23 45 67 89",
+            "image": "https://i.ibb.co/Ng3XtfND/ouverture-porte-pas-cher.png",
+            "address": {
+              "@type": "PostalAddress",
+              "addressLocality": "Paris",
+              "postalCode": "75001",
+              "addressCountry": "FR"
+            },
+            "areaServed": {
+              "@type": "AdministrativeArea",
+              "name": "Paris 1"
+            },
+            "openingHours": "Mo-Su 00:00-23:59",
+            "priceRange": "€",
+            "url": "https://www.tonsite.fr"
+          },
+
+          {
+            "@type": "Service",
+            "@id": "https://www.tonsite.fr/ouverture-porte-pas-cher-paris-1#service",
+            "serviceType": "Ouverture de porte pas cher",
+            "provider": {
+              "@id": "https://www.tonsite.fr/#locksmith"
+            },
+            "areaServed": {
+              "@type": "AdministrativeArea",
+              "name": "Paris 1"
+            },
+            "description": "Ouverture de porte pas cher à Paris 1 avec forfait fixe annoncé à l'avance et techniques non destructives.",
+            "offers": {
+              "@type": "Offer",
+              "priceCurrency": "EUR",
+              "price": "Forfait",
+              "availability": "https://schema.org/InStock"
+            }
+          },
+
+          {
+            "@type": "FAQPage",
+            "@id": "https://www.tonsite.fr/ouverture-porte-pas-cher-paris-1#faq",
+            "mainEntity": [
+              {
+                "@type": "Question",
+                "name": "Pouvez-vous donner un prix fixe par téléphone ?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Oui, pour les portes claquées standard, un forfait fixe est annoncé et respecté si la situation correspond."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Le tarif est-il le même pour une porte blindée ?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Un forfait spécifique est appliqué et communiqué à l'avance selon le type de porte blindée."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Ouvrez-vous sans casser ?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Oui, dans plus de 95% des cas, l'ouverture est réalisée sans aucun dégât."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Y a-t-il des frais supplémentaires la nuit ou le week-end ?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Non. Le forfait urgence est identique 24h/24, 7j/7, sans majoration cachée."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Que se passe-t-il si la serrure est endommagée ?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Un devis séparé est proposé uniquement si un remplacement est nécessaire, sans obligation."
+                }
+              }
+            ]
+          }
+        ]
+      }
+
+
+    );
+    document.head.appendChild(script);
+  }
 
   heroData = signal({
     title: 'Ouverture Porte Pas Cher à Paris 1',

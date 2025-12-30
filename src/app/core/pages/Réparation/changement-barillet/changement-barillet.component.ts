@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, OnInit, PLATFORM_ID, signal } from '@angular/core';
 import { ConclusionComponent } from "../../../components/conclusion/conclusion.component";
 import { FaqComponent } from "../../../components/faq/faq.component";
 import { PricingTransparencyComponent } from "../../../components/pricing-transparency/pricing-transparency.component";
@@ -6,6 +6,8 @@ import { OurServicesComponent } from "../../../components/our-services/our-servi
 import { OurCommitmentsComponent } from "../../../components/our-commitments/our-commitments.component";
 import { WhyChooseUsComponent } from "../../../components/why-choose-us/why-choose-us.component";
 import { HeroSectionComponent } from "../../../components/hero-section/hero-section.component";
+import { Meta, Title } from '@angular/platform-browser';
+import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'app-changement-barillet',
@@ -14,7 +16,153 @@ import { HeroSectionComponent } from "../../../components/hero-section/hero-sect
   templateUrl: './changement-barillet.component.html',
   styleUrl: './changement-barillet.component.scss'
 })
-export class ChangementBarilletComponent {
+export class ChangementBarilletComponent implements  OnInit {
+
+  private title = inject(Title);
+  private meta = inject(Meta);
+  platformId = inject(PLATFORM_ID);
+
+  ngOnInit(): void {
+
+    this.title.setTitle(
+      'Changement de Barillet Paris 1 (75001) | Intervention Rapide & Sécurisée'
+    );
+
+    this.meta.addTags([
+      {
+        name: 'description',
+        content: 'Changement de barillet à Paris 1 en 30 minutes. Cylindre standard ou A2P, devis clair, sécurité immédiate après perte de clés ou effraction.'
+      },
+      {
+        name: 'keywords',
+        content: 'changement barillet Paris 1, remplacement cylindre serrure 75001, barillet A2P Paris, serrurier barillet Paris'
+      },
+      { name: 'robots', content: 'index, follow' },
+      { name: 'author', content: 'Serrurier Paris 1' },
+
+      /* Open Graph */
+      {
+        property: 'og:title',
+        content: 'Changement de Barillet à Paris 1 – Sécurité Renouvelée Rapidement'
+      },
+      {
+        property: 'og:description',
+        content: 'Remplacement de barillet à Paris 1 : intervention express, conseils A2P, anciennes clés invalidées immédiatement.'
+      },
+      {
+        property: 'og:type',
+        content: 'website'
+      }
+    ]);
+
+    if (isPlatformBrowser(this.platformId)) {
+    this.injectJsonLd();
+    }
+  }
+
+
+  injectJsonLd() {
+    const script = document.createElement('script');
+    script.type = 'application/ld+json';
+    script.text = JSON.stringify(
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "Locksmith",
+            "@id": "https://www.tonsite.fr/#locksmith",
+            "name": "Serrurier Paris 1",
+            "telephone": "01 23 45 67 89",
+            "image": "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1600&q=80",
+            "priceRange": "€€",
+            "address": {
+              "@type": "PostalAddress",
+              "addressLocality": "Paris",
+              "postalCode": "75001",
+              "addressCountry": "FR"
+            },
+            "areaServed": {
+              "@type": "AdministrativeArea",
+              "name": "Paris 1"
+            },
+            "openingHours": "Mo-Su 00:00-23:59",
+            "url": "https://www.tonsite.fr"
+          },
+
+          {
+            "@type": "Service",
+            "@id": "https://www.tonsite.fr/changement-barillet-paris-1#service",
+            "name": "Changement de barillet",
+            "serviceType": "Remplacement de cylindre de serrure",
+            "provider": {
+              "@id": "https://www.tonsite.fr/#locksmith"
+            },
+            "areaServed": {
+              "@type": "AdministrativeArea",
+              "name": "Paris 1"
+            },
+            "description": "Changement de barillet à Paris 1 pour perte de clés, sécurité renforcée ou mise à niveau A2P.",
+            "offers": {
+              "@type": "Offer",
+              "priceCurrency": "EUR",
+              "availability": "https://schema.org/InStock"
+            }
+          },
+
+          {
+            "@type": "FAQPage",
+            "@id": "https://www.tonsite.fr/changement-barillet-paris-1#faq",
+            "mainEntity": [
+              {
+                "@type": "Question",
+                "name": "Puis-je changer le barillet moi-même ?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Techniquement oui, mais une erreur de mesure ou de niveau de sécurité peut rendre la serrure inefficace. Un professionnel garantit le bon modèle et la sécurité optimale."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Barillet A2P ou standard : lequel choisir ?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Le barillet A2P offre une résistance certifiée contre le crochetage, le perçage et le bumping. Il est fortement recommandé pour une porte d’entrée."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Combien de temps dure l’intervention ?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "La pose du barillet prend entre 15 et 30 minutes sur place, hors temps de déplacement."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Dois-je changer toutes les serrures après une perte de clés ?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Non. En général, seul le barillet de la porte concernée doit être remplacé."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Les anciennes clés fonctionnent-elles encore après le changement ?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Non. Les anciennes clés sont automatiquement invalides avec le nouveau barillet."
+                }
+              }
+            ]
+          }
+        ]
+      }
+
+
+
+    );
+    document.head.appendChild(script);
+  }
 
   heroData = signal({
     title: 'Changement de Barillet à Paris 1',

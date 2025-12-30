@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, PLATFORM_ID, signal } from '@angular/core';
 import { ConclusionComponent } from "../../../components/conclusion/conclusion.component";
 import { FaqComponent } from "../../../components/faq/faq.component";
 import { PricingTransparencyComponent } from "../../../components/pricing-transparency/pricing-transparency.component";
@@ -6,6 +6,8 @@ import { OurServicesComponent } from "../../../components/our-services/our-servi
 import { OurCommitmentsComponent } from "../../../components/our-commitments/our-commitments.component";
 import { WhyChooseUsComponent } from "../../../components/why-choose-us/why-choose-us.component";
 import { HeroSectionComponent } from "../../../components/hero-section/hero-section.component";
+import { Meta, Title } from '@angular/platform-browser';
+import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'app-installation-serrure-3-point',
@@ -16,6 +18,132 @@ import { HeroSectionComponent } from "../../../components/hero-section/hero-sect
 })
 
 export class InstallationSerrure3PointComponent {
+
+   private title = inject(Title);
+  private meta = inject(Meta);
+  platformId = inject(PLATFORM_ID);
+
+  constructor() {
+
+    /* TITLE */
+    this.title.setTitle(
+      'Installation Serrure 3 Points Paris 1 | Serrurier Certifié A2P'
+    );
+
+    /* DESCRIPTION */
+    this.meta.updateTag({
+      name: 'description',
+      content:
+        'Installation de serrure 3 points à Paris 1 (75001). Pose professionnelle, sécurité renforcée A2P, devis gratuit.'
+    });
+
+    /* KEYWORDS */
+    this.meta.updateTag({
+      name: 'keywords',
+      content:
+        'installation serrure 3 points Paris 1, serrure 3 points Paris 75001, pose serrure multipoints Paris'
+    });
+
+    /* ROBOTS */
+    this.meta.updateTag({ name: 'robots', content: 'index, follow' });
+
+    /* OPEN GRAPH */
+    this.meta.updateTag({ property: 'og:title', content: 'Installation Serrure 3 Points Paris 1' });
+    this.meta.updateTag({ property: 'og:description', content: 'Pose de serrure 3 points certifiée A2P à Paris 1. Sécurité maximale.' });
+    this.meta.updateTag({ property: 'og:type', content: 'website' });
+    this.meta.updateTag({ property: 'og:url', content: 'https://www.tonsite.fr/installation-serrure-3-points-paris-1' });
+    this.meta.updateTag({ property: 'og:image', content: 'https://i.ibb.co/F4VBGJHf/a2p-1.jpg' });
+
+    /* TWITTER */
+    this.meta.updateTag({ name: 'twitter:card', content: 'summary_large_image' });
+
+    if (isPlatformBrowser(this.platformId)) {
+      /* JSON-LD */
+      this.injectJsonLd();
+    }
+  }
+
+  injectJsonLd() {
+    const script = document.createElement('script');
+    script.type = 'application/ld+json';
+    script.text = JSON.stringify(
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "Locksmith",
+            "@id": "https://www.tonsite.fr/#locksmith",
+            "name": "Serrurier Paris 1 – Serrure 3 Points",
+            "telephone": "+33757831800",
+            "url": "https://www.tonsite.fr/installation-serrure-3-points-paris-1",
+            "priceRange": "€€",
+            "address": {
+              "@type": "PostalAddress",
+              "addressLocality": "Paris",
+              "postalCode": "75001",
+              "addressCountry": "FR"
+            },
+            "openingHoursSpecification": {
+              "@type": "OpeningHoursSpecification",
+              "dayOfWeek": [
+                "Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"
+              ],
+              "opens": "00:00",
+              "closes": "23:59"
+            }
+          },
+          {
+            "@type": "Service",
+            "name": "Installation Serrure 3 Points",
+            "description": "Installation professionnelle de serrure 3 points certifiée A2P à Paris 1 pour une sécurité renforcée.",
+            "provider": {
+              "@id": "https://www.tonsite.fr/#locksmith"
+            },
+            "areaServed": "Paris 75001"
+          },
+          {
+            "@type": "FAQPage",
+            "mainEntity": [
+              {
+                "@type": "Question",
+                "name": "Ma porte est-elle compatible avec une serrure 3 points ?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "La majorité des portes pleines d’au moins 40 mm d’épaisseur sont compatibles. Un diagnostic est réalisé avant l’installation."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Dois-je changer le cylindre lors de l’installation ?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Oui, il est recommandé d’installer un cylindre haute sécurité certifié A2P pour une protection maximale."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Combien de temps prend l’installation ?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "L’installation complète dure généralement entre 1h30 et 3h selon la porte."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "L’installation est-elle garantie ?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Oui, la serrure est garantie par le fabricant et la pose est garantie 2 ans."
+                }
+              }
+            ]
+          }
+        ]
+      }
+
+    );
+    document.head.appendChild(script);
+  }
 
   heroData = signal({
     title: 'Installation Serrure 3 Points à Paris 1',

@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, OnInit, PLATFORM_ID, signal } from '@angular/core';
 import { ConclusionComponent } from "../../../components/conclusion/conclusion.component";
 import { FaqComponent } from "../../../components/faq/faq.component";
 import { PricingTransparencyComponent } from "../../../components/pricing-transparency/pricing-transparency.component";
@@ -6,6 +6,8 @@ import { OurServicesComponent } from "../../../components/our-services/our-servi
 import { OurCommitmentsComponent } from "../../../components/our-commitments/our-commitments.component";
 import { WhyChooseUsComponent } from "../../../components/why-choose-us/why-choose-us.component";
 import { HeroSectionComponent } from "../../../components/hero-section/hero-section.component";
+import { Meta, Title } from '@angular/platform-browser';
+import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'app-tarif-serrurier',
@@ -14,7 +16,153 @@ import { HeroSectionComponent } from "../../../components/hero-section/hero-sect
   templateUrl: './tarif-serrurier.component.html',
   styleUrl: './tarif-serrurier.component.scss'
 })
-export class TarifSerrurierComponent {
+export class TarifSerrurierComponent implements OnInit {
+
+  private title = inject(Title);
+  private meta = inject(Meta);
+  platformId = inject(PLATFORM_ID);
+
+  ngOnInit(): void {
+
+    this.title.setTitle(
+      'Tarif Serrurier Paris 1 (75001) | Prix Clairs & Devis Gratuit'
+    );
+
+    this.meta.addTags([
+      {
+        name: 'description',
+        content: 'Tarif serrurier à Paris 1 : prix détaillés, explications honnêtes, devis gratuit avant intervention. Évitez les arnaques.'
+      },
+      {
+        name: 'keywords',
+        content: 'tarif serrurier Paris 1, prix serrurier 75001, coût dépannage serrurier Paris, devis serrurier Paris'
+      },
+      { name: 'robots', content: 'index, follow' },
+      { name: 'author', content: 'Serrurier Paris 1' },
+
+      /* Open Graph */
+      {
+        property: 'og:title',
+        content: 'Tarif Serrurier Paris 1 – Prix Justes & Transparence Totale'
+      },
+      {
+        property: 'og:description',
+        content: 'Découvrez les vrais tarifs d’un serrurier à Paris 1. Devis clair avant intervention, sans surprise.'
+      },
+      {
+        property: 'og:type',
+        content: 'website'
+      }
+    ]);
+
+    if (isPlatformBrowser(this.platformId)) {
+    this.injectJsonLd();
+    }
+  }
+
+
+  injectJsonLd() {
+    const script = document.createElement('script');
+    script.type = 'application/ld+json';
+    script.text = JSON.stringify(
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "Locksmith",
+            "@id": "https://www.tonsite.fr/#locksmith",
+            "name": "Serrurier Paris 1",
+            "telephone": "01 23 45 67 89",
+            "image": "https://i.ibb.co/Gvr9D6kz/tarif-serrurier.png",
+            "priceRange": "€€",
+            "address": {
+              "@type": "PostalAddress",
+              "addressLocality": "Paris",
+              "postalCode": "75001",
+              "addressCountry": "FR"
+            },
+            "areaServed": {
+              "@type": "AdministrativeArea",
+              "name": "Paris 1"
+            },
+            "openingHours": "Mo-Su 00:00-23:59",
+            "url": "https://www.tonsite.fr"
+          },
+
+          {
+            "@type": "Service",
+            "@id": "https://www.tonsite.fr/tarif-serrurier-paris-1#service",
+            "serviceType": "Tarif serrurier",
+            "provider": {
+              "@id": "https://www.tonsite.fr/#locksmith"
+            },
+            "areaServed": {
+              "@type": "AdministrativeArea",
+              "name": "Paris 1"
+            },
+            "description": "Informations complètes sur les tarifs serrurier à Paris 1 avec devis gratuit et transparence totale.",
+            "offers": {
+              "@type": "Offer",
+              "priceCurrency": "EUR",
+              "availability": "https://schema.org/InStock"
+            }
+          },
+
+          {
+            "@type": "FAQPage",
+            "@id": "https://www.tonsite.fr/tarif-serrurier-paris-1#faq",
+            "mainEntity": [
+              {
+                "@type": "Question",
+                "name": "Pourquoi les prix des serruriers à Paris varient-ils autant ?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Les écarts s’expliquent par la structure de l’entreprise, le coût des pièces, la localisation parisienne et parfois des pratiques commerciales abusives."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Comment sont calculées les majorations nuit et week-end ?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Les majorations concernent la main d’œuvre et peuvent aller de +50% le soir à +100% la nuit ou les jours fériés. Elles doivent être annoncées avant intervention."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Puis-je fournir mes propres pièces ?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Non en général, pour garantir la sécurité, la compatibilité et la validité de la garantie."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Le devis est-il obligatoire ?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Oui, même pour une simple ouverture de porte. Le devis protège le client et fixe le prix à l’avance."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Comment éviter les arnaques serrurier ?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Évitez les prix trop bas, exigez un devis écrit avant travaux et vérifiez les majorations horaires."
+                }
+              }
+            ]
+          }
+        ]
+      }
+
+
+
+
+    );
+    document.head.appendChild(script);
+  }
 
   heroData = signal({
     title: 'Tarif Serrurier à Paris 1',

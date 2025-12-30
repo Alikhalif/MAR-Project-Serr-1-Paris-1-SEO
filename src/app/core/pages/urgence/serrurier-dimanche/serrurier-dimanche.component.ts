@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, OnInit, PLATFORM_ID, signal } from '@angular/core';
 import { HeroSectionComponent } from "../../../components/hero-section/hero-section.component";
 import { WhyChooseUsComponent } from "../../../components/why-choose-us/why-choose-us.component";
 import { OurCommitmentsComponent } from "../../../components/our-commitments/our-commitments.component";
@@ -6,6 +6,8 @@ import { OurServicesComponent } from "../../../components/our-services/our-servi
 import { PricingTransparencyComponent } from "../../../components/pricing-transparency/pricing-transparency.component";
 import { FaqComponent } from "../../../components/faq/faq.component";
 import { ConclusionComponent } from "../../../components/conclusion/conclusion.component";
+import { Meta, Title } from '@angular/platform-browser';
+import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'app-serrurier-dimanche',
@@ -14,7 +16,175 @@ import { ConclusionComponent } from "../../../components/conclusion/conclusion.c
   templateUrl: './serrurier-dimanche.component.html',
   styleUrl: './serrurier-dimanche.component.scss'
 })
-export class SerrurierDimancheComponent {
+export class SerrurierDimancheComponent implements OnInit {
+
+  private title = inject(Title);
+  private meta = inject(Meta);
+  platformId = inject(PLATFORM_ID);
+
+  ngOnInit(): void {
+
+    /* =========================
+       TITLE
+    ========================== */
+    this.title.setTitle(
+      'Serrurier Dimanche & Jours Fériés Paris 1 (75001) | Dépannage Urgent'
+    );
+
+    /* =========================
+       META TAGS
+    ========================== */
+    this.meta.addTags([
+      {
+        name: 'description',
+        content: 'Panne de serrure un dimanche ou jour férié à Paris 1 ? Intervention urgente de serrurier disponible 24h/24 et 7j/7. Déblocage et réparation rapide.'
+      },
+      {
+        name: 'keywords',
+        content: 'serrurier dimanche Paris 1, serrurier jour férié 75001, dépannage serrure urgence Paris, ouverture porte dimanche'
+      },
+      { name: 'robots', content: 'index, follow' },
+      { name: 'author', content: 'Serrurier Paris 1' },
+
+      /* Canonical */
+      {
+        rel: 'canonical',
+        href: 'https://www.tonsite.fr/serrurier-dimanche-paris-1'
+      },
+
+      /* Open Graph */
+      {
+        property: 'og:title',
+        content: 'Serrurier Dimanche et Jours Fériés à Paris 1 – Dépannage Urgent'
+      },
+      {
+        property: 'og:description',
+        content: 'Serrurier disponible 7j/7 à Paris 1 pour toute urgence serrurerie : ouverture et réparation rapide, devis gratuit.'
+      },
+      {
+        property: 'og:type',
+        content: 'website'
+      },
+      {
+        property: 'og:url',
+        content: 'https://www.tonsite.fr/serrurier-dimanche-paris-1'
+      }
+    ]);
+
+    if (isPlatformBrowser(this.platformId)) {
+    this.injectSchema();
+    }
+  }
+
+  /* =========================
+     SCHEMA JSON-LD
+  ========================== */
+  injectSchema(): void {
+    const script = document.createElement('script');
+    script.type = 'application/ld+json';
+    script.text = JSON.stringify(this.schemaData);
+    document.head.appendChild(script);
+  }
+
+  schemaData = {
+    "@context": "https://schema.org",
+    "@graph": [
+
+      /* ===== BUSINESS ===== */
+      {
+        "@type": "Locksmith",
+        "@id": "https://www.tonsite.fr/#locksmith",
+        "name": "Serrurier Paris 1",
+        "telephone": "01 23 45 67 89",
+        "priceRange": "€€",
+        "url": "https://www.tonsite.fr",
+        "openingHours": "Mo-Su 00:00-23:59",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Paris",
+          "postalCode": "75001",
+          "addressCountry": "FR"
+        },
+        "areaServed": {
+          "@type": "AdministrativeArea",
+          "name": "Paris 1"
+        }
+      },
+
+      /* ===== SERVICE ===== */
+      {
+        "@type": "Service",
+        "@id": "https://www.tonsite.fr/serrurier-dimanche-paris-1#service",
+        "name": "Serrurier Dimanche & Jour Férié à Paris 1",
+        "serviceType": "Dépannage serrurerie urgent 7j/7",
+        "provider": {
+          "@id": "https://www.tonsite.fr/#locksmith"
+        },
+        "areaServed": {
+          "@type": "AdministrativeArea",
+          "name": "Paris 1"
+        },
+        "description": "Dépannage de serrurerie le dimanche et jours fériés à Paris 1 : ouverture et réparation rapide, devis gratuit et intervention urgente 24h/24.",
+        "availableChannel": {
+          "@type": "ServiceChannel",
+          "servicePhone": {
+            "@type": "ContactPoint",
+            "telephone": "01 23 45 67 89",
+            "contactType": "customer service"
+          }
+        }
+      },
+
+      /* ===== FAQ ===== */
+      {
+        "@type": "FAQPage",
+        "@id": "https://www.tonsite.fr/serrurier-dimanche-paris-1#faq",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Êtes-vous vraiment ouverts tous les dimanches et jours fériés ?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Oui, notre service d'urgence est actif 365 jours par an, sans exception."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Les tarifs sont-ils plus élevés les dimanches et jours fériés ?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Forfait d'urgence transparent, communiqué à l'avance, aucune majoration cachée."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Proposez-vous les mêmes services et garanties un dimanche ?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Oui, même qualité de service, mêmes garanties et matériel identique."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Puis-je avoir un devis gratuit pour une intervention un dimanche ?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Oui, devis détaillé et gratuit avant toute intervention."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Que faire si je n’ai plus mes clés et que tout est fermé ?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Nous ouvrons la porte sans clé et pouvons remplacer le cylindre immédiatement si nécessaire."
+            }
+          }
+        ]
+      }
+    ]
+  };
+
 
   heroData = signal({
     title: 'Serrurier le Dimanche et Jour Férié à Paris 1',

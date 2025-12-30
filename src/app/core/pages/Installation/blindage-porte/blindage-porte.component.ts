@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, PLATFORM_ID, signal } from '@angular/core';
 import { ConclusionComponent } from "../../../components/conclusion/conclusion.component";
 import { FaqComponent } from "../../../components/faq/faq.component";
 import { PricingTransparencyComponent } from "../../../components/pricing-transparency/pricing-transparency.component";
@@ -6,6 +6,8 @@ import { OurServicesComponent } from "../../../components/our-services/our-servi
 import { OurCommitmentsComponent } from "../../../components/our-commitments/our-commitments.component";
 import { WhyChooseUsComponent } from "../../../components/why-choose-us/why-choose-us.component";
 import { HeroSectionComponent } from "../../../components/hero-section/hero-section.component";
+import { Meta, Title } from '@angular/platform-browser';
+import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'app-blindage-porte',
@@ -15,6 +17,141 @@ import { HeroSectionComponent } from "../../../components/hero-section/hero-sect
   styleUrl: './blindage-porte.component.scss'
 })
 export class BlindagePorteComponent {
+
+  private title = inject(Title);
+  private meta = inject(Meta);
+  platformId = inject(PLATFORM_ID);
+
+  constructor() {
+
+    this.title.setTitle(
+      'Blindage Porte Paris 1 | Sécurisation Porte Haute Sécurité'
+    );
+
+    this.meta.updateTag({
+      name: 'description',
+      content:
+        'Blindage de porte à Paris 1er (75001) : renforcez votre porte existante sans remplacement. Serrurier expert, diagnostic gratuit.'
+    });
+
+    this.meta.updateTag({
+      name: 'keywords',
+      content:
+        'blindage porte Paris 1, blindage porte Paris 75001, renforcement porte Paris, serrurier blindage Paris'
+    });
+
+    this.meta.updateTag({ name: 'robots', content: 'index, follow' });
+
+    /* Open Graph */
+    this.meta.updateTag({ property: 'og:title', content: 'Blindage Porte Paris 1 – Sécurité Renforcée' });
+    this.meta.updateTag({ property: 'og:description', content: 'Service professionnel de blindage de porte à Paris 1. Sécurité A2P, intervention rapide.' });
+    this.meta.updateTag({ property: 'og:type', content: 'website' });
+    this.meta.updateTag({ property: 'og:url', content: 'https://www.tonsite.fr/blindage-porte-paris-1' });
+    this.meta.updateTag({ property: 'og:image', content: 'https://images.unsplash.com/photo-1577493340887-0b78f5b3b6f5?w=1600&q=80' });
+
+    /* Twitter */
+    this.meta.updateTag({ name: 'twitter:card', content: 'summary_large_image' });
+
+    if (isPlatformBrowser(this.platformId)) {
+      this.injectJsonLd();
+    }
+  }
+
+
+
+  injectJsonLd() {
+    const script = document.createElement('script');
+    script.type = 'application/ld+json';
+    script.text = JSON.stringify(
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "Locksmith",
+            "@id": "https://www.tonsite.fr/#locksmith",
+            "name": "Serrurier Blindage Porte Paris 1",
+            "url": "https://www.tonsite.fr/blindage-porte-paris-1",
+            "telephone": "+33757831800",
+            "priceRange": "€€",
+            "address": {
+              "@type": "PostalAddress",
+              "addressLocality": "Paris",
+              "postalCode": "75001",
+              "addressCountry": "FR"
+            },
+            "areaServed": {
+              "@type": "AdministrativeArea",
+              "name": "Paris 1er"
+            },
+            "openingHoursSpecification": {
+              "@type": "OpeningHoursSpecification",
+              "dayOfWeek": [
+                "Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"
+              ],
+              "opens": "00:00",
+              "closes": "23:59"
+            }
+          },
+          {
+            "@type": "Service",
+            "name": "Blindage de Porte à Paris 1",
+            "provider": {
+              "@id": "https://www.tonsite.fr/#locksmith"
+            },
+            "areaServed": "Paris 75001",
+            "description": "Blindage de porte existante sans remplacement. Sécurisation haute résistance A2P à Paris 1."
+          },
+          {
+            "@type": "FAQPage",
+            "mainEntity": [
+              {
+                "@type": "Question",
+                "name": "Ma porte en bois ancienne est-elle un bon candidat au blindage ?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Oui. Les portes en bois massif sont idéales pour le blindage car elles offrent une excellente base structurelle pour intégrer des plaques d’acier."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Quelle est la différence entre blindage et porte blindée ?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Le blindage renforce votre porte existante alors qu’une porte blindée est un ensemble neuf. Le blindage est plus économique et discret."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Le blindage est-il visible ?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Non. Les plaques sont intégrées à l’intérieur de la porte. L’aspect extérieur reste pratiquement inchangé."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Combien de temps dure un blindage de porte ?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Un blindage complet prend généralement entre 6 et 8 heures selon la complexité de la porte."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Le blindage est-il garanti ?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Oui. Les pièces sont garanties par les fabricants et la pose est garantie minimum 2 ans."
+                }
+              }
+            ]
+          }
+        ]
+      }
+
+    );
+    document.head.appendChild(script);
+  }
 
   heroData = signal({
     title: 'Blindage Porte à Paris 1',

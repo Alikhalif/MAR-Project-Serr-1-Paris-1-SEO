@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, OnInit, PLATFORM_ID, signal } from '@angular/core';
 import { ConclusionComponent } from "../../../components/conclusion/conclusion.component";
 import { FaqComponent } from "../../../components/faq/faq.component";
 import { PricingTransparencyComponent } from "../../../components/pricing-transparency/pricing-transparency.component";
@@ -6,6 +6,8 @@ import { OurServicesComponent } from "../../../components/our-services/our-servi
 import { OurCommitmentsComponent } from "../../../components/our-commitments/our-commitments.component";
 import { WhyChooseUsComponent } from "../../../components/why-choose-us/why-choose-us.component";
 import { HeroSectionComponent } from "../../../components/hero-section/hero-section.component";
+import { Meta, Title } from '@angular/platform-browser';
+import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'app-changement-serrure',
@@ -14,8 +16,154 @@ import { HeroSectionComponent } from "../../../components/hero-section/hero-sect
   templateUrl: './changement-serrure.component.html',
   styleUrl: './changement-serrure.component.scss'
 })
-export class ChangementSerrureComponent {
+export class ChangementSerrureComponent implements  OnInit {
 
+  private title = inject(Title);
+  private meta = inject(Meta);
+  platformId = inject(PLATFORM_ID);
+
+  ngOnInit(): void {
+
+    this.title.setTitle(
+      'Changement de Serrure Paris 1 (75001) | Serrurier Certifié & Intervention Rapide'
+    );
+
+    this.meta.addTags([
+      {
+        name: 'description',
+        content: 'Changement de serrure à Paris 1 : remplacement cylindre ou serrure complète, modèle standard ou A2P. Devis gratuit, intervention rapide 24h/24.'
+      },
+      {
+        name: 'keywords',
+        content: 'changement serrure Paris 1, remplacement serrure 75001, serrurier changement serrure Paris, serrure A2P Paris'
+      },
+      { name: 'robots', content: 'index, follow' },
+      { name: 'author', content: 'Serrurier Paris 1' },
+
+      /* Open Graph */
+      {
+        property: 'og:title',
+        content: 'Changement de Serrure à Paris 1 – Sécurité Renouvelée'
+      },
+      {
+        property: 'og:description',
+        content: 'Experts en changement de serrure à Paris 1 : sécurité A2P, devis clair, intervention express.'
+      },
+      {
+        property: 'og:type',
+        content: 'website'
+      }
+    ]);
+
+    if (isPlatformBrowser(this.platformId)) {
+    this.injectJsonLd();
+    }
+  }
+
+
+  injectJsonLd() {
+    const script = document.createElement('script');
+    script.type = 'application/ld+json';
+    script.text = JSON.stringify(
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "Locksmith",
+            "@id": "https://www.tonsite.fr/#locksmith",
+            "name": "Serrurier Paris 1",
+            "telephone": "01 23 45 67 89",
+            "image": "https://i.ibb.co/8DsWJtk2/serrure-complete-2.png",
+            "priceRange": "€€",
+            "address": {
+              "@type": "PostalAddress",
+              "addressLocality": "Paris",
+              "postalCode": "75001",
+              "addressCountry": "FR"
+            },
+            "areaServed": {
+              "@type": "AdministrativeArea",
+              "name": "Paris 1"
+            },
+            "openingHours": "Mo-Su 00:00-23:59",
+            "url": "https://www.tonsite.fr"
+          },
+
+          {
+            "@type": "Service",
+            "@id": "https://www.tonsite.fr/changement-serrure-paris-1#service",
+            "name": "Changement de serrure à Paris 1",
+            "serviceType": "Remplacement de serrure",
+            "provider": {
+              "@id": "https://www.tonsite.fr/#locksmith"
+            },
+            "areaServed": {
+              "@type": "AdministrativeArea",
+              "name": "Paris 1"
+            },
+            "description": "Changement de serrure à Paris 1 suite à un emménagement, une perte de clés ou une serrure défectueuse. Serrures standards ou certifiées A2P.",
+            "offers": {
+              "@type": "Offer",
+              "priceCurrency": "EUR",
+              "availability": "https://schema.org/InStock"
+            }
+          },
+
+          {
+            "@type": "FAQPage",
+            "@id": "https://www.tonsite.fr/changement-serrure-paris-1#faq",
+            "mainEntity": [
+              {
+                "@type": "Question",
+                "name": "Dois-je changer la serrure en emménageant à Paris 1 ?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Oui, c’est fortement recommandé. Vous ne savez pas combien de doubles de clés sont en circulation. Changer la serrure garantit votre sécurité."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Puis-je changer uniquement le cylindre ?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Oui, si le mécanisme de serrure est en bon état, le remplacement du cylindre suffit et coûte moins cher."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Quelle est la différence entre une serrure standard et A2P ?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "La serrure A2P est certifiée contre les techniques d’effraction (perçage, crochetage, arrachage) et recommandée pour les portes d’entrée."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Combien de temps dure le changement de serrure ?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Entre 30 minutes et 2 heures selon le type de serrure (cylindre simple ou serrure multipoints)."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Combien de clés sont fournies avec la nouvelle serrure ?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "La plupart des serrures sont livrées avec 3 clés. Des copies supplémentaires peuvent être commandées."
+                }
+              }
+            ]
+          }
+        ]
+      }
+
+
+
+
+    );
+    document.head.appendChild(script);
+  }
 
   heroData = signal({
       title: 'Changement de Serrure à Paris 1',

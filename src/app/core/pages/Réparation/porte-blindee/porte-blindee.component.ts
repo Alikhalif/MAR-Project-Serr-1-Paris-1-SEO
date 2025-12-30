@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, OnInit, PLATFORM_ID, signal } from '@angular/core';
 import { ConclusionComponent } from "../../../components/conclusion/conclusion.component";
 import { FaqComponent } from "../../../components/faq/faq.component";
 import { PricingTransparencyComponent } from "../../../components/pricing-transparency/pricing-transparency.component";
@@ -6,6 +6,8 @@ import { OurServicesComponent } from "../../../components/our-services/our-servi
 import { OurCommitmentsComponent } from "../../../components/our-commitments/our-commitments.component";
 import { WhyChooseUsComponent } from "../../../components/why-choose-us/why-choose-us.component";
 import { HeroSectionComponent } from "../../../components/hero-section/hero-section.component";
+import { Meta, Title } from '@angular/platform-browser';
+import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'app-porte-blindee',
@@ -14,7 +16,175 @@ import { HeroSectionComponent } from "../../../components/hero-section/hero-sect
   templateUrl: './porte-blindee.component.html',
   styleUrl: './porte-blindee.component.scss'
 })
-export class PorteBlindeeComponent {
+export class PorteBlindeeComponent implements OnInit {
+
+  private title = inject(Title);
+  private meta = inject(Meta);
+  platformId = inject(PLATFORM_ID);
+
+  ngOnInit(): void {
+
+    /* =========================
+       TITLE
+    ========================== */
+    this.title.setTitle(
+      'Réparation Porte Blindée Paris 1 (75001) | Serrurier Certifié A2P'
+    );
+
+    /* =========================
+       META TAGS
+    ========================== */
+    this.meta.addTags([
+      {
+        name: 'description',
+        content: 'Réparation de porte blindée à Paris 1 (75001). Serrurier expert A2P : réglage, crémone, serrure multipoints. Diagnostic gratuit, intervention rapide.'
+      },
+      {
+        name: 'keywords',
+        content: 'réparation porte blindée Paris 1, serrurier porte blindée 75001, porte blindée bloquée Paris, dépannage porte blindée A2P'
+      },
+      { name: 'robots', content: 'index, follow' },
+      { name: 'author', content: 'Serrurier Paris 1' },
+
+      /* Canonical */
+      {
+        rel: 'canonical',
+        href: 'https://www.tonsite.fr/reparation-porte-blindee-paris-1'
+      },
+
+      /* Open Graph */
+      {
+        property: 'og:title',
+        content: 'Réparation Porte Blindée à Paris 1 – Serrurier Haute Sécurité'
+      },
+      {
+        property: 'og:description',
+        content: 'Réglage, réparation ou remplacement de serrure de porte blindée à Paris 1. Intervention experte A2P.'
+      },
+      {
+        property: 'og:type',
+        content: 'website'
+      },
+      {
+        property: 'og:url',
+        content: 'https://www.tonsite.fr/reparation-porte-blindee-paris-1'
+      }
+    ]);
+
+    if (isPlatformBrowser(this.platformId)) {
+    this.injectSchema();
+    }
+  }
+
+  /* =========================
+     SCHEMA JSON-LD
+  ========================== */
+  injectSchema(): void {
+    const script = document.createElement('script');
+    script.type = 'application/ld+json';
+    script.text = JSON.stringify(this.schemaData);
+    document.head.appendChild(script);
+  }
+
+  schemaData = {
+    "@context": "https://schema.org",
+    "@graph": [
+
+      /* ===== BUSINESS ===== */
+      {
+        "@type": "Locksmith",
+        "@id": "https://www.tonsite.fr/#locksmith",
+        "name": "Serrurier Paris 1",
+        "telephone": "01 23 45 67 89",
+        "priceRange": "€€",
+        "url": "https://www.tonsite.fr",
+        "openingHours": "Mo-Su 00:00-23:59",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Paris",
+          "postalCode": "75001",
+          "addressCountry": "FR"
+        },
+        "areaServed": {
+          "@type": "AdministrativeArea",
+          "name": "Paris 1"
+        }
+      },
+
+      /* ===== SERVICE ===== */
+      {
+        "@type": "Service",
+        "@id": "https://www.tonsite.fr/reparation-porte-blindee-paris-1#service",
+        "name": "Réparation porte blindée à Paris 1",
+        "serviceType": "Réparation, réglage et dépannage de porte blindée",
+        "provider": {
+          "@id": "https://www.tonsite.fr/#locksmith"
+        },
+        "areaServed": {
+          "@type": "AdministrativeArea",
+          "name": "Paris 1"
+        },
+        "description": "Réparation de porte blindée à Paris 1 : crémone, serrure multipoints, réglage et remise en conformité A2P.",
+        "availableChannel": {
+          "@type": "ServiceChannel",
+          "servicePhone": {
+            "@type": "ContactPoint",
+            "telephone": "01 23 45 67 89",
+            "contactType": "customer service"
+          }
+        }
+      },
+
+      /* ===== FAQ ===== */
+      {
+        "@type": "FAQPage",
+        "@id": "https://www.tonsite.fr/reparation-porte-blindee-paris-1#faq",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Pouvez-vous réparer toutes les marques de portes blindées ?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Oui. Nous intervenons sur les principales marques (Vachette, Picard, Bricard, Fichet, Dierre…). Un diagnostic permet de confirmer la disponibilité des pièces."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "La réparation annule-t-elle la certification A2P ?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Non. Une réparation réalisée avec des pièces conformes et par un serrurier spécialisé permet de préserver la certification A2P."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Une porte blindée dure à fermer est-elle dangereuse ?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Oui à moyen terme. Cela indique un problème d’alignement ou d’usure qui peut entraîner une panne complète de la serrure."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Combien de temps dure une réparation de porte blindée ?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Selon le problème : de 30 minutes pour un réglage simple à 2-3 heures pour une réparation de crémone ou serrure multipoints."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Proposez-vous un entretien préventif ?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Oui. Un entretien tous les 2 à 3 ans prolonge la durée de vie de la porte blindée et évite les pannes coûteuses."
+            }
+          }
+        ]
+      }
+    ]
+  };
+
 
   heroData = signal({
     title: 'Réparation Porte Blindée Paris 1',

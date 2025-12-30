@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, OnInit, PLATFORM_ID, signal } from '@angular/core';
 import { ConclusionComponent } from "../../../components/conclusion/conclusion.component";
 import { FaqComponent } from "../../../components/faq/faq.component";
 import { PricingTransparencyComponent } from "../../../components/pricing-transparency/pricing-transparency.component";
@@ -6,6 +6,8 @@ import { OurServicesComponent } from "../../../components/our-services/our-servi
 import { OurCommitmentsComponent } from "../../../components/our-commitments/our-commitments.component";
 import { WhyChooseUsComponent } from "../../../components/why-choose-us/why-choose-us.component";
 import { HeroSectionComponent } from "../../../components/hero-section/hero-section.component";
+import { Meta, Title } from '@angular/platform-browser';
+import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'app-poignee-cassee',
@@ -14,7 +16,156 @@ import { HeroSectionComponent } from "../../../components/hero-section/hero-sect
   templateUrl: './poignee-cassee.component.html',
   styleUrl: './poignee-cassee.component.scss'
 })
-export class PoigneeCasseeComponent {
+export class PoigneeCasseeComponent implements OnInit {
+
+
+  private title = inject(Title);
+  private meta = inject(Meta);
+  platformId = inject(PLATFORM_ID);
+
+  ngOnInit(): void {
+
+    this.title.setTitle(
+      'Poignée Cassée Paris 1 (75001) | Dépannage Serrurier Rapide'
+    );
+
+    this.meta.addTags([
+      {
+        name: 'description',
+        content: 'Poignée cassée à Paris 1 ? Dépannage serrurier rapide en 30 min. Réparation ou remplacement de poignée de porte. Devis gratuit avant intervention.'
+      },
+      {
+        name: 'keywords',
+        content: 'poignée cassée Paris 1, réparation poignée porte 75001, poignée porte bloquée Paris, serrurier poignée cassée'
+      },
+      { name: 'robots', content: 'index, follow' },
+      { name: 'author', content: 'Serrurier Paris 1' },
+
+      /* Open Graph */
+      {
+        property: 'og:title',
+        content: 'Poignée Cassée à Paris 1 – Dépannage Serrurier Express'
+      },
+      {
+        property: 'og:description',
+        content: 'Réparation ou remplacement de poignée cassée à Paris 1. Intervention rapide, sans dégâts.'
+      },
+      {
+        property: 'og:type',
+        content: 'website'
+      }
+    ]);
+
+    if (isPlatformBrowser(this.platformId)) {
+    this.injectJsonLd();
+    }
+  }
+
+  injectJsonLd() {
+    const script = document.createElement('script');
+    script.type = 'application/ld+json';
+    script.text = JSON.stringify(
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "Locksmith",
+            "@id": "https://www.tonsite.fr/#locksmith",
+            "name": "Serrurier Paris 1",
+            "telephone": "01 23 45 67 89",
+            "priceRange": "€€",
+            "address": {
+              "@type": "PostalAddress",
+              "addressLocality": "Paris",
+              "postalCode": "75001",
+              "addressCountry": "FR"
+            },
+            "openingHours": "Mo-Su 00:00-23:59",
+            "areaServed": {
+              "@type": "AdministrativeArea",
+              "name": "Paris 1"
+            },
+            "url": "https://www.tonsite.fr"
+          },
+
+          {
+            "@type": "Service",
+            "@id": "https://www.tonsite.fr/poignee-cassee-paris-1#service",
+            "name": "Dépannage poignée cassée à Paris 1",
+            "serviceType": "Réparation et remplacement de poignée de porte",
+            "provider": {
+              "@id": "https://www.tonsite.fr/#locksmith"
+            },
+            "areaServed": {
+              "@type": "AdministrativeArea",
+              "name": "Paris 1"
+            },
+            "description": "Réparation ou remplacement de poignée de porte cassée à Paris 1. Intervention rapide, toutes portes et styles.",
+            "availableChannel": {
+              "@type": "ServiceChannel",
+              "servicePhone": {
+                "@type": "ContactPoint",
+                "telephone": "01 23 45 67 89",
+                "contactType": "customer service"
+              }
+            }
+          },
+
+          {
+            "@type": "FAQPage",
+            "@id": "https://www.tonsite.fr/poignee-cassee-paris-1#faq",
+            "mainEntity": [
+              {
+                "@type": "Question",
+                "name": "Puis-je remplacer moi-même une poignée cassée ?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Oui, mais une erreur de modèle ou de mesure peut empêcher le bon fonctionnement. Un serrurier garantit une pose correcte et durable."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Faut-il changer les deux poignées ?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Il est recommandé de changer le set complet pour garantir un fonctionnement équilibré et éviter l’usure prématurée."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Une poignée qui tourne dans le vide est-elle urgente ?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Oui, car elle empêche l’ouverture normale de la porte. Une réparation rapide évite le blocage complet."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Proposez-vous des poignées adaptées aux immeubles anciens ?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Oui. Nous installons des poignées de style ancien compatibles avec les portes parisiennes."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "L’intervention est-elle garantie ?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Oui. Les poignées sont garanties fabricant et la pose est garantie au minimum 2 ans."
+                }
+              }
+            ]
+          }
+        ]
+      }
+
+
+
+
+    );
+    document.head.appendChild(script);
+  }
 
   heroData = signal({
     title: 'Poignée Cassée à Paris 1 ?',

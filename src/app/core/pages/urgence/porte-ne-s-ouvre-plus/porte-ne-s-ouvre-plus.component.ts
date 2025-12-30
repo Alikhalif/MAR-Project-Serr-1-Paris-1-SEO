@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, OnInit, PLATFORM_ID, signal } from '@angular/core';
 import { ConclusionComponent } from "../../../components/conclusion/conclusion.component";
 import { FaqComponent } from "../../../components/faq/faq.component";
 import { PricingTransparencyComponent } from "../../../components/pricing-transparency/pricing-transparency.component";
@@ -6,6 +6,8 @@ import { OurServicesComponent } from "../../../components/our-services/our-servi
 import { OurCommitmentsComponent } from "../../../components/our-commitments/our-commitments.component";
 import { WhyChooseUsComponent } from "../../../components/why-choose-us/why-choose-us.component";
 import { HeroSectionComponent } from "../../../components/hero-section/hero-section.component";
+import { Meta, Title } from '@angular/platform-browser';
+import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'app-porte-ne-s-ouvre-plus',
@@ -14,7 +16,85 @@ import { HeroSectionComponent } from "../../../components/hero-section/hero-sect
   templateUrl: './porte-ne-s-ouvre-plus.component.html',
   styleUrl: './porte-ne-s-ouvre-plus.component.scss'
 })
-export class PorteNeSOuvrePlusComponent {
+export class PorteNeSOuvrePlusComponent implements OnInit {
+
+  private title = inject(Title);
+  private meta = inject(Meta);
+  platformId = inject(PLATFORM_ID);
+
+  ngOnInit(): void {
+    this.title.setTitle(
+      'Porte qui ne s\'ouvre plus Paris 1 (75001) | Dépannage Urgent'
+    );
+
+    this.meta.addTags([
+      {
+        name: 'description',
+        content: 'Porte qui ne s\'ouvre plus à Paris 1 ? Dépannage serrurier urgent 24h/24. Ouverture sans dégâts, devis gratuit.'
+      },
+      {
+        name: 'keywords',
+        content: 'porte ne s\'ouvre plus Paris 1, serrurier urgent 75001, dépannage porte bloquée, ouverture sans dégâts'
+      },
+      { name: 'robots', content: 'index, follow' },
+      { name: 'author', content: 'Serrurier Paris 1' },
+      { rel: 'canonical', href: 'https://www.tonsite.fr/porte-ne-souvre-plus-paris-1' },
+      { property: 'og:title', content: 'Porte qui ne s\'ouvre plus à Paris 1 – Dépannage Express' },
+      { property: 'og:description', content: 'Déblocage de porte à Paris 1 en moins de 30 minutes. Intervention rapide et sécurisée.' },
+      { property: 'og:type', content: 'website' },
+      { property: 'og:url', content: 'https://www.tonsite.fr/porte-ne-souvre-plus-paris-1' }
+    ]);
+
+    if (isPlatformBrowser(this.platformId)) {
+    this.injectSchema();
+    }
+  }
+
+  injectSchema(): void {
+    const script = document.createElement('script');
+    script.type = 'application/ld+json';
+    script.text = JSON.stringify(this.schemaData);
+    document.head.appendChild(script);
+  }
+
+  schemaData = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Locksmith",
+        "@id": "https://www.tonsite.fr/#locksmith",
+        "name": "Serrurier Paris 1",
+        "telephone": "01 23 45 67 89",
+        "priceRange": "€€",
+        "url": "https://www.tonsite.fr",
+        "openingHours": "Mo-Su 00:00-23:59",
+        "address": { "@type": "PostalAddress", "addressLocality": "Paris", "postalCode": "75001", "addressCountry": "FR" },
+        "areaServed": { "@type": "AdministrativeArea", "name": "Paris 1" }
+      },
+      {
+        "@type": "Service",
+        "@id": "https://www.tonsite.fr/porte-ne-souvre-plus-paris-1#service",
+        "name": "Dépannage porte qui ne s'ouvre plus à Paris 1",
+        "serviceType": "Ouverture et déblocage de porte",
+        "provider": { "@id": "https://www.tonsite.fr/#locksmith" },
+        "areaServed": { "@type": "AdministrativeArea", "name": "Paris 1" },
+        "description": "Dépannage urgent d'une porte qui ne s'ouvre plus à Paris 1 : ouverture sans dégâts, réparation ou remplacement si nécessaire.",
+        "availableChannel": { "@type": "ServiceChannel", "servicePhone": { "@type": "ContactPoint", "telephone": "01 23 45 67 89", "contactType": "customer service" } }
+      },
+      {
+        "@type": "FAQPage",
+        "@id": "https://www.tonsite.fr/porte-ne-souvre-plus-paris-1#faq",
+        "mainEntity": [
+          { "@type": "Question", "name": "Pouvez-vous ouvrir la porte sans casser la serrure ou la porte elle-même ?", "acceptedAnswer": { "@type": "Answer", "text": "Oui, techniques non destructives privilégiées, forçage uniquement en dernier recours." } },
+          { "@type": "Question", "name": "La cause est-elle forcément ma serrure ? Pas ma clé ?", "acceptedAnswer": { "@type": "Answer", "text": "Diagnostic complet : parfois la clé est en cause, souvent copiée ou usée." } },
+          { "@type": "Question", "name": "Que se passe-t-il si c'est la serrure 3 points ou 5 points qui est cassée ?", "acceptedAnswer": { "@type": "Answer", "text": "Démontage et inspection du mécanisme, réparation ou remplacement selon l'état." } },
+          { "@type": "Question", "name": "Proposez-vous une garantie après le dépannage ?", "acceptedAnswer": { "@type": "Answer", "text": "Oui, main d'œuvre et pièces neuves garanties, généralement 2 ans." } },
+          { "@type": "Question", "name": "Votre tarif est-il le même la nuit, le week-end ou pour une porte blindée ?", "acceptedAnswer": { "@type": "Answer", "text": "Forfait d'urgence 24h/24 et 7j/7, devis spécifique pour portes blindées." } }
+        ]
+      }
+    ]
+  };
+
 
   heroData = signal({
     title: 'Porte qui ne s\'ouvre plus à Paris 1 ?',

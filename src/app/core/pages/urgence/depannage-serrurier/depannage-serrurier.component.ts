@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, OnInit, PLATFORM_ID, signal } from '@angular/core';
 import { ConclusionComponent } from "../../../components/conclusion/conclusion.component";
 import { FaqComponent } from "../../../components/faq/faq.component";
 import { PricingTransparencyComponent } from "../../../components/pricing-transparency/pricing-transparency.component";
@@ -6,6 +6,8 @@ import { OurCommitmentsComponent } from "../../../components/our-commitments/our
 import { WhyChooseUsComponent } from "../../../components/why-choose-us/why-choose-us.component";
 import { OurServicesComponent } from "../../../components/our-services/our-services.component";
 import { HeroSectionComponent } from "../../../components/hero-section/hero-section.component";
+import { Meta, Title } from '@angular/platform-browser';
+import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'app-depannage-serrurier',
@@ -14,7 +16,175 @@ import { HeroSectionComponent } from "../../../components/hero-section/hero-sect
   templateUrl: './depannage-serrurier.component.html',
   styleUrl: './depannage-serrurier.component.scss'
 })
-export class DepannageSerrurierComponent {
+export class DepannageSerrurierComponent implements OnInit {
+
+  private title = inject(Title);
+  private meta = inject(Meta);
+  platformId = inject(PLATFORM_ID);
+
+  ngOnInit(): void {
+
+    /* =========================
+       TITLE
+    ========================== */
+    this.title.setTitle(
+      'Dépannage Serrurier Paris 1 (75001) | Urgence 24h/24'
+    );
+
+    /* =========================
+       META TAGS
+    ========================== */
+    this.meta.addTags([
+      {
+        name: 'description',
+        content: 'Dépannage serrurier à Paris 1 (75001). Intervention rapide, urgence 24h/24, devis gratuit. Ouverture porte, serrure bloquée, clé cassée.'
+      },
+      {
+        name: 'keywords',
+        content: 'dépannage serrurier Paris 1, serrurier urgence 75001, porte bloquée, clé cassée, réparation serrure Paris'
+      },
+      { name: 'robots', content: 'index, follow' },
+      { name: 'author', content: 'Serrurier Paris 1' },
+
+      /* Canonical */
+      {
+        rel: 'canonical',
+        href: 'https://www.tonsite.fr/depannage-serrurier-paris-1'
+      },
+
+      /* Open Graph */
+      {
+        property: 'og:title',
+        content: 'Dépannage Serrurier à Paris 1 – Intervention Urgente'
+      },
+      {
+        property: 'og:description',
+        content: 'Urgence serrurier à Paris 1 : ouverture de porte, clé cassée, serrure bloquée. Intervention rapide et garantie.'
+      },
+      {
+        property: 'og:type',
+        content: 'website'
+      },
+      {
+        property: 'og:url',
+        content: 'https://www.tonsite.fr/depannage-serrurier-paris-1'
+      }
+    ]);
+
+    if (isPlatformBrowser(this.platformId)) {
+    this.injectSchema();
+    }
+  }
+
+  /* =========================
+     SCHEMA JSON-LD
+  ========================== */
+  injectSchema(): void {
+    const script = document.createElement('script');
+    script.type = 'application/ld+json';
+    script.text = JSON.stringify(this.schemaData);
+    document.head.appendChild(script);
+  }
+
+  schemaData = {
+    "@context": "https://schema.org",
+    "@graph": [
+
+      /* ===== BUSINESS ===== */
+      {
+        "@type": "Locksmith",
+        "@id": "https://www.tonsite.fr/#locksmith",
+        "name": "Serrurier Paris 1",
+        "telephone": "01 23 45 67 89",
+        "priceRange": "€€",
+        "url": "https://www.tonsite.fr",
+        "openingHours": "Mo-Su 00:00-23:59",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Paris",
+          "postalCode": "75001",
+          "addressCountry": "FR"
+        },
+        "areaServed": {
+          "@type": "AdministrativeArea",
+          "name": "Paris 1"
+        }
+      },
+
+      /* ===== SERVICE ===== */
+      {
+        "@type": "Service",
+        "@id": "https://www.tonsite.fr/depannage-serrurier-paris-1#service",
+        "name": "Dépannage serrurier à Paris 1",
+        "serviceType": "Ouverture et réparation de serrure",
+        "provider": {
+          "@id": "https://www.tonsite.fr/#locksmith"
+        },
+        "areaServed": {
+          "@type": "AdministrativeArea",
+          "name": "Paris 1"
+        },
+        "description": "Dépannage serrurier à Paris 1 : intervention urgente 24h/24, ouverture de porte, clé cassée, serrure bloquée, devis gratuit.",
+        "availableChannel": {
+          "@type": "ServiceChannel",
+          "servicePhone": {
+            "@type": "ContactPoint",
+            "telephone": "01 23 45 67 89",
+            "contactType": "customer service"
+          }
+        }
+      },
+
+      /* ===== FAQ ===== */
+      {
+        "@type": "FAQPage",
+        "@id": "https://www.tonsite.fr/depannage-serrurier-paris-1#faq",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Quels sont vos délais d'intervention pour un dépannage à Paris 1 ?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Pour toute urgence, notre délai moyen d'arrivée est inférieur à 30 minutes. Pour les interventions non urgentes, un créneau précis est convenu le même jour."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Proposez-vous un devis gratuit pour le dépannage ?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Oui, systématiquement. Le devis détaille la panne, la solution, le coût main d’œuvre et pièces. Vous payez uniquement ce qui est accepté."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Utilisez-vous des pièces de qualité ? Puis-je fournir mes propres pièces ?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Nous n'utilisons que des pièces professionnelles de fournisseurs certifiés. Pour des raisons de responsabilité et garantie, nous ne posons pas de pièces fournies par le client."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Votre intervention est-elle garantie ?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Oui, garantie sur la main d’œuvre (2 ans) et sur les pièces neuves (garantie constructeur)."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Intervenez-vous chez les professionnels dans Paris 1 ?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Oui, pour bureaux, commerces, restaurants et hôtels. Nous respectons vos horaires pour ne pas gêner votre activité."
+            }
+          }
+        ]
+      }
+    ]
+  };
+
 
   heroData = signal({
     title: 'Dépannage Serrurier à Paris 1',

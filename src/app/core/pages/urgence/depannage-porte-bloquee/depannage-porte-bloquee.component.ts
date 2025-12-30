@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, OnInit, PLATFORM_ID, signal } from '@angular/core';
 import { ConclusionComponent } from "../../../components/conclusion/conclusion.component";
 import { FaqComponent } from "../../../components/faq/faq.component";
 import { PricingTransparencyComponent } from "../../../components/pricing-transparency/pricing-transparency.component";
@@ -6,6 +6,8 @@ import { OurServicesComponent } from "../../../components/our-services/our-servi
 import { OurCommitmentsComponent } from "../../../components/our-commitments/our-commitments.component";
 import { WhyChooseUsComponent } from "../../../components/why-choose-us/why-choose-us.component";
 import { HeroSectionComponent } from "../../../components/hero-section/hero-section.component";
+import { Meta, Title } from '@angular/platform-browser';
+import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'app-depannage-porte-bloquee',
@@ -14,7 +16,169 @@ import { HeroSectionComponent } from "../../../components/hero-section/hero-sect
   templateUrl: './depannage-porte-bloquee.component.html',
   styleUrl: './depannage-porte-bloquee.component.scss'
 })
-export class DepannagePorteBloqueeComponent {
+export class DepannagePorteBloqueeComponent implements OnInit {
+
+  private title = inject(Title);
+  private meta = inject(Meta);
+  platformId = inject(PLATFORM_ID);
+
+  ngOnInit(): void {
+
+    this.title.setTitle(
+      'Porte Bloquée Paris 1 (75001) | Dépannage Serrurier Urgent'
+    );
+
+    this.meta.addTags([
+      {
+        name: 'description',
+        content: 'Porte bloquée à Paris 1 (75001) ? Dépannage serrurier urgent 24h/24. Ouverture sans dégâts, devis gratuit.'
+      },
+      {
+        name: 'keywords',
+        content: 'porte bloquée Paris 1, ouverture porte bloquée 75001, serrurier porte bloquée Paris, dépannage porte urgence'
+      },
+      { name: 'robots', content: 'index, follow' },
+      { name: 'author', content: 'Serrurier Paris 1' },
+
+      /* Canonical */
+      {
+        rel: 'canonical',
+        href: 'https://www.tonsite.fr/porte-bloquee-paris-1'
+      },
+
+      /* Open Graph */
+      {
+        property: 'og:title',
+        content: 'Porte Bloquée à Paris 1 – Dépannage Express'
+      },
+      {
+        property: 'og:description',
+        content: 'Déblocage de porte bloquée à Paris 1. Intervention rapide sans casser la serrure.'
+      },
+      {
+        property: 'og:type',
+        content: 'website'
+      },
+      {
+        property: 'og:url',
+        content: 'https://www.tonsite.fr/porte-bloquee-paris-1'
+      }
+    ]);
+
+    if (isPlatformBrowser(this.platformId)) {
+    this.injectSchema();
+    }
+  }
+
+  /* =========================
+     SCHEMA JSON-LD
+  ========================== */
+  injectSchema(): void {
+    const script = document.createElement('script');
+    script.type = 'application/ld+json';
+    script.text = JSON.stringify(this.schemaData);
+    document.head.appendChild(script);
+  }
+
+  schemaData = {
+    "@context": "https://schema.org",
+    "@graph": [
+
+      /* ===== BUSINESS ===== */
+      {
+        "@type": "Locksmith",
+        "@id": "https://www.tonsite.fr/#locksmith",
+        "name": "Serrurier Paris 1",
+        "telephone": "01 23 45 67 89",
+        "priceRange": "€€",
+        "url": "https://www.tonsite.fr",
+        "openingHours": "Mo-Su 00:00-23:59",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Paris",
+          "postalCode": "75001",
+          "addressCountry": "FR"
+        },
+        "areaServed": {
+          "@type": "AdministrativeArea",
+          "name": "Paris 1"
+        }
+      },
+
+      /* ===== SERVICE ===== */
+      {
+        "@type": "Service",
+        "@id": "https://www.tonsite.fr/porte-bloquee-paris-1#service",
+        "name": "Dépannage porte bloquée à Paris 1",
+        "serviceType": "Ouverture et déblocage de porte",
+        "provider": {
+          "@id": "https://www.tonsite.fr/#locksmith"
+        },
+        "areaServed": {
+          "@type": "AdministrativeArea",
+          "name": "Paris 1"
+        },
+        "description": "Dépannage de porte bloquée à Paris 1 : ouverture sans dégâts, réglage de porte, intervention urgente 24h/24.",
+        "availableChannel": {
+          "@type": "ServiceChannel",
+          "servicePhone": {
+            "@type": "ContactPoint",
+            "telephone": "01 23 45 67 89",
+            "contactType": "customer service"
+          }
+        }
+      },
+
+      /* ===== FAQ ===== */
+      {
+        "@type": "FAQPage",
+        "@id": "https://www.tonsite.fr/porte-bloquee-paris-1#faq",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Pouvez-vous débloquer une porte sans casser la serrure ?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Oui, dans la majorité des cas grâce à des techniques non destructives comme le réglage ou le crochetage."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "La chaleur ou l’humidité peuvent-elles bloquer une porte ?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Oui, surtout sur les portes en bois. Un réglage ou réalignement suffit souvent."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Que faire si la clé tourne mais que la porte ne s’ouvre pas ?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Cela indique un problème de mécanisme ou d’alignement. Un diagnostic sur place permet une réparation ciblée."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Le dépannage de porte bloquée est-il garanti ?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Oui. La main d’œuvre et les pièces installées sont garanties, généralement 2 ans."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "L’intervention est-elle plus chère la nuit ou le week-end ?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Le forfait urgence est identique 24h/24. Un devis est toujours annoncé avant intervention."
+            }
+          }
+        ]
+      }
+    ]
+  };
+
 
   heroData = signal({
     title: 'Porte Bloquée à Paris 1 ?',

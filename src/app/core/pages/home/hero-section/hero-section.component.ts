@@ -1,5 +1,5 @@
 // hero-section.component.ts
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, PLATFORM_ID, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 export interface HeroData {
@@ -23,6 +23,8 @@ export class HeroSectionComponent {
   // heroData!: HeroData;
   @Output() ctaClick = new EventEmitter<void>();
 
+  platformId = inject(PLATFORM_ID);
+
   onCtaClick(): void {
     this.ctaClick.emit();
   }
@@ -33,7 +35,7 @@ export class HeroSectionComponent {
     subtitle: 'Intervention d\'Urgence & Sécurité en Moins de 30 Minutes',
     description: '',
     ctaText: 'URGENCE ? ENFERMÉ(E) À PARIS ?',
-    ctaPhone: '01 XX XX XX XX',
+    ctaPhone: '0757831800',
     ctaSubText: 'Intervention 24h/24 - 7j/7 - Sans majoration nuit, dimanche & fériés'
   };
 

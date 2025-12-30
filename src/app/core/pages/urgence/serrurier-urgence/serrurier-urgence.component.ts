@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, OnInit, PLATFORM_ID, signal } from '@angular/core';
 import { FaqComponent } from '../../../components/faq/faq.component';
 import {  ConclusionComponent } from '../../../components/conclusion/conclusion.component';
 
@@ -7,6 +7,8 @@ import { WhyChooseUsComponent } from "../../../components/why-choose-us/why-choo
 import { OurCommitmentsComponent } from "../../../components/our-commitments/our-commitments.component";
 import { OurServicesComponent } from "../../../components/our-services/our-services.component";
 import { PricingTransparencyComponent } from "../../../components/pricing-transparency/pricing-transparency.component";
+import { Meta, Title } from '@angular/platform-browser';
+import { isPlatformBrowser } from '@angular/common';
 
 
 @Component({
@@ -16,7 +18,169 @@ import { PricingTransparencyComponent } from "../../../components/pricing-transp
   templateUrl: './serrurier-urgence.component.html',
   styleUrl: './serrurier-urgence.component.scss'
 })
-export class SerrurierUrgenceComponent {
+export class SerrurierUrgenceComponent implements OnInit {
+
+  private title = inject(Title);
+  private meta = inject(Meta);
+  platformId = inject(PLATFORM_ID);
+
+  ngOnInit(): void {
+
+    this.title.setTitle(
+      'Serrurier Urgence Paris 1 (75001) | Intervention Express 24h/24'
+    );
+
+
+    this.meta.addTags([
+      {
+        name: 'description',
+        content: 'Serrurier urgence Paris 1 : intervention express 24h/24 pour porte bloquée, clé cassée ou dépannage immédiat. Service rapide et sécurisé.'
+      },
+      {
+        name: 'keywords',
+        content: 'serrurier urgence Paris 1, dépannage immédiat 75001, ouverture porte urgente, serrurier 24h/24 Paris 1'
+      },
+      { name: 'robots', content: 'index, follow' },
+      { name: 'author', content: 'Serrurier Paris 1' },
+
+      /* Canonical */
+      {
+        rel: 'canonical',
+        href: 'https://www.tonsite.fr/serrurier-urgence-paris-1'
+      },
+
+      /* Open Graph */
+      {
+        property: 'og:title',
+        content: 'Serrurier Urgence à Paris 1 – Intervention Express 24h/24'
+      },
+      {
+        property: 'og:description',
+        content: 'Intervention immédiate pour porte bloquée, clé cassée ou urgence serrurerie à Paris 1. Déplacement rapide et sécurisé.'
+      },
+      {
+        property: 'og:type',
+        content: 'website'
+      },
+      {
+        property: 'og:url',
+        content: 'https://www.tonsite.fr/serrurier-urgence-paris-1'
+      }
+    ]);
+
+    if (isPlatformBrowser(this.platformId)) {
+    this.injectSchema();
+    }
+  }
+
+  /* =========================
+     SCHEMA JSON-LD
+  ========================== */
+  injectSchema(): void {
+    const script = document.createElement('script');
+    script.type = 'application/ld+json';
+    script.text = JSON.stringify(this.schemaData);
+    document.head.appendChild(script);
+  }
+
+  schemaData = {
+    "@context": "https://schema.org",
+    "@graph": [
+
+      /* ===== BUSINESS ===== */
+      {
+        "@type": "Locksmith",
+        "@id": "https://www.tonsite.fr/#locksmith",
+        "name": "Serrurier Paris 1",
+        "telephone": "01 23 45 67 89",
+        "priceRange": "€€",
+        "url": "https://www.tonsite.fr",
+        "openingHours": "Mo-Su 00:00-23:59",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Paris",
+          "postalCode": "75001",
+          "addressCountry": "FR"
+        },
+        "areaServed": {
+          "@type": "AdministrativeArea",
+          "name": "Paris 1"
+        }
+      },
+
+      /* ===== SERVICE ===== */
+      {
+        "@type": "Service",
+        "@id": "https://www.tonsite.fr/serrurier-urgence-paris-1#service",
+        "name": "Intervention urgente à Paris 1",
+        "serviceType": "Serrurerie express 24h/24",
+        "provider": {
+          "@id": "https://www.tonsite.fr/#locksmith"
+        },
+        "areaServed": {
+          "@type": "AdministrativeArea",
+          "name": "Paris 1"
+        },
+        "description": "Serrurier urgence Paris 1 : intervention express pour porte bloquée, clé cassée ou dépannage immédiat, avec sécurité et rapidité.",
+        "availableChannel": {
+          "@type": "ServiceChannel",
+          "servicePhone": {
+            "@type": "ContactPoint",
+            "telephone": "01 23 45 67 89",
+            "contactType": "customer service"
+          }
+        }
+      },
+
+      /* ===== FAQ ===== */
+      {
+        "@type": "FAQPage",
+        "@id": "https://www.tonsite.fr/serrurier-urgence-paris-1#faq",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "En combien de temps intervenez-vous dans Paris 1 ?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Notre objectif est d'être présent à votre adresse en moins de 30 minutes après votre appel confirmé."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Proposez-vous un devis gratuit pour une intervention urgente ?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Oui, nous communiquons un devis ferme et transparent par téléphone avant toute intervention."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Pouvez-vous ouvrir une porte sans l'abîmer ?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Oui, priorité aux techniques non destructives pour préserver la serrure et la porte."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Que faire si ma clé est cassée dans la serrure ?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Ne tentez pas de l'extraire vous-même. Nous intervenons avec des outils adaptés et remplaçons le cylindre si nécessaire."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Garantissez-vous les pièces et les interventions ?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Oui, toutes nos pièces et interventions sont garanties avec facturation détaillée."
+            }
+          }
+        ]
+      }
+    ]
+  };
 
   //HERO ==========
 

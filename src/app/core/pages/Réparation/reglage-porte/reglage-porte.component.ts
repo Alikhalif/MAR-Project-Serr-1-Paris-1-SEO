@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, OnInit, PLATFORM_ID, signal } from '@angular/core';
 import { ConclusionComponent } from "../../../components/conclusion/conclusion.component";
 import { FaqComponent } from "../../../components/faq/faq.component";
 import { PricingTransparencyComponent } from "../../../components/pricing-transparency/pricing-transparency.component";
@@ -6,6 +6,8 @@ import { OurServicesComponent } from "../../../components/our-services/our-servi
 import { OurCommitmentsComponent } from "../../../components/our-commitments/our-commitments.component";
 import { WhyChooseUsComponent } from "../../../components/why-choose-us/why-choose-us.component";
 import { HeroSectionComponent } from "../../../components/hero-section/hero-section.component";
+import { Meta, Title } from '@angular/platform-browser';
+import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'app-reglage-porte',
@@ -14,16 +16,184 @@ import { HeroSectionComponent } from "../../../components/hero-section/hero-sect
   templateUrl: './reglage-porte.component.html',
   styleUrl: './reglage-porte.component.scss'
 })
-export class ReglagePorteComponent {
+export class ReglagePorteComponent implements OnInit {
+
+  private title = inject(Title);
+  private meta = inject(Meta);
+  platformId = inject(PLATFORM_ID);
+
+  ngOnInit(): void {
+
+    /* =========================
+       TITLE
+    ========================== */
+    this.title.setTitle(
+      'Réglage Porte Paris 1 (75001) | Porte Qui Frotte ou Bloquée'
+    );
+
+    /* =========================
+       META TAGS
+    ========================== */
+    this.meta.addTags([
+      {
+        name: 'description',
+        content: 'Réglage de porte à Paris 1 (75001). Porte qui frotte, ferme mal ou bloque ? Serrurier expert, diagnostic gratuit et intervention rapide.'
+      },
+      {
+        name: 'keywords',
+        content: 'réglage porte Paris 1, porte qui frotte 75001, porte bloquée Paris, réglage porte entrée Paris'
+      },
+      { name: 'robots', content: 'index, follow' },
+      { name: 'author', content: 'Serrurier Paris 1' },
+
+      /* Canonical */
+      {
+        rel: 'canonical',
+        href: 'https://www.tonsite.fr/reglage-porte-paris-1'
+      },
+
+      /* Open Graph */
+      {
+        property: 'og:title',
+        content: 'Réglage de Porte à Paris 1 – Serrurier Spécialiste'
+      },
+      {
+        property: 'og:description',
+        content: 'Porte qui frotte, ferme mal ou bloque à Paris 1 ? Réglage professionnel sans changer la serrure.'
+      },
+      {
+        property: 'og:type',
+        content: 'website'
+      },
+      {
+        property: 'og:url',
+        content: 'https://www.tonsite.fr/reglage-porte-paris-1'
+      }
+    ]);
+
+    if (isPlatformBrowser(this.platformId)) {
+    this.injectSchema();
+    }
+  }
+
+  /* =========================
+     SCHEMA JSON-LD
+  ========================== */
+  injectSchema(): void {
+    const script = document.createElement('script');
+    script.type = 'application/ld+json';
+    script.text = JSON.stringify(this.schemaData);
+    document.head.appendChild(script);
+  }
+
+  schemaData = {
+    "@context": "https://schema.org",
+    "@graph": [
+
+      /* ===== BUSINESS ===== */
+      {
+        "@type": "Locksmith",
+        "@id": "https://www.tonsite.fr/#locksmith",
+        "name": "Serrurier Paris 1",
+        "telephone": "01 23 45 67 89",
+        "priceRange": "€€",
+        "url": "https://www.tonsite.fr",
+        "openingHours": "Mo-Su 00:00-23:59",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Paris",
+          "postalCode": "75001",
+          "addressCountry": "FR"
+        },
+        "areaServed": {
+          "@type": "AdministrativeArea",
+          "name": "Paris 1"
+        }
+      },
+
+      /* ===== SERVICE ===== */
+      {
+        "@type": "Service",
+        "@id": "https://www.tonsite.fr/reglage-porte-paris-1#service",
+        "name": "Réglage de porte à Paris 1",
+        "serviceType": "Réglage, réalignement et dépannage de porte",
+        "provider": {
+          "@id": "https://www.tonsite.fr/#locksmith"
+        },
+        "areaServed": {
+          "@type": "AdministrativeArea",
+          "name": "Paris 1"
+        },
+        "description": "Réglage de porte à Paris 1 : porte qui frotte, ferme mal ou bloque. Intervention rapide sans remplacement inutile.",
+        "availableChannel": {
+          "@type": "ServiceChannel",
+          "servicePhone": {
+            "@type": "ContactPoint",
+            "telephone": "01 23 45 67 89",
+            "contactType": "customer service"
+          }
+        }
+      },
+
+      /* ===== FAQ ===== */
+      {
+        "@type": "FAQPage",
+        "@id": "https://www.tonsite.fr/reglage-porte-paris-1#faq",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Puis-je régler ma porte moi-même ?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Un réglage approximatif est parfois possible sur certaines portes modernes, mais sans expérience il existe un risque d’aggraver le désalignement. Un serrurier garantit un réglage précis et durable."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Pourquoi ma porte frotte seulement en été ou en hiver ?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Les variations de température et d’humidité provoquent la dilatation du bois. Un réglage professionnel permet un fonctionnement stable toute l’année."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Combien de temps dure un réglage de porte ?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Un réglage standard dure généralement entre 20 et 45 minutes. Les cas complexes peuvent aller jusqu’à 1h30."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Un réglage peut-il résoudre un problème de serrure ?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Oui. Dans de nombreux cas, un mauvais alignement empêche le pêne de fonctionner correctement. Le réglage suffit sans toucher à la serrure."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Proposez-vous un entretien préventif ?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Oui. Un entretien périodique des paumelles et des mécanismes évite l’usure prématurée et les blocages."
+            }
+          }
+        ]
+      }
+    ]
+  };
+
 
   heroData = signal({
-  title: 'Réglage Porte Paris 1',
-  subtitle: 'Votre Expert pour une Fermeture Parfaite',
-  description: 'Votre <strong>porte frotte, ferme mal ou est bloquée à Paris 1 ?</strong> Notre service de réglage expert résout le problème, prévient l\'usure de votre serrure et restaure votre sécurité et votre confort.',
-  ctaText: 'Obtenir un diagnostic gratuit',
-  ctaPhone: '01 23 45 67 89',
-  backgroundImage: 'https://i.ibb.co/TDWd5Kv4/porte-frotte-5.png'
-});
+    title: 'Réglage Porte Paris 1',
+    subtitle: 'Votre Expert pour une Fermeture Parfaite',
+    description: 'Votre <strong>porte frotte, ferme mal ou est bloquée à Paris 1 ?</strong> Notre service de réglage expert résout le problème, prévient l\'usure de votre serrure et restaure votre sécurité et votre confort.',
+    ctaText: 'Obtenir un diagnostic gratuit',
+    ctaPhone: '01 23 45 67 89',
+    backgroundImage: 'https://i.ibb.co/TDWd5Kv4/porte-frotte-5.png'
+  });
 
 whyChooseData = signal({
   title: 'Pourquoi un réglage professionnel est essentiel pour votre porte à Paris 1 ?',
