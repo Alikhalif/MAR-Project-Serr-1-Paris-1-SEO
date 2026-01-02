@@ -8,6 +8,8 @@ import { WhyChooseUsComponent } from "../../../components/why-choose-us/why-choo
 import { HeroSectionComponent } from "../../../components/hero-section/hero-section.component";
 import { Meta, Title } from '@angular/platform-browser';
 import { isPlatformBrowser } from '@angular/common';
+import { SITE_CONFIG_TOKEN } from '../../../config/site-config.token';
+import { SiteConfig } from '../../../config/site-config.model';
 
 @Component({
   selector: 'app-perte-cles-securisation',
@@ -21,6 +23,7 @@ export class PerteClesSecurisationComponent implements OnInit {
   private title = inject(Title);
   private meta = inject(Meta);
   platformId = inject(PLATFORM_ID);
+  site: SiteConfig = inject(SITE_CONFIG_TOKEN);
 
   ngOnInit(): void {
 
@@ -185,13 +188,19 @@ export class PerteClesSecurisationComponent implements OnInit {
     ]
   };
 
+  callNow(): void {
+    if (isPlatformBrowser(this.platformId)) {
+      window.location.href = `tel:${this.site.phone}`;
+    }
+  }
+
 
   heroData = signal({
     title: 'Perte de Clés à Paris 1',
     subtitle: 'Notre Intervention Urgente pour Sécuriser Votre Domicile',
     description: '<strong>Vous avez perdu vos clés dans Paris 1 ?</strong> <br>Notre intervention urgente vous protège en moins de 30 minutes. Vous fouillez frénétiquement vos poches, votre sac, retracez mentalement votre parcours... Notre entreprise de serrurerie parisienne intervient spécifiquement pour gérer l\'urgence liée à la perte de clés à Paris 1.',
     ctaText: 'Vous avez perdu vos clés dans Paris 1 ? Appelez l\'urgence sécurité',
-    ctaPhone: '01 23 45 67 89',
+    ctaPhone: this.site.phone,
     backgroundImage: 'https://i.ibb.co/spLjjC3b/perte-cles-3.png'
   });
 

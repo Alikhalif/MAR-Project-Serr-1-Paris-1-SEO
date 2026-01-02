@@ -1,6 +1,8 @@
 import { Component, HostListener, signal, computed, PLATFORM_ID, inject } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { trigger, state, style, transition, animate } from '@angular/animations';
+import { SiteConfig } from '../../config/site-config.model';
+import { SITE_CONFIG_TOKEN } from '../../config/site-config.token';
 
 interface MenuItem {
   label: string;
@@ -42,6 +44,8 @@ export class NavbarComponent {
   isMobile = signal(false);
 
   platformId = inject(PLATFORM_ID);
+  site: SiteConfig = inject(SITE_CONFIG_TOKEN);
+
 
   menuItems: MenuItem[] = [
     // {
@@ -162,7 +166,13 @@ export class NavbarComponent {
 
   callPhone(): void {
     if (isPlatformBrowser(this.platformId)) {
-      window.location.href = 'tel:0123456789';
+      window.location.href = `tel:${this.site.phone}`;
+    }
+  }
+
+  callNow(): void {
+    if (isPlatformBrowser(this.platformId)) {
+      window.location.href = `tel:${this.site.phone}`;
     }
   }
 }

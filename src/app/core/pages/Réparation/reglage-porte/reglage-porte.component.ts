@@ -8,6 +8,8 @@ import { WhyChooseUsComponent } from "../../../components/why-choose-us/why-choo
 import { HeroSectionComponent } from "../../../components/hero-section/hero-section.component";
 import { Meta, Title } from '@angular/platform-browser';
 import { isPlatformBrowser } from '@angular/common';
+import { SITE_CONFIG_TOKEN } from '../../../config/site-config.token';
+import { SiteConfig } from '../../../config/site-config.model';
 
 @Component({
   selector: 'app-reglage-porte',
@@ -21,6 +23,7 @@ export class ReglagePorteComponent implements OnInit {
   private title = inject(Title);
   private meta = inject(Meta);
   platformId = inject(PLATFORM_ID);
+  site: SiteConfig = inject(SITE_CONFIG_TOKEN);
 
   ngOnInit(): void {
 
@@ -186,12 +189,18 @@ export class ReglagePorteComponent implements OnInit {
   };
 
 
+  callNow(): void {
+    if (isPlatformBrowser(this.platformId)) {
+      window.location.href = `tel:${this.site.phone}`;
+    }
+  }
+
   heroData = signal({
     title: 'Réglage Porte Paris 1',
     subtitle: 'Votre Expert pour une Fermeture Parfaite',
     description: 'Votre <strong>porte frotte, ferme mal ou est bloquée à Paris 1 ?</strong> Notre service de réglage expert résout le problème, prévient l\'usure de votre serrure et restaure votre sécurité et votre confort.',
     ctaText: 'Obtenir un diagnostic gratuit',
-    ctaPhone: '01 23 45 67 89',
+    ctaPhone: this.site.phone,
     backgroundImage: 'https://i.ibb.co/TDWd5Kv4/porte-frotte-5.png'
   });
 

@@ -8,6 +8,8 @@ import { WhyChooseUsComponent } from "../../../components/why-choose-us/why-choo
 import { HeroSectionComponent } from "../../../components/hero-section/hero-section.component";
 import { Meta, Title } from '@angular/platform-browser';
 import { isPlatformBrowser } from '@angular/common';
+import { SITE_CONFIG_TOKEN } from '../../../config/site-config.token';
+import { SiteConfig } from '../../../config/site-config.model';
 
 @Component({
   selector: 'app-ouverture-porte-blindee',
@@ -21,6 +23,7 @@ export class OuverturePorteBlindeeComponent implements OnInit {
   private title = inject(Title);
   private meta = inject(Meta);
   platformId = inject(PLATFORM_ID);
+  site: SiteConfig = inject(SITE_CONFIG_TOKEN);
 
   ngOnInit(): void {
 
@@ -185,14 +188,18 @@ export class OuverturePorteBlindeeComponent implements OnInit {
     ]
   };
 
-
+  callNow(): void {
+    if (isPlatformBrowser(this.platformId)) {
+      window.location.href = `tel:${this.site.phone}`;
+    }
+  }
 
   heroData = signal({
     title: 'Ouverture Porte Blindée à Paris 1',
     subtitle: 'Expertise Haute Sécurité 24h/24',
     description: 'Bloqué(e) devant votre <strong>porte blindée dans Paris 1 ?</strong> <br>Notre expertise vous ouvre sans l\'endommager, vous avez investi dans une porte blindée pour la sécurité maximale de votre appartement ou bureau dans le 1er arrondissement.',
     ctaText: 'Votre porte blindée est bloquée dans Paris 1 ? Appelez nos experts',
-    ctaPhone: '01 23 45 67 89',
+    ctaPhone: this.site.phone,
     backgroundImage: 'https://images.unsplash.com/photo-1516455590571-18256e5bb9ff?w=1600&q=80'
   });
 

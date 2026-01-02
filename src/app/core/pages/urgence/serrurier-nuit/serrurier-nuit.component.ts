@@ -8,6 +8,8 @@ import { WhyChooseUsComponent } from "../../../components/why-choose-us/why-choo
 import { HeroSectionComponent } from "../../../components/hero-section/hero-section.component";
 import { Meta, Title } from '@angular/platform-browser';
 import { isPlatformBrowser } from '@angular/common';
+import { SITE_CONFIG_TOKEN } from '../../../config/site-config.token';
+import { SiteConfig } from '../../../config/site-config.model';
 
 @Component({
   selector: 'app-serrurier-nuit',
@@ -21,6 +23,7 @@ export class SerrurierNuitComponent implements OnInit {
   private title = inject(Title);
   private meta = inject(Meta);
   platformId = inject(PLATFORM_ID);
+  site: SiteConfig = inject(SITE_CONFIG_TOKEN);
 
   ngOnInit(): void {
 
@@ -185,13 +188,18 @@ export class SerrurierNuitComponent implements OnInit {
     ]
   };
 
+  callNow(): void {
+    if (isPlatformBrowser(this.platformId)) {
+      window.location.href = `tel:${this.site.phone}`;
+    }
+  }
 
   heroData = signal({
     title: 'Serrurier Nuit à Paris 1',
     subtitle: 'Intervention d\'Urgence 24h/24',
     description: 'Enfermé(e) ou en insécurité en pleine nuit à Paris 1 ? Notre serrurier de nuit intervient sous 30 minutes ! Il est 2 heures du matin dans le 1er arrondissement... Notre équipe d\'artisans d\'urgence est spécialement organisée pour des interventions nocturnes rapides et discrètes.',
     ctaText: 'Bloqué(e) ou en insécurité en pleine nuit à Paris 1 ? Appelez notre service de garde',
-    ctaPhone: '01 23 45 67 89',
+    ctaPhone: this.site.phone,
     backgroundImage: 'https://i.ibb.co/X1GsDJN/nuit-5.png'
   });
 

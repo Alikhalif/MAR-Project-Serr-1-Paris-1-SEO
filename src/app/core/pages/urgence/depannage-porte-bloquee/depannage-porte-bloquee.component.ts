@@ -8,6 +8,8 @@ import { WhyChooseUsComponent } from "../../../components/why-choose-us/why-choo
 import { HeroSectionComponent } from "../../../components/hero-section/hero-section.component";
 import { Meta, Title } from '@angular/platform-browser';
 import { isPlatformBrowser } from '@angular/common';
+import { SITE_CONFIG_TOKEN } from '../../../config/site-config.token';
+import { SiteConfig } from '../../../config/site-config.model';
 
 @Component({
   selector: 'app-depannage-porte-bloquee',
@@ -21,6 +23,7 @@ export class DepannagePorteBloqueeComponent implements OnInit {
   private title = inject(Title);
   private meta = inject(Meta);
   platformId = inject(PLATFORM_ID);
+  site: SiteConfig = inject(SITE_CONFIG_TOKEN);
 
   ngOnInit(): void {
 
@@ -179,13 +182,18 @@ export class DepannagePorteBloqueeComponent implements OnInit {
     ]
   };
 
+  callNow(): void {
+    if (isPlatformBrowser(this.platformId)) {
+      window.location.href = `tel:${this.site.phone}`;
+    }
+  }
 
   heroData = signal({
     title: 'Porte Bloquée à Paris 1 ?',
     subtitle: 'Notre Dépannage Express Vous Débloque en 30 Minutes',
     description: 'Votre porte est bloquée à Paris 1 ? Découvrez notre solution de dépannage urgent 24h/24. Vous insérez votre clé, mais elle refuse de tourner. Vous poussez votre porte, mais elle résiste, coincée dans son cadre... Notre entreprise de serrurerie à Paris intervient spécifiquement pour le dépannage de porte bloquée à Paris 1.',
     ctaText: 'Votre porte est bloquée dans Paris 1 ? Appelez-nous',
-    ctaPhone: '01 23 45 67 89',
+    ctaPhone: this.site.phone,
     backgroundImage: 'https://i.ibb.co/V0W28xBQ/porte-blindee-4.png'
   });
 

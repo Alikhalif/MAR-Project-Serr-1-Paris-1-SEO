@@ -1,6 +1,8 @@
 // hero-section.component.ts
 import { Component, Input, Output, EventEmitter, PLATFORM_ID, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { SITE_CONFIG_TOKEN } from '../../../config/site-config.token';
+import { SiteConfig } from '../../../config/site-config.model';
 
 export interface HeroData {
   backgroundImage: string;
@@ -24,6 +26,7 @@ export class HeroSectionComponent {
   @Output() ctaClick = new EventEmitter<void>();
 
   platformId = inject(PLATFORM_ID);
+  site: SiteConfig = inject(SITE_CONFIG_TOKEN);
 
   onCtaClick(): void {
     this.ctaClick.emit();
@@ -35,7 +38,7 @@ export class HeroSectionComponent {
     subtitle: 'Intervention d\'Urgence & Sécurité en Moins de 30 Minutes',
     description: '',
     ctaText: 'URGENCE ? ENFERMÉ(E) À PARIS ?',
-    ctaPhone: '0757831800',
+    ctaPhone: this.site.phone,
     ctaSubText: 'Intervention 24h/24 - 7j/7 - Sans majoration nuit, dimanche & fériés'
   };
 
@@ -43,5 +46,12 @@ export class HeroSectionComponent {
     // Logique pour appeler le numéro
     console.log('Appel d\'urgence déclenché');
     // window.location.href = 'tel:01XXXXXXXXXX';
+  }
+
+
+  callNow(): void {
+    if (isPlatformBrowser(this.platformId)) {
+      window.location.href = `tel:${this.site.phone}`;
+    }
   }
 }

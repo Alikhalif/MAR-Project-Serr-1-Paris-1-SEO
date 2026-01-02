@@ -8,6 +8,8 @@ import { WhyChooseUsComponent } from "../../../components/why-choose-us/why-choo
 import { HeroSectionComponent } from "../../../components/hero-section/hero-section.component";
 import { Meta, Title } from '@angular/platform-browser';
 import { isPlatformBrowser } from '@angular/common';
+import { SITE_CONFIG_TOKEN } from '../../../config/site-config.token';
+import { SiteConfig } from '../../../config/site-config.model';
 
 @Component({
   selector: 'app-porte-blindee',
@@ -21,6 +23,7 @@ export class PorteBlindeeComponent implements OnInit {
   private title = inject(Title);
   private meta = inject(Meta);
   platformId = inject(PLATFORM_ID);
+  site: SiteConfig = inject(SITE_CONFIG_TOKEN);
 
   ngOnInit(): void {
 
@@ -185,13 +188,19 @@ export class PorteBlindeeComponent implements OnInit {
     ]
   };
 
+  callNow(): void {
+    if (isPlatformBrowser(this.platformId)) {
+      window.location.href = `tel:${this.site.phone}`;
+    }
+  }
+
 
   heroData = signal({
     title: 'Réparation Porte Blindée Paris 1',
     subtitle: 'Expertise Haute Sécurité & Diagnostic Précis',
     description: 'Votre <strong>porte blindée dans le 1er arrondissement dysfonctionne ?</strong> Nos experts certifiés interviennent 24h/24 pour restaurer sa protection A2P/NF et garantir votre sécurité.',
     ctaText: 'Obtenir un diagnostic gratuit',
-    ctaPhone: '01 23 45 67 89',
+    ctaPhone: this.site.phone,
     backgroundImage: 'https://i.ibb.co/rKyqY32r/bloquee-5.jpg'
   });
 

@@ -8,6 +8,8 @@ import { WhyChooseUsComponent } from "../../../components/why-choose-us/why-choo
 import { HeroSectionComponent } from "../../../components/hero-section/hero-section.component";
 import { Meta, Title } from '@angular/platform-browser';
 import { isPlatformBrowser } from '@angular/common';
+import { SITE_CONFIG_TOKEN } from '../../../config/site-config.token';
+import { SiteConfig } from '../../../config/site-config.model';
 
 @Component({
   selector: 'app-changement-barillet',
@@ -21,6 +23,7 @@ export class ChangementBarilletComponent implements  OnInit {
   private title = inject(Title);
   private meta = inject(Meta);
   platformId = inject(PLATFORM_ID);
+  site: SiteConfig = inject(SITE_CONFIG_TOKEN);
 
   ngOnInit(): void {
 
@@ -164,12 +167,18 @@ export class ChangementBarilletComponent implements  OnInit {
     document.head.appendChild(script);
   }
 
+  callNow(): void {
+    if (isPlatformBrowser(this.platformId)) {
+      window.location.href = `tel:${this.site.phone}`;
+    }
+  }
+
   heroData = signal({
     title: 'Changement de Barillet à Paris 1',
     subtitle: 'Sécurité Renouvelée en 30 Minutes',
     description: 'Votre <strong>barillet est défectueux à Paris 1 ?</strong> Notre changement express restaure votre sécurité. Le barillet, également appelé cylindre, est la pièce maîtresse de votre serrure... Notre entreprise de serrurerie à Paris réalise des changements de barillet professionnels et sécurisés à Paris 1.',
     ctaText: 'Pour un changement de barillet rapide et sécurisé à Paris 1, appelez nos experts',
-    ctaPhone: '01 23 45 67 89',
+    ctaPhone: this.site.phone,
     backgroundImage: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1600&q=80'
   });
 

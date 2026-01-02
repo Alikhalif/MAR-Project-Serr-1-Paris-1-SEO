@@ -8,6 +8,8 @@ import { WhyChooseUsComponent } from "../../../components/why-choose-us/why-choo
 import { HeroSectionComponent } from "../../../components/hero-section/hero-section.component";
 import { Meta, Title } from '@angular/platform-browser';
 import { isPlatformBrowser } from '@angular/common';
+import { SITE_CONFIG_TOKEN } from '../../../config/site-config.token';
+import { SiteConfig } from '../../../config/site-config.model';
 
 @Component({
   selector: 'app-depannage-serrure-cassee',
@@ -22,6 +24,7 @@ export class DepannageSerrureCasseeComponent {
   private title = inject(Title);
   private meta = inject(Meta);
   platformId = inject(PLATFORM_ID);
+  site: SiteConfig = inject(SITE_CONFIG_TOKEN);
 
   ngOnInit(): void {
 
@@ -169,12 +172,18 @@ export class DepannageSerrureCasseeComponent {
     document.head.appendChild(script);
   }
 
+  callNow(): void {
+    if (isPlatformBrowser(this.platformId)) {
+      window.location.href = `tel:${this.site.phone}`;
+    }
+  }
+
   heroData = signal({
     title: 'Serrure Cassée à Paris 1 ?',
     subtitle: 'Notre Intervention d\'Urgence Vous Rouvre les Portes',
     description: 'Votre <strong>serrure est cassée à Paris 1 ?</strong> Notre expertise vous dépanne et vous resécurise en urgence. Le bruit sec d\'une pièce qui cède à l\'intérieur de la serrure, une clé qui tourne désespérément dans le vide... Notre entreprise de serrurerie à Paris intervient spécifiquement pour le dépannage de serrure cassée à Paris 1.',
     ctaText: 'Votre serrure est cassée à Paris 1 ? Appelez l\'urgence',
-    ctaPhone: '01 23 45 67 89',
+    ctaPhone: this.site.phone,
     backgroundImage: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1600&q=80'
   });
 

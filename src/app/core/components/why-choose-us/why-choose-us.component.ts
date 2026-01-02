@@ -2,8 +2,10 @@
 // WHY CHOOSE US COMPONENT
 // ===================================================
 // src/app/components/why-choose-us/why-choose-us.component.ts
-import { Component, input } from '@angular/core';
+import { Component, inject, input } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { SITE_CONFIG_TOKEN } from '../../config/site-config.token';
+import { SiteConfig } from '../../config/site-config.model';
 
 interface Benefit {
   icon: string;
@@ -26,4 +28,5 @@ interface WhyChooseData {
 })
 export class WhyChooseUsComponent {
   data = input.required<WhyChooseData>();
+  site: SiteConfig = inject(SITE_CONFIG_TOKEN);
 }

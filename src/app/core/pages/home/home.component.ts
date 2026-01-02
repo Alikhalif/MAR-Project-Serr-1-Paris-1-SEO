@@ -3,6 +3,8 @@ import { HeroSectionComponent } from "./hero-section/hero-section.component";
 import { FaqComponent } from "../../components/faq/faq.component";
 import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { Meta, Title } from '@angular/platform-browser';
+import { SITE_CONFIG_TOKEN } from '../../config/site-config.token';
+import { SiteConfig } from '../../config/site-config.model';
 
 @Component({
   selector: 'app-home',
@@ -17,6 +19,7 @@ export class HomeComponent implements OnInit {
   private meta = inject(Meta);
 
   platformId = inject(PLATFORM_ID);
+  site: SiteConfig = inject(SITE_CONFIG_TOKEN);
 
 
 
@@ -170,7 +173,13 @@ export class HomeComponent implements OnInit {
   onEmergencyCall(): void {
     // Implémentation de l'appel d'urgence
     if (isPlatformBrowser(this.platformId)) {
-      window.location.href = 'tel:+33123456789';
+      window.location.href = `tel:${this.site.phone}`;
+    }
+  }
+
+  callNow(): void {
+    if (isPlatformBrowser(this.platformId)) {
+      window.location.href = `tel:${this.site.phone}`;
     }
   }
 

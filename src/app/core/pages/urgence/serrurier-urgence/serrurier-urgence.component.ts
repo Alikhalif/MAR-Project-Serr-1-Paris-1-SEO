@@ -9,6 +9,8 @@ import { OurServicesComponent } from "../../../components/our-services/our-servi
 import { PricingTransparencyComponent } from "../../../components/pricing-transparency/pricing-transparency.component";
 import { Meta, Title } from '@angular/platform-browser';
 import { isPlatformBrowser } from '@angular/common';
+import { SITE_CONFIG_TOKEN } from '../../../config/site-config.token';
+import { SiteConfig } from '../../../config/site-config.model';
 
 
 @Component({
@@ -23,6 +25,7 @@ export class SerrurierUrgenceComponent implements OnInit {
   private title = inject(Title);
   private meta = inject(Meta);
   platformId = inject(PLATFORM_ID);
+  site: SiteConfig = inject(SITE_CONFIG_TOKEN);
 
   ngOnInit(): void {
 
@@ -182,6 +185,12 @@ export class SerrurierUrgenceComponent implements OnInit {
     ]
   };
 
+  callNow(): void {
+    if (isPlatformBrowser(this.platformId)) {
+      window.location.href = `tel:${this.site.phone}`;
+    }
+  }
+
   //HERO ==========
 
   heroData = signal({
@@ -189,7 +198,7 @@ export class SerrurierUrgenceComponent implements OnInit {
     subtitle: 'Intervention Express 24h/24 pour Dépannage Immédiat',
     description: 'Enfermé(e) devant votre porte dans le 1er arrondissement ? Notre serrurier urgence Paris 1 intervient en moins de 30 minutes !',
     ctaText: 'Appelez-nous maintenant',
-    ctaPhone: '01 23 45 67 89',
+    ctaPhone: this.site.phone,
     backgroundImage: 'https://i.ibb.co/fcb8d2m/urgence-porte-1.png'
   });
 

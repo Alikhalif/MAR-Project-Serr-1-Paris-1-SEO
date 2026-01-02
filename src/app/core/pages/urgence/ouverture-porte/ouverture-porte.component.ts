@@ -8,6 +8,8 @@ import { OurServicesComponent } from "../../../components/our-services/our-servi
 import { HeroSectionComponent } from "../../../components/hero-section/hero-section.component";
 import { Meta, Title } from '@angular/platform-browser';
 import { isPlatformBrowser } from '@angular/common';
+import { SITE_CONFIG_TOKEN } from '../../../config/site-config.token';
+import { SiteConfig } from '../../../config/site-config.model';
 
 @Component({
   selector: 'app-ouverture-porte',
@@ -21,6 +23,7 @@ export class OuverturePorteComponent implements OnInit {
   private title = inject(Title);
   private meta = inject(Meta);
   platformId = inject(PLATFORM_ID);
+  site: SiteConfig = inject(SITE_CONFIG_TOKEN);
 
   ngOnInit(): void {
 
@@ -185,13 +188,18 @@ export class OuverturePorteComponent implements OnInit {
     ]
   };
 
+  callNow(): void {
+    if (isPlatformBrowser(this.platformId)) {
+      window.location.href = `tel:${this.site.phone}`;
+    }
+  }
 
   heroData = signal({
     title: 'Ouverture de Porte à Paris 1',
     subtitle: 'Dépannage Rapide et Sans Dégâts',
     description: 'Enfermé(e) dehors à Paris 1 ? Notre service d\'ouverture de porte intervient en 30 minutes ! Vous venez de sortir vider la poubelle, chercher le courrier ou accompagner un invité, et le vent a fait claquer la porte derrière vous.',
     ctaText: 'Bloqué(e) à l\'extérieur dans Paris 1 ? Appelez-nous immédiatement',
-    ctaPhone: '01 23 45 67 89',
+    ctaPhone: this.site.phone,
     backgroundImage: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1600&q=80'
   });
 

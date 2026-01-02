@@ -8,6 +8,8 @@ import { WhyChooseUsComponent } from "../../../components/why-choose-us/why-choo
 import { HeroSectionComponent } from "../../../components/hero-section/hero-section.component";
 import { Meta, Title } from '@angular/platform-browser';
 import { isPlatformBrowser } from '@angular/common';
+import { SITE_CONFIG_TOKEN } from '../../../config/site-config.token';
+import { SiteConfig } from '../../../config/site-config.model';
 
 @Component({
   selector: 'app-installation-serrure-3-point',
@@ -22,6 +24,7 @@ export class InstallationSerrure3PointComponent {
    private title = inject(Title);
   private meta = inject(Meta);
   platformId = inject(PLATFORM_ID);
+  site: SiteConfig = inject(SITE_CONFIG_TOKEN);
 
   constructor() {
 
@@ -145,12 +148,18 @@ export class InstallationSerrure3PointComponent {
     document.head.appendChild(script);
   }
 
+  callNow(): void {
+    if (isPlatformBrowser(this.platformId)) {
+      window.location.href = `tel:${this.site.phone}`;
+    }
+  }
+
   heroData = signal({
     title: 'Installation Serrure 3 Points à Paris 1',
     subtitle: 'Renforcez Votre Sécurité avec des Experts',
     description: 'Vous souhaitez installer une serrure 3 points à Paris 1 ? Confiez l\'installation à nos experts certifiés pour une sécurité renforcée et une pose parfaite, adaptée à votre porte d\'entrée.',
     ctaText: 'Demander un devis gratuit',
-    ctaPhone: '01 23 45 67 89',
+    ctaPhone: this.site.phone,
     backgroundImage: 'https://i.ibb.co/F4VBGJHf/a2p-1.jpg'
   });
 

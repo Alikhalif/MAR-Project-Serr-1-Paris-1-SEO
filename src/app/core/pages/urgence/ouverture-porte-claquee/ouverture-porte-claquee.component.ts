@@ -8,6 +8,8 @@ import { WhyChooseUsComponent } from "../../../components/why-choose-us/why-choo
 import { HeroSectionComponent } from "../../../components/hero-section/hero-section.component";
 import { Meta, Title } from '@angular/platform-browser';
 import { isPlatformBrowser } from '@angular/common';
+import { SITE_CONFIG_TOKEN } from '../../../config/site-config.token';
+import { SiteConfig } from '../../../config/site-config.model';
 
 @Component({
   selector: 'app-ouverture-porte-claquee',
@@ -21,6 +23,7 @@ export class OuverturePorteClaqueeComponent implements OnInit {
   private title = inject(Title);
   private meta = inject(Meta);
   platformId = inject(PLATFORM_ID);
+  site: SiteConfig = inject(SITE_CONFIG_TOKEN);
 
   ngOnInit(): void {
 
@@ -185,12 +188,19 @@ export class OuverturePorteClaqueeComponent implements OnInit {
     ]
   };
 
+
+  callNow(): void {
+    if (isPlatformBrowser(this.platformId)) {
+      window.location.href = `tel:${this.site.phone}`;
+    }
+  }
+
   heroData = signal({
     title: 'Ouverture de Porte Claquer à Paris 1',
     subtitle: 'Votre Serrurier en Urgence',
     description: 'Porte claquée avec les clés à l\'intérieur à Paris 1 ? Notre ouverture express vous dépanne ! Un coup de vent soudain dans le couloir, une porte qui se referme trop vite après une sortie précipitée… Notre entreprise de serrurerie parisienne est spécialisée dans l\'ouverture de porte claquée à Paris 1. Nous intervenons 24h/24 et 7j/7 pour ce type de dépannage.',
     ctaText: 'Votre porte s\'est claquée avec les clés à l\'intérieur dans Paris 1 ? Appelez-nous',
-    ctaPhone: '01 23 45 67 89',
+    ctaPhone: this.site.phone,
     backgroundImage: 'https://i.ibb.co/6RRL50hG/ouverture-porte-claquee.jpg'
   });
 

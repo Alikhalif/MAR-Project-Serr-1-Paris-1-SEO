@@ -2,8 +2,10 @@
 // OUR COMMITMENTS COMPONENT
 // ===================================================
 // src/app/components/our-commitments/our-commitments.component.ts
-import { Component, input } from '@angular/core';
+import { Component, inject, input } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { SITE_CONFIG_TOKEN } from '../../config/site-config.token';
+import { SiteConfig } from '../../config/site-config.model';
 
 interface Commitment {
   icon: string;
@@ -26,4 +28,5 @@ interface CommitmentsData {
 })
 export class OurCommitmentsComponent {
   data = input.required<CommitmentsData>();
+  site: SiteConfig = inject(SITE_CONFIG_TOKEN);
 }

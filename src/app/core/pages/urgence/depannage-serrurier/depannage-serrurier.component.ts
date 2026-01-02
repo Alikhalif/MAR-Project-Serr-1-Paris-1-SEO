@@ -8,6 +8,8 @@ import { OurServicesComponent } from "../../../components/our-services/our-servi
 import { HeroSectionComponent } from "../../../components/hero-section/hero-section.component";
 import { Meta, Title } from '@angular/platform-browser';
 import { isPlatformBrowser } from '@angular/common';
+import { SITE_CONFIG_TOKEN } from '../../../config/site-config.token';
+import { SiteConfig } from '../../../config/site-config.model';
 
 @Component({
   selector: 'app-depannage-serrurier',
@@ -21,6 +23,7 @@ export class DepannageSerrurierComponent implements OnInit {
   private title = inject(Title);
   private meta = inject(Meta);
   platformId = inject(PLATFORM_ID);
+  site: SiteConfig = inject(SITE_CONFIG_TOKEN);
 
   ngOnInit(): void {
 
@@ -185,13 +188,18 @@ export class DepannageSerrurierComponent implements OnInit {
     ]
   };
 
+  callNow(): void {
+    if (isPlatformBrowser(this.platformId)) {
+      window.location.href = `tel:${this.site.phone}`;
+    }
+  }
 
   heroData = signal({
     title: 'Dépannage Serrurier à Paris 1',
     subtitle: 'Votre Expert en Urgence & Réparation 24h/24',
     description: 'Besoin d\'un <strong>dépannage serrurier à Paris 1 ?</strong> <br>Notre expertise vous dépanne en moins de 30 minutes. Une serrure qui grince, une clé qui résiste, une porte qui ne ferme plus correctement… Notre entreprise de serrurerie parisienne offre un service de dépannage serrurier complet et réactif à Paris 1.',
     ctaText: 'Pour un dépannage serrurier rapide, propre et garanti à Paris 1, appelez-nous 24h/24',
-    ctaPhone: '01 23 45 67 89',
+    ctaPhone: this.site.phone,
     backgroundImage: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1600&q=80'
   });
 

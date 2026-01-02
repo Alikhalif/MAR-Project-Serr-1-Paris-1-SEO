@@ -18,8 +18,8 @@
     </a>
 
     <!-- Mobile Menu Button -->
-    <button 
-      class="navbar__mobile-toggle" 
+    <button
+      class="navbar__mobile-toggle"
       (click)="toggleMobileMenu()"
       [attr.aria-expanded]="isMobileMenuOpen()"
       aria-label="Toggle menu"
@@ -33,16 +33,16 @@
     <div class="navbar__menu" *ngIf="!isMobile() || isMobileMenuOpen()" [@mobileMenuAnimation]>
       <ul class="navbar__list" role="menubar">
         @for (item of menuItems; track item.label) {
-          <li 
+          <li
             class="navbar__item"
             [class.navbar__item--has-dropdown]="item.children"
             [class.navbar__item--active]="isDropdownActive(item.label)"
             (mouseenter)="item.children && openDropdown(item.label)"
             (mouseleave)="item.children && closeDropdown()"
             role="none">
-            
+
             @if (item.children) {
-              <button 
+              <button
                 class="navbar__link navbar__link--dropdown"
                 (click)="toggleDropdown(item.label)"
                 [attr.aria-expanded]="isDropdownActive(item.label)"
@@ -59,8 +59,8 @@
                 <ul class="navbar__dropdown" [@dropdownAnimation] role="menu" [attr.aria-label]="item.label">
                   @for (child of item.children; track child.label) {
                     <li class="navbar__dropdown-item" role="none">
-                      <a 
-                        [href]="child.route" 
+                      <a
+                        [href]="child.route"
                         class="navbar__dropdown-link"
                         (click)="closeMobileMenu()"
                         role="menuitem">
@@ -71,8 +71,8 @@
                 </ul>
               }
             } @else {
-              <a 
-                [href]="item.route" 
+              <a
+                [href]="item.route"
                 class="navbar__link"
                 (click)="closeMobileMenu()"
                 role="menuitem">
@@ -85,15 +85,12 @@
 
       <!-- Contact Button -->
       <div class="navbar__cta">
-        <button 
-          class="navbar__cta-button" 
+        <button
+          class="navbar__cta-button"
           (click)="callPhone()"
-          aria-label="Appelez-nous au 01 XX XX XX XX"
           type="button">
-          <svg class="navbar__cta-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <path d="M22 16.92V19.92C22 20.4728 21.5523 20.92 21 20.92H18C8.05887 20.92 0 12.8611 0 2.92C0 2.36772 0.447715 1.92 1 1.92H4C4.55228 1.92 5 2.36772 5 2.92V6.92C5 7.47228 4.55228 7.92 4 7.92H3C3 14.4683 8.45166 19.92 15 19.92V18.92C15 18.3677 15.4477 17.92 16 17.92H20C20.5523 17.92 21 18.3677 21 18.92V19.92" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-          <span class="navbar__cta-text">01 XX XX XX XX</span>
+            <span class="navbar__cta-icon" aria-hidden="true">📞</span>
+          <span class="navbar__cta-text">{{ site.phone }}</span>
         </button>
       </div>
     </div>

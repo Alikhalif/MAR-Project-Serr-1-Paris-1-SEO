@@ -8,6 +8,8 @@ import { WhyChooseUsComponent } from "../../../components/why-choose-us/why-choo
 import { HeroSectionComponent } from "../../../components/hero-section/hero-section.component";
 import { Meta, Title } from '@angular/platform-browser';
 import { isPlatformBrowser } from '@angular/common';
+import { SITE_CONFIG_TOKEN } from '../../../config/site-config.token';
+import { SiteConfig } from '../../../config/site-config.model';
 
 @Component({
   selector: 'app-securisation-habitation',
@@ -21,6 +23,7 @@ export class SecurisationHabitationComponent implements OnInit {
   private title = inject(Title);
   private meta = inject(Meta);
   platformId = inject(PLATFORM_ID);
+  site: SiteConfig = inject(SITE_CONFIG_TOKEN);
 
   ngOnInit(): void {
 
@@ -162,12 +165,18 @@ export class SecurisationHabitationComponent implements OnInit {
     document.head.appendChild(script);
   }
 
+  callNow(): void {
+    if (isPlatformBrowser(this.platformId)) {
+      window.location.href = `tel:${this.site.phone}`;
+    }
+  }
+
   heroData = signal({
     title: 'Sécurisation d\'Habitation à Paris 1',
     subtitle: 'Votre Partenaire Expert pour un Logement Protégé',
     description: 'Vous souhaitez sécuriser votre habitation à Paris 1 ? Notre expertise globale protège votre logement de A à Z. Audit gratuit, solutions sur-mesure pour portes, fenêtres & volets.',
     ctaText: 'Demander un audit gratuit',
-    ctaPhone: '01 23 45 67 89',
+    ctaPhone: this.site.phone,
     backgroundImage: 'https://i.ibb.co/wZDQHyc2/audit-5.png' // Image d'une maison/entrée sécurisée
   });
 

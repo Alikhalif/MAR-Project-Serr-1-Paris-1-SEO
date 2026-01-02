@@ -8,6 +8,8 @@ import { WhyChooseUsComponent } from "../../../components/why-choose-us/why-choo
 import { HeroSectionComponent } from "../../../components/hero-section/hero-section.component";
 import { Meta, Title } from '@angular/platform-browser';
 import { isPlatformBrowser } from '@angular/common';
+import { SITE_CONFIG_TOKEN } from '../../../config/site-config.token';
+import { SiteConfig } from '../../../config/site-config.model';
 
 @Component({
   selector: 'app-changement-serrure',
@@ -21,6 +23,7 @@ export class ChangementSerrureComponent implements  OnInit {
   private title = inject(Title);
   private meta = inject(Meta);
   platformId = inject(PLATFORM_ID);
+  site: SiteConfig = inject(SITE_CONFIG_TOKEN);
 
   ngOnInit(): void {
 
@@ -165,12 +168,18 @@ export class ChangementSerrureComponent implements  OnInit {
     document.head.appendChild(script);
   }
 
+  callNow(): void {
+    if (isPlatformBrowser(this.platformId)) {
+      window.location.href = `tel:${this.site.phone}`;
+    }
+  }
+
   heroData = signal({
       title: 'Changement de Serrure à Paris 1',
       subtitle: 'Sécurité Renouvelée par des Experts',
       description: 'Vous souhaitez <strong>changer votre serrure à Paris 1 ?</strong> <br>Confiez l\'installation à nos experts certifiés. Votre serrure a donné des signes de faiblesse ? Vous venez d\'emménager dans un nouvel appartement du 1er arrondissement, ou vous avez perdu vos clés ? Notre entreprise de serrurerie à Paris réalise des changements de serrure professionnels dans le 1er arrondissement.',
       ctaText: 'Pour un devis gratuit et un changement de serrure professionnel à Paris 1, contactez nos experts',
-      ctaPhone: '01 23 45 67 89',
+      ctaPhone: this.site.phone,
       backgroundImage: 'https://i.ibb.co/8DsWJtk2/serrure-complete-2.png'
   });
 

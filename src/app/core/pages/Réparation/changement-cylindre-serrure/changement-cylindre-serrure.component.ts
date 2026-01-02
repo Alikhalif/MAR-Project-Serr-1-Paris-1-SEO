@@ -8,6 +8,8 @@ import { WhyChooseUsComponent } from "../../../components/why-choose-us/why-choo
 import { HeroSectionComponent } from "../../../components/hero-section/hero-section.component";
 import { Meta, Title } from '@angular/platform-browser';
 import { isPlatformBrowser } from '@angular/common';
+import { SITE_CONFIG_TOKEN } from '../../../config/site-config.token';
+import { SiteConfig } from '../../../config/site-config.model';
 
 @Component({
   selector: 'app-changement-cylindre-serrure',
@@ -22,6 +24,7 @@ export class ChangementCylindreSerrureComponent implements  OnInit {
   private title = inject(Title);
   private meta = inject(Meta);
   platformId = inject(PLATFORM_ID);
+  site: SiteConfig = inject(SITE_CONFIG_TOKEN);
 
   ngOnInit(): void {
 
@@ -165,12 +168,18 @@ export class ChangementCylindreSerrureComponent implements  OnInit {
     document.head.appendChild(script);
   }
 
+  callNow(): void {
+    if (isPlatformBrowser(this.platformId)) {
+      window.location.href = `tel:${this.site.phone}`;
+    }
+  }
+
   heroData = signal({
       title: 'Changement de Cylindre de Serrure à Paris 1',
       subtitle: 'Sécurité & Sérénité en 30 Minutes',
       description: 'Votre cylindre de serrure est HS à Paris 1 ? Notre changement express vous sécurise immédiatement. Le cylindre de votre serrure, ce petit boîtier métallique où s\'insère votre clé, est le gardien silencieux de votre porte... Notre entreprise de serrurerie à Paris réalise des changements de cylindre de serrure professionnels à Paris 1.',
       ctaText: 'Pour un changement de cylindre de serrure rapide et sécurisé à Paris 1, appelez nos experts',
-      ctaPhone: '01 23 45 67 89',
+      ctaPhone: this.site.phone,
       backgroundImage: 'https://i.ibb.co/Myq313Bp/cylindre-1.png'
   });
 

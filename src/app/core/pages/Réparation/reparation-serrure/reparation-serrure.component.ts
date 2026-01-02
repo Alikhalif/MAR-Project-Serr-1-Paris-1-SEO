@@ -8,6 +8,8 @@ import { WhyChooseUsComponent } from "../../../components/why-choose-us/why-choo
 import { HeroSectionComponent } from "../../../components/hero-section/hero-section.component";
 import { Meta, Title } from '@angular/platform-browser';
 import { isPlatformBrowser } from '@angular/common';
+import { SITE_CONFIG_TOKEN } from '../../../config/site-config.token';
+import { SiteConfig } from '../../../config/site-config.model';
 
 @Component({
   selector: 'app-reparation-serrure',
@@ -21,6 +23,7 @@ export class ReparationSerrureComponent  implements OnInit {
   private title = inject(Title);
   private meta = inject(Meta);
   platformId = inject(PLATFORM_ID);
+  site: SiteConfig = inject(SITE_CONFIG_TOKEN);
 
   ngOnInit(): void {
 
@@ -185,13 +188,19 @@ export class ReparationSerrureComponent  implements OnInit {
     ]
   };
 
+  callNow(): void {
+    if (isPlatformBrowser(this.platformId)) {
+      window.location.href = `tel:${this.site.phone}`;
+    }
+  }
+
 
   heroData = signal({
     title: 'Réparation Serrure à Paris 1',
     subtitle: 'Expertise & Durabilité pour Votre Sécurité',
     description: 'Votre serrure est défectueuse à Paris 1 ? Notre service de réparation expert vous dépanne durablement. Votre clé peine à tourner, vous entendez un grincement suspect... Notre entreprise de serrurerie parisienne propose un service de réparation de serrure expert à Paris 1.',
     ctaText: 'Pour un diagnostic précis et une réparation de serrure durable à Paris 1, appelez nos experts',
-    ctaPhone: '01 23 45 67 89',
+    ctaPhone: this.site.phone,
     backgroundImage: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1600&q=80'
 });
 

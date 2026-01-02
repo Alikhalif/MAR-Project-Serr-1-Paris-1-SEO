@@ -8,6 +8,8 @@ import { WhyChooseUsComponent } from "../../../components/why-choose-us/why-choo
 import { HeroSectionComponent } from "../../../components/hero-section/hero-section.component";
 import { Meta, Title } from '@angular/platform-browser';
 import { isPlatformBrowser } from '@angular/common';
+import { SITE_CONFIG_TOKEN } from '../../../config/site-config.token';
+import { SiteConfig } from '../../../config/site-config.model';
 
 @Component({
   selector: 'app-pose-porte-blindee',
@@ -21,6 +23,7 @@ export class PosePorteBlindeeComponent implements OnInit {
   private title = inject(Title);
   private meta = inject(Meta);
   platformId = inject(PLATFORM_ID);
+  site: SiteConfig = inject(SITE_CONFIG_TOKEN);
 
   ngOnInit(): void {
 
@@ -162,12 +165,18 @@ export class PosePorteBlindeeComponent implements OnInit {
     document.head.appendChild(script);
   }
 
+  callNow(): void {
+    if (isPlatformBrowser(this.platformId)) {
+      window.location.href = `tel:${this.site.phone}`;
+    }
+  }
+
   heroData = signal({
     title: 'Pose Porte Blindée à Paris 1',
     subtitle: 'L\'Expertise d\'une Installation Sécurisée',
     description: 'Vous projetez <strong>la pose d\'une porte blindée à Paris 1 ?</strong> Confiez l\'installation à nos experts aguerris pour une intégration parfaite, aux normes, qui préserve toutes les certifications de sécurité de votre équipement.',
     ctaText: 'Demander un devis gratuit',
-    ctaPhone: '01 23 45 67 89',
+    ctaPhone: this.site.phone,
     backgroundImage: 'https://i.ibb.co/hFphMHbG/pose-blindee-4.jpg'
   });
 

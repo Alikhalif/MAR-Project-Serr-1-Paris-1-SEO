@@ -8,6 +8,8 @@ import { WhyChooseUsComponent } from "../../../components/why-choose-us/why-choo
 import { HeroSectionComponent } from "../../../components/hero-section/hero-section.component";
 import { Meta, Title } from '@angular/platform-browser';
 import { isPlatformBrowser } from '@angular/common';
+import { SITE_CONFIG_TOKEN } from '../../../config/site-config.token';
+import { SiteConfig } from '../../../config/site-config.model';
 
 @Component({
   selector: 'app-cle-cassee-serrure',
@@ -21,6 +23,7 @@ export class CleCasseeSerrureComponent implements OnInit {
   private title = inject(Title);
   private meta = inject(Meta);
   platformId = inject(PLATFORM_ID);
+  site: SiteConfig = inject(SITE_CONFIG_TOKEN);
 
   ngOnInit(): void {
 
@@ -180,13 +183,18 @@ export class CleCasseeSerrureComponent implements OnInit {
   };
 
 
+  callNow(): void {
+    if (isPlatformBrowser(this.platformId)) {
+      window.location.href = `tel:${this.site.phone}`;
+    }
+  }
 
   heroData = signal({
     title: 'Clé Cassée dans la Serrure à Paris 1',
     subtitle: 'Extraction Express & Dépannage',
     description: '<strong>Votre clé est cassée dans la serrure à Paris 1 ?</strong> <br>Notre extraction d\'urgence vous dépanne en 30 minutes. ce bruit sec et sans appel, suivi du constat désolant, Spécialiste des urgences de serrurerie à Paris, notre entreprise intervient spécifiquement pour l\'extraction de clé cassée dans la serrure à Paris 1.',
     ctaText: 'Votre clé est cassée dans la serrure à Paris 1 ? Appelez nos experts en extraction',
-    ctaPhone: '01 23 45 67 89',
+    ctaPhone: this.site.phone,
     backgroundImage: 'https://i.ibb.co/SwDNZBH3/cle-cassee-2.png'
   });
 

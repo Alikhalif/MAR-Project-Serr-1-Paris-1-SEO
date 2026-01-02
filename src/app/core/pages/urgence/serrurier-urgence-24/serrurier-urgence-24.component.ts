@@ -8,6 +8,8 @@ import { WhyChooseUsComponent } from "../../../components/why-choose-us/why-choo
 import { HeroSectionComponent } from "../../../components/hero-section/hero-section.component";
 import { Meta, Title } from '@angular/platform-browser';
 import { isPlatformBrowser } from '@angular/common';
+import { SITE_CONFIG_TOKEN } from '../../../config/site-config.token';
+import { SiteConfig } from '../../../config/site-config.model';
 
 @Component({
   selector: 'app-serrurier-urgence-24',
@@ -21,6 +23,7 @@ export class SerrurierUrgence24Component implements OnInit {
   private title = inject(Title);
   private meta = inject(Meta);
   platformId = inject(PLATFORM_ID);
+  site: SiteConfig = inject(SITE_CONFIG_TOKEN);
 
   ngOnInit(): void {
     this.title.setTitle(
@@ -181,13 +184,18 @@ export class SerrurierUrgence24Component implements OnInit {
     ]
   };
 
+  callNow(): void {
+    if (isPlatformBrowser(this.platformId)) {
+      window.location.href = `tel:${this.site.phone}`;
+    }
+  }
 
   heroData = signal({
     title: 'Serrurier Urgence 24/24 Paris 1',
     subtitle: 'Votre Solution Immédiate, Jour et Nuit',
     description: 'Bloqué(e) à toute heure dans le 1er ? Notre <strong>serrurier urgence 24/24 Paris 1</strong> intervient en 30 min max ! <br>Imaginez cette scène : il est 3h du matin, vous rentrez chez vous après une longue journée et votre clé se casse net dans la serrure de votre appartement du 1er arrondissement.',
     ctaText: 'Appelez-nous immédiatement, de jour comme de nuit',
-    ctaPhone: '01 23 45 67 89',
+    ctaPhone: this.site.phone,
     backgroundImage: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1600&q=80'
   });
 

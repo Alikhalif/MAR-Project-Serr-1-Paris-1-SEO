@@ -8,6 +8,8 @@ import { FaqComponent } from "../../../components/faq/faq.component";
 import { ConclusionComponent } from "../../../components/conclusion/conclusion.component";
 import { Meta, Title } from '@angular/platform-browser';
 import { isPlatformBrowser } from '@angular/common';
+import { SITE_CONFIG_TOKEN } from '../../../config/site-config.token';
+import { SiteConfig } from '../../../config/site-config.model';
 
 @Component({
   selector: 'app-serrurier-dimanche',
@@ -21,6 +23,7 @@ export class SerrurierDimancheComponent implements OnInit {
   private title = inject(Title);
   private meta = inject(Meta);
   platformId = inject(PLATFORM_ID);
+  site: SiteConfig = inject(SITE_CONFIG_TOKEN);
 
   ngOnInit(): void {
 
@@ -185,13 +188,18 @@ export class SerrurierDimancheComponent implements OnInit {
     ]
   };
 
+  callNow(): void {
+    if (isPlatformBrowser(this.platformId)) {
+      window.location.href = `tel:${this.site.phone}`;
+    }
+  }
 
   heroData = signal({
     title: 'Serrurier le Dimanche et Jour Férié à Paris 1',
     subtitle: 'Dépannage 7j/7',
     description: 'Panne de serrure un dimanche ou jour férié à Paris 1 ? Notre serrurier intervient ! Vous profitez d\'un dimanche tranquille dans votre appartement du 1er arrondissement quand soudain, la clé tourne dans le vide... Notre entreprise de serrurerie à Paris a fait le choix de la disponibilité permanente.',
     ctaText: 'Un problème de serrure ce dimanche ou ce jour férié ? Appelez-nous immédiatement',
-    ctaPhone: '01 23 45 67 89',
+    ctaPhone: this.site.phone,
     backgroundImage: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1600&q=80'
   });
 

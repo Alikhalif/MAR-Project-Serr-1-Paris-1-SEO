@@ -28,22 +28,7 @@
             "assets": [
               {
                 "glob": "**/*",
-                "input": "src/assets/",
-                "output": "/assets/"
-              },
-              {
-                "glob": "robots.txt",
-                "input": "src/assets/",
-                "output": "/"
-              },
-              {
-                "glob": "sitemap.xml",
-                "input": "src/assets/",
-                "output": "/"
-              },
-              {
-                "glob": "favicon.ico",
-                "input": "src/assets/",
+                "input": "public",
                 "output": "/"
               }
             ],

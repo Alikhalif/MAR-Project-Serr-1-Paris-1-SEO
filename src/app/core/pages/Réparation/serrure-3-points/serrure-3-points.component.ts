@@ -8,6 +8,8 @@ import { WhyChooseUsComponent } from "../../../components/why-choose-us/why-choo
 import { HeroSectionComponent } from "../../../components/hero-section/hero-section.component";
 import { Meta, Title } from '@angular/platform-browser';
 import { isPlatformBrowser } from '@angular/common';
+import { SITE_CONFIG_TOKEN } from '../../../config/site-config.token';
+import { SiteConfig } from '../../../config/site-config.model';
 
 @Component({
   selector: 'app-serrure-3-points',
@@ -21,6 +23,7 @@ export class Serrure3PointsComponent implements OnInit {
   private title = inject(Title);
   private meta = inject(Meta);
   platformId = inject(PLATFORM_ID);
+  site: SiteConfig = inject(SITE_CONFIG_TOKEN);
 
   ngOnInit(): void {
 
@@ -185,13 +188,18 @@ export class Serrure3PointsComponent implements OnInit {
     ]
   };
 
+  callNow(): void {
+    if (isPlatformBrowser(this.platformId)) {
+      window.location.href = `tel:${this.site.phone}`;
+    }
+  }
 
   heroData = signal({
     title: 'Dépannage Serrure 3 Points Paris 1',
     subtitle: 'Expertise & Réactivité 24h/24',
     description: 'Votre <strong>serrure 3 points est bloquée à Paris 1 ?</strong> Nos experts interviennent en moins de 30 minutes pour diagnostiquer, débloquer et réparer votre serrure multipoints, restaurant votre sécurité immédiatement.',
     ctaText: 'Dépannage urgent en 30 min',
-    ctaPhone: '01 23 45 67 89',
+    ctaPhone: this.site.phone,
     backgroundImage: 'https://i.ibb.co/gZVXjvBM/3-poin.png'
   });
 

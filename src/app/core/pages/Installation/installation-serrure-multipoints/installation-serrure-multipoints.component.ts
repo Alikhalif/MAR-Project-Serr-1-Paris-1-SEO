@@ -8,6 +8,8 @@ import { WhyChooseUsComponent } from "../../../components/why-choose-us/why-choo
 import { HeroSectionComponent } from "../../../components/hero-section/hero-section.component";
 import { Meta, Title } from '@angular/platform-browser';
 import { isPlatformBrowser } from '@angular/common';
+import { SITE_CONFIG_TOKEN } from '../../../config/site-config.token';
+import { SiteConfig } from '../../../config/site-config.model';
 
 @Component({
   selector: 'app-installation-serrure-multipoints',
@@ -21,6 +23,7 @@ export class InstallationSerrureMultipointsComponent {
   private title = inject(Title);
   private meta = inject(Meta);
   platformId = inject(PLATFORM_ID);
+  site: SiteConfig = inject(SITE_CONFIG_TOKEN);
 
   constructor() {
 
@@ -156,12 +159,18 @@ export class InstallationSerrureMultipointsComponent {
     document.head.appendChild(script);
   }
 
+  callNow(): void {
+    if (isPlatformBrowser(this.platformId)) {
+      window.location.href = `tel:${this.site.phone}`;
+    }
+  }
+
   heroData = signal({
     title: 'Installation Serrure Multipoints à Paris 1',
     subtitle: 'L\'Ultime Rempart pour Votre Sécurité',
     description: 'Renforcez votre porte à Paris 1 avec l\'installation experte d\'une serrure multipoints. Transformez votre entrée en un véritable bouclier avec une sécurité renforcée et certifiée.',
     ctaText: 'Obtenir un diagnostic gratuit',
-    ctaPhone: '01 23 45 67 89',
+    ctaPhone: this.site.phone,
     backgroundImage: 'https://i.ibb.co/pvmsK50X/multipoints-2.jpg' // Image suggérée pour un projet d'installation
   });
 

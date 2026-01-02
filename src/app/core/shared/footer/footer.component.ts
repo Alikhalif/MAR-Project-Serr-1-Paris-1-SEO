@@ -1,6 +1,8 @@
 // src/app/components/footer/footer.component.ts
-import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, inject, PLATFORM_ID } from '@angular/core';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { SiteConfig } from '../../config/site-config.model';
+import { SITE_CONFIG_TOKEN } from '../../config/site-config.token';
 
 interface FooterLink {
   label: string;
@@ -21,6 +23,15 @@ interface FooterSection {
 })
 export class FooterComponent {
   currentYear = new Date().getFullYear();
+
+  platformId = inject(PLATFORM_ID);
+  site: SiteConfig = inject(SITE_CONFIG_TOKEN);
+
+  callNow(): void {
+    if (isPlatformBrowser(this.platformId)) {
+      window.location.href = `tel:${this.site.phone}`;
+    }
+  }
 
   urgenceLinks: FooterLink[] = [
     { label: 'Serrurier Urgence 24/7', href: '#urgence' },

@@ -8,6 +8,8 @@ import { WhyChooseUsComponent } from "../../../components/why-choose-us/why-choo
 import { HeroSectionComponent } from "../../../components/hero-section/hero-section.component";
 import { Meta, Title } from '@angular/platform-browser';
 import { isPlatformBrowser } from '@angular/common';
+import { SITE_CONFIG_TOKEN } from '../../../config/site-config.token';
+import { SiteConfig } from '../../../config/site-config.model';
 
 @Component({
   selector: 'app-blindage-porte',
@@ -21,6 +23,7 @@ export class BlindagePorteComponent {
   private title = inject(Title);
   private meta = inject(Meta);
   platformId = inject(PLATFORM_ID);
+  site: SiteConfig = inject(SITE_CONFIG_TOKEN);
 
   constructor() {
 
@@ -153,12 +156,18 @@ export class BlindagePorteComponent {
     document.head.appendChild(script);
   }
 
+  callNow(): void {
+    if (isPlatformBrowser(this.platformId)) {
+      window.location.href = `tel:${this.site.phone}`;
+    }
+  }
+
   heroData = signal({
     title: 'Blindage Porte à Paris 1',
     subtitle: 'Transformez Votre Porte en Rempart Sécurisé',
     description: 'Vous souhaitez renforcer votre porte existante à Paris 1 ? Notre service de blindage expert transforme votre porte en bois massif ou métal en une barrière haute sécurité, sans remplacer l\'ensemble, pour un investissement optimisé.',
     ctaText: 'Demander un diagnostic gratuit',
-    ctaPhone: '01 23 45 67 89',
+    ctaPhone: this.site.phone,
     backgroundImage: 'https://images.unsplash.com/photo-1577493340887-0b78f5b3b6f5?w=1600&q=80'
   });
 

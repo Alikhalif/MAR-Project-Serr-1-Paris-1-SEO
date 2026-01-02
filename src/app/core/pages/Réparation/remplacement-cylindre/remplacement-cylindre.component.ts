@@ -8,6 +8,8 @@ import { WhyChooseUsComponent } from "../../../components/why-choose-us/why-choo
 import { HeroSectionComponent } from "../../../components/hero-section/hero-section.component";
 import { Meta, Title } from '@angular/platform-browser';
 import { isPlatformBrowser } from '@angular/common';
+import { SITE_CONFIG_TOKEN } from '../../../config/site-config.token';
+import { SiteConfig } from '../../../config/site-config.model';
 
 @Component({
   selector: 'app-remplacement-cylindre',
@@ -21,6 +23,7 @@ export class RemplacementCylindreComponent implements OnInit {
   private title = inject(Title);
   private meta = inject(Meta);
   platformId = inject(PLATFORM_ID);
+  site: SiteConfig = inject(SITE_CONFIG_TOKEN);
 
   ngOnInit(): void {
 
@@ -179,13 +182,18 @@ export class RemplacementCylindreComponent implements OnInit {
     ]
   };
 
+  callNow(): void {
+    if (isPlatformBrowser(this.platformId)) {
+      window.location.href = `tel:${this.site.phone}`;
+    }
+  }
 
   heroData = signal({
       title: 'Remplacement de Cylindre à Paris 1',
       subtitle: 'Le Cœur de Votre Sécurité Renouvelé',
       description: 'Vous devez <strong>changer votre cylindre de serrure à Paris 1 ?</strong> <br>Confiez le remplacement à nos experts. Le cylindre, aussi appelé barillet, est le cœur intelligent de votre serrure... Notre entreprise de serrurerie à Paris réalise des remplacements de cylindre professionnels et sécurisés à Paris 1.',
       ctaText: 'Pour un devis gratuit et un remplacement de cylindre expert à Paris 1, contactez-nous',
-      ctaPhone: '01 23 45 67 89',
+      ctaPhone: this.site.phone,
       backgroundImage: 'https://i.ibb.co/Myq313Bp/cylindre-1.png'
   });
 

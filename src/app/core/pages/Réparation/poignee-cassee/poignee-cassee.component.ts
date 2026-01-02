@@ -8,6 +8,8 @@ import { WhyChooseUsComponent } from "../../../components/why-choose-us/why-choo
 import { HeroSectionComponent } from "../../../components/hero-section/hero-section.component";
 import { Meta, Title } from '@angular/platform-browser';
 import { isPlatformBrowser } from '@angular/common';
+import { SITE_CONFIG_TOKEN } from '../../../config/site-config.token';
+import { SiteConfig } from '../../../config/site-config.model';
 
 @Component({
   selector: 'app-poignee-cassee',
@@ -22,6 +24,7 @@ export class PoigneeCasseeComponent implements OnInit {
   private title = inject(Title);
   private meta = inject(Meta);
   platformId = inject(PLATFORM_ID);
+  site: SiteConfig = inject(SITE_CONFIG_TOKEN);
 
   ngOnInit(): void {
 
@@ -167,12 +170,18 @@ export class PoigneeCasseeComponent implements OnInit {
     document.head.appendChild(script);
   }
 
+  callNow(): void {
+    if (isPlatformBrowser(this.platformId)) {
+      window.location.href = `tel:${this.site.phone}`;
+    }
+  }
+
   heroData = signal({
     title: 'Poignée Cassée à Paris 1 ?',
     subtitle: 'Notre Dépannage Rapide Restaure Votre Confort',
     description: 'Votre <strong>poignée de porte est cassée à Paris 1 ?</strong> Notre réparation express vous dépanne en 30 minutes. Une poignée de porte qui cède soudainement, qui tourne dans le vide, ou qui reste bloquée en position basse... Notre entreprise de serrurerie à Paris intervient pour la réparation et le remplacement de poignée cassée à Paris 1.',
     ctaText: 'Votre poignée est cassée dans Paris 1 ? Appelez-nous pour un dépannage express',
-    ctaPhone: '01 23 45 67 89',
+    ctaPhone: this.site.phone,
     backgroundImage: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1600&q=80'
   });
 

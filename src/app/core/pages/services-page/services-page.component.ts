@@ -1,6 +1,8 @@
-import { Component, signal, Signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, inject, PLATFORM_ID, signal, Signal } from '@angular/core';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { OurServicesComponent } from "../../components/our-services/our-services.component";
+import { SITE_CONFIG_TOKEN } from '../../config/site-config.token';
+import { SiteConfig } from '../../config/site-config.model';
 
 interface Service {
   icon: string;
@@ -27,6 +29,15 @@ interface ServicesData {
   styleUrls: ['./services-page.component.scss']
 })
 export class ServicesPageComponent {
+
+  platformId = inject(PLATFORM_ID);
+  site: SiteConfig = inject(SITE_CONFIG_TOKEN);
+
+  callNow(): void {
+    if (isPlatformBrowser(this.platformId)) {
+      window.location.href = `tel:${this.site.phone}`;
+    }
+  }
   // Main hero section
   heroData = {
     title: 'NOS SERVICES DE SERRURERIE À PARIS 1er',
@@ -39,7 +50,7 @@ export class ServicesPageComponent {
     title: '🔴 SERVICES D\'URGENCE 24H/24',
     subtitle: 'Interventions immédiates en moins de 30 minutes',
     ctaText: 'URGENCE SERRURERIE',
-    ctaPhone: '01 XX XX XX XX',
+    ctaPhone: this.site.phone,
     services: [
       {
         icon: '🚨',
@@ -232,8 +243,8 @@ export class ServicesPageComponent {
   }
 
   onCtaClick(phoneNumber: string): void {
-    console.log('Calling:', phoneNumber);
-    window.location.href = `tel:${phoneNumber}`;
+    console.log('Calling:', this.site.phone);
+    window.location.href = `tel:${this.site.phone}`;
   }
 
   scrollToSection(sectionId: string): void {

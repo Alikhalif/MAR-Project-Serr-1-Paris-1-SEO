@@ -2,8 +2,10 @@
 // PRICING TRANSPARENCY COMPONENT
 // ===================================================
 // src/app/components/pricing-transparency/pricing-transparency.component.ts
-import { Component, input } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, inject, input, PLATFORM_ID } from '@angular/core';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { SITE_CONFIG_TOKEN } from '../../config/site-config.token';
+import { SiteConfig } from '../../config/site-config.model';
 
 interface PricingData {
   title: string;
@@ -21,4 +23,12 @@ interface PricingData {
 })
 export class PricingTransparencyComponent {
   data = input.required<PricingData>();
+  platformId = inject(PLATFORM_ID);
+  site: SiteConfig = inject(SITE_CONFIG_TOKEN);
+
+  callNow(): void {
+    if (isPlatformBrowser(this.platformId)) {
+      window.location.href = `tel:${this.site.phone}`;
+    }
+  }
 }

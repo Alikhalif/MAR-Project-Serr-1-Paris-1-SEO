@@ -8,6 +8,8 @@ import { WhyChooseUsComponent } from "../../../components/why-choose-us/why-choo
 import { HeroSectionComponent } from "../../../components/hero-section/hero-section.component";
 import { Meta, Title } from '@angular/platform-browser';
 import { isPlatformBrowser } from '@angular/common';
+import { SITE_CONFIG_TOKEN } from '../../../config/site-config.token';
+import { SiteConfig } from '../../../config/site-config.model';
 
 @Component({
   selector: 'app-porte-ne-s-ouvre-plus',
@@ -21,6 +23,7 @@ export class PorteNeSOuvrePlusComponent implements OnInit {
   private title = inject(Title);
   private meta = inject(Meta);
   platformId = inject(PLATFORM_ID);
+  site: SiteConfig = inject(SITE_CONFIG_TOKEN);
 
   ngOnInit(): void {
     this.title.setTitle(
@@ -95,13 +98,18 @@ export class PorteNeSOuvrePlusComponent implements OnInit {
     ]
   };
 
+  callNow(): void {
+    if (isPlatformBrowser(this.platformId)) {
+      window.location.href = `tel:${this.site.phone}`;
+    }
+  }
 
   heroData = signal({
     title: 'Porte qui ne s\'ouvre plus à Paris 1 ?',
     subtitle: 'Notre service d\'urgence vous dépanne en 30 minutes',
     description: 'Votre <strong>porte ne s\'ouvre plus à Paris 1 ?</strong><br>Découvrez notre solution de dépannage express 24h/24. vous rentrez chez vous après une journée de travail dans le 1er arrondissement, vous insérez votre clé, mais rien ne se passe.',
     ctaText: 'Votre porte ne s\'ouvre plus dans Paris 1 ? Contactez-nous immédiatement',
-    ctaPhone: '01 23 45 67 89',
+    ctaPhone: this.site.phone,
     backgroundImage: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1600&q=80'
   });
 

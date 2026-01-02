@@ -4,6 +4,8 @@
 // src/app/components/our-services/our-services.component.ts
 import { Component, inject, input, output, PLATFORM_ID } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { SITE_CONFIG_TOKEN } from '../../config/site-config.token';
+import { SiteConfig } from '../../config/site-config.model';
 
 interface Service {
   icon: string;
@@ -34,6 +36,7 @@ export class OurServicesComponent {
   ctaClick = output<string>();
 
   platformId = inject(PLATFORM_ID);
+  site: SiteConfig = inject(SITE_CONFIG_TOKEN);
 
   onServiceClick(service: Service): void {
     this.serviceClick.emit(service);
@@ -42,7 +45,13 @@ export class OurServicesComponent {
   onCtaClick(): void {
     this.ctaClick.emit(this.data().ctaPhone);
     if (isPlatformBrowser(this.platformId)) {
-      window.location.href = `tel:${this.data().ctaPhone}`;
+      window.location.href = `tel:${this.site.phone}`;
+    }
+  }
+
+  callNow(): void {
+    if (isPlatformBrowser(this.platformId)) {
+      window.location.href = `tel:${this.site.phone}`;
     }
   }
 }
